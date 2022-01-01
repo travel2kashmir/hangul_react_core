@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "./context/provider";
 import axios from "axios";
 import Nav from "./Nav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Services = () => {
     const [data] = useContext(Context)
@@ -51,11 +53,29 @@ const Services = () => {
             headers: { 'content-type': 'application/json' }
         }).then(response => {
             console.log(response)
-            alert(JSON.stringify(response.data))
+            toast.success(JSON.stringify(response.data.message), {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+
         })
             .catch(error => {
                 console.log(error.response)
-                alert(JSON.stringify(error.response.data))
+                toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+
             });
 
     }
@@ -73,36 +93,47 @@ const Services = () => {
                         Select service you offers to guests:</h4>
                     <table id="st">
 
-                        <tr><td> {services?.map(i => {
-                            return <p>
+                        <tr><td>
+                            <div style={{ flexDirection: "row", flex: 1, flexWrap: "wrap" }}>
+                                {services?.map(i => {
+                                    return (
 
 
-                                <div className="checkbox-inline" style={{ margin: "10px", marginLeft: "15px", fontFamily: "fantasy", fontSize: "15px" }}>
-                                    <input type="checkbox"
-                                        style={{ backgroundColor: i.check === true ? "grey" : "white", color: i.check === true ? 'white' : 'black' }}
-                                        onClick={() => {
-                                            setServices(services.map((item) => {
-                                                if (item.service_id === i.service_id) {
-                                                    item.check = !item.check
-                                                }
-                                                return item
-                                            }))
+                                        <div className="checkbox-inline" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
+                                            <input type="checkbox"
+                                                style={{ backgroundColor: i.check === true ? "grey" : "white", color: i.check === true ? 'white' : 'black' }}
+                                                onClick={() => {
+                                                    setServices(services.map((item) => {
+                                                        if (item.service_id === i.service_id) {
+                                                            item.check = !item.check
+                                                        }
+                                                        return item
+                                                    }))
 
-                                        }}
-                                    />
+                                                }}
+                                            />
 
 
-                                    {i.service_value}
-                                </div></p>
+                                            {i.service_value}
+                                        </div>)
 
-                        })}
+                                })}
+                            </div>
                         </td>
                         </tr>
 
                     </table>
                 </div>
                 <button type="submit" style={{ marginBottom: "50px" }} className="btn btn-dark btn_add" name="submit" onClick={sendToDb}>Submit </button>
-
+                <ToastContainer position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
 
 
             </div>

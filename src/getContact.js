@@ -1,33 +1,35 @@
 import React from 'react'
 
-function GetContact({allHotelDetails}) {
-    return (
-        <div>
-             <table className="table table-bordered">
-             <thead> <th className="thead">Contact Details</th></thead>
-                    <tr>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        </tr>
+function GetContact({all}) {
+    
+    
+        return(
+            <div>
+                 <div  className="row black_border_new1" >
+                      
                         
-                        {allHotelDetails?.contacts?.map((item)=>{
-                            return(
-                                <div>
-                                    <tr><td> <label className="tdr">{item.contact_type} </label>
-                                     </td>
-                                     <td>{item.contact_data}</td></tr>
-                                    <br/>
-                                </div>
-                            )
-                        })
-
-                        }
-
-
-
-                    </table>
-        </div>
-    )
+                      <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Contact Details</h4>
+                          <hr style={{ borderTop: "1px solid black" }}></hr>
+                            
+                            {all?.map((item)=>{
+                                return(
+                                    <div>
+                                        <tr><td> <label className="tdr">{item.contact_type} </label>
+                                         </td>
+                                         <td>{item.contact_data}</td></tr>
+                                        <br/>
+                                    </div>
+                                )
+                            })
+    
+                            }
+    
+    
+    
+                        </div>
+            </div>
+        )
+            
 }
 
 export default GetContact

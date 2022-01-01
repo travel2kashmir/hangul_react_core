@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { Context } from "./context/provider";
 import Axios from "axios";
 import Nav from "./Nav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Galleryform = ({ propertyId }) => {
   const [data] = useContext(Context)
   console.log("property_id in gallery is" + data.property_id)
@@ -32,10 +34,27 @@ const Galleryform = ({ propertyId }) => {
     console.log(JSON.stringify(finalImage))
     Axios.post(`/gallery`, finalImage).then(response => {
       console.log(response)
-      alert(JSON.stringify(response.data))
+      toast.success(JSON.stringify(response.data.message),{
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+      
     }).catch(error => {
       console.log("there is error" + error)
-      alert(JSON.stringify(error.response.data))
+      toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data),{
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
     });
 
   }
@@ -80,7 +99,17 @@ const Galleryform = ({ propertyId }) => {
         setImageData(newData)
       })
       .catch(error => {
+        toast.error("Some thing went wrong in uploading photo\n " + JSON.stringify(error.response.data),{
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
         console.error('There was an error!', error);
+
       });
 
   }
@@ -170,28 +199,37 @@ const Galleryform = ({ propertyId }) => {
            
             </div>
 
-            <div className="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-              <div className="col-md-8 col-sm-8 col-xs-8 col-lg-8"></div>
-              <div className="col-md-2 col-sm-2 col-xs-2 col-lg-2">
-                <button type="button" className="btn btn-dark btn_con_add" onClick={addPhotos}>+Add more images</button>
-
-              </div>
-              
-              <div className="col-md-2 col-sm-2 col-xs-2 col-lg-2">
-                <button type="button" className="btn btn-dark btn_con_add" onClick={() => removeImage(imageData?.index)}>Remove Image </button>
+            
+     <button type="button" className="btn btn-dark btn_add" onClick={() => removeImage(imageData?.index)}>Remove Image </button>
               
 
-              </div>
-            </div>
-
+              
           </div>
 
 
         ))
         }
 
+<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+              <div className="col-md-8 col-sm-8 col-xs-8 col-lg-8"></div>
+              <div className="col-md-2 col-sm-2 col-xs-2 col-lg-2">
+                <button type="button" className="btn btn-dark btn_con_add" onClick={addPhotos}>+Add more images</button>
 
-        <button type="button" className="btn btn-dark btn_basic" onClick={handleSubmit}>Submit</button>
+              </div>
+              
+     <div  className="col-md-2 col-sm-2 col-xs-2 col-lg-2  ">
+        <button type="button" className="btn btn-dark btn_con_add" onClick={handleSubmit}>Submit</button>
+        <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
+        </div>
+            </div>
 
 
 

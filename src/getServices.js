@@ -1,19 +1,18 @@
 import React from 'react'
 
-function GetServices({allHotelDetails}) {
-    return (
-        <div>
-            <table className="table table-bordered">
-            <thead> <th className="thead">Services</th></thead>
-                    <tr>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                    </tr>
+function GetServices({all}) {
+    return(    <div>
+           
+                    <div  className="row black_border_new1" >
+                      
+                        
+                        <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Services</h4>
+                            <hr style={{ borderTop: "1px solid black" }}></hr>
                        
                     <tr><th><label className="tdr">Service name and type</label></th>
                        </tr>
                        
-                        {allHotelDetails?.services?.map((item) => {
+                        {all?.map((item) => {
                             return (
                                 <div>
                                  
@@ -30,9 +29,10 @@ function GetServices({allHotelDetails}) {
 
                         }
 
-                    </table>
+                    </div>
         </div>
     )
+    
 }
 
 export default GetServices

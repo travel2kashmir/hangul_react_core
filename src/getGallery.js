@@ -1,16 +1,15 @@
 import React from 'react'
 
-function GetGallery({allHotelDetails}) {
+function GetGallery({all}) {
     return (
         <div>
-             <table className="table table-bordered">
-            <thead> <th className="thead">Gallery</th></thead>
-                    <tr>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                    </tr>
+            <div  className="row black_border_new1" >
+                      
                         
-                        {allHotelDetails?.images?.map((item)=>{
+                      <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Gallery</h4>
+                          <hr style={{ borderTop: "1px solid black" }}></hr>
+                        
+                        {all?.map((item)=>{
                             return (
                                 <div>
                                     
@@ -35,7 +34,7 @@ function GetGallery({allHotelDetails}) {
                         })
 
                         }
-                    </table>
+                    </div>
         </div>
     )
 }

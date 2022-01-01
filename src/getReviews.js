@@ -1,19 +1,16 @@
 import React from 'react'
 
 
-const GetReviews = ({allHotelDetails}) => {
+const GetReviews = ({all}) => {
     return (
         <div>
             
-              <table className="table table-bordered">
-              <thead> 
-                  <th className="thead">Review Details</th>
-                  </thead>
-                    <tr>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        </tr>
-                        {allHotelDetails?.reviews?.map((item) => {
+            <div  className="row black_border_new1" >
+                      
+                        
+                        <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Review Details</h4>
+                            <hr style={{ borderTop: "1px solid black" }}></hr>
+                        {all?.map((item) => {
                             return (
                                 <div>
                                     <span className="tdr"><tr className="rvt">{item.review_title}</tr></span>
@@ -55,10 +52,11 @@ const GetReviews = ({allHotelDetails}) => {
                             )
                         })}
 
-                    </table>
+                    </div>
 
         </div>
     )
+    
 }
 
 export default GetReviews

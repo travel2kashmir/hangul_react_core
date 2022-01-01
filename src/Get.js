@@ -15,7 +15,7 @@ function Get() {
         const fetchServices = async () => {
             try {
                 const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
-                //for test const url=`/jammu-and-kashmir/srinagar/hotels/t2k001`
+              // const url=`/jammu-and-kashmir/srinagar/hotels/t2k001`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log(response.data)
@@ -45,17 +45,15 @@ function Get() {
            
               <Navi/>
               
-                <div >
+                <div className="container-fluid">
             {
 
-                <div className="row1 black_border_new2">
-                    <table className="table table-bordered" >
+                <div >
+                    <div  className="row black_border_new1" >
                       
-                       <thead> <th className="thead">Property Details</th></thead>
-                        <tr>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        </tr>
+                        
+                        <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Property Details</h4>
+                            <hr style={{ borderTop: "1px solid black" }}></hr>
                         <tr>
                         <td><label className="tdr">Property name</label></td>
                         <td>{allHotelDetails?.property_name}</td>
@@ -79,14 +77,11 @@ function Get() {
                         <td ><label className="tdr">{allHotelDetails?.description_title}</label></td>
                         <td >{allHotelDetails?.description_body}</td>
                         </tr>
-                    </table>
+                    </div>
    
-                    <table className="table table-bordered" >
-                    <thead> <th className="thead">Address Details</th></thead>
-                    <tr>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        <td><hr  style={{borderTop:"2px solid black"}}></hr></td>
-                        </tr>
+                        <div  className="row black_border_new1" > 
+                        <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Address Details</h4>
+                            <hr style={{ borderTop: "1px solid black" }}></hr>
                         {allHotelDetails?.address?.map((item)=>{
                             return(
                        <div>
@@ -137,13 +132,13 @@ function Get() {
 
                         }
                       
-                    </table>
-                    <GetReviews allHotelDetails={allHotelDetails} id="#GR"/>
-                    <GetServices allHotelDetails={allHotelDetails} id="#GS"/>
-                    <GetGallery allHotelDetails={allHotelDetails} id="#GG"/>
-                    <GetContact allHotelDetails={allHotelDetails} id="#GC"/>
+                    </div>
+					 {allHotelDetails?.reviews?<GetReviews all={allHotelDetails?.reviews} />:<div></div>}
+                    {allHotelDetails?.services? <GetServices all={allHotelDetails?.services} />:<div></div>}
+                    {allHotelDetails?.images?<GetGallery all={allHotelDetails?.images} />:<div></div>}
+                    {allHotelDetails?.contacts?<GetContact all={allHotelDetails?.contacts} />:<div></div>}
              
-          
+                  
                    
                     
                 </div>

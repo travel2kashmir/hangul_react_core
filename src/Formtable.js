@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import Axios from "axios";
 import { Context } from './context/provider';
 import Nav from "./Nav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Formtable = () => {
   const [data, setData] = useContext(Context)
   const [allPropertyDetails, setAllPropertyDetails] =
@@ -54,13 +56,31 @@ const Formtable = () => {
       {
         headers: { 'content-type': 'application/json' }
       }).then(response => {
-        console.log(response)
-        alert("property created with id " + response.data.property_id);
+        console.log(response.data)
+		toast.success("Property created with id " + response.data.property_id ,{
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+        
         setContext(response.data.property_id)
       })
       .catch(error => {
         console.log(error.response)
-        alert(JSON.stringify(error.response.data))
+        toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data),{
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+        
       });
 
   }
@@ -163,11 +183,12 @@ const Formtable = () => {
           </div>
 
 
-        </div>
-      <div className="row black_border_new1" >
-
-          <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Address Details</h4>
-          <hr style={{ borderTop: "1px solid black" }}></hr>
+       
+      
+         
+          <h3 style={{padding: "30px",fontSize:"18px" }}>
+            Address Details</h3>
+         
           <div className="col-md-12 col-sm-12 col-xs-12 col-lg-12">
             <div className="col-md-6 col-sm-6 col-xs-12 col-lg-6">
               <div className="col-md-5 col-sm-5 col-xs-12 col-lg-5">
@@ -195,7 +216,9 @@ const Formtable = () => {
                 <label >Longitude</label></div>
               <div className="col-md-7 col-sm-7 col-xs-7 col-lg-7">
                 <input type="text" className=" form-control" placeholder="enter longitude value"
-                  onChange={e => setPropertyAddress({ ...propertyAddress, address_longitude: e.target.value })} />
+                 onChange={e =>e.target.value <= 180 && e.target.value >= -180 ?
+                 setPropertyAddress({ ...propertyAddress,
+                   address_longitude: e.target.value }): <p>enter proper value</p>} />
                 <br />
               </div>
             </div>
@@ -285,6 +308,15 @@ const Formtable = () => {
         </div>
         <button type="button" onClick={finalHandleSubmit} className="btn btn-dark btn_add">
           Submit</button>
+		  <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
       </div></div>
   )
 }

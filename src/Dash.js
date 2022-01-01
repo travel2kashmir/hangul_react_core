@@ -5,7 +5,7 @@ function Dash() {
     return (
         <div>
             <Nav />
-            <h1 style={{ padding: 300 }}>Dash Board:UNDER CONSTRUCTION</h1>
+            <h1 className="container-fluid row black_border_new1">Dash Board:UNDER CONSTRUCTION</h1>
         </div>
     )
 }

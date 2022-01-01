@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { Context } from "./context/provider";
 import Axios from "axios";
 import Nav from "./Nav";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -46,11 +48,29 @@ const ReviewForm = ({ propertyId }) => {
         headers: { 'content-type': 'application/json' }
       }).then(response => {
         console.log(response)
-        alert(JSON.stringify(response.data))
+        toast.success(JSON.stringify(response.data.message), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+       
       })
       .catch(error => {
         console.log(error.response.data)
-        alert(JSON.stringify(error.response.data))
+        toast.error(JSON.stringify(error.response.data), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
       });
 
   }
@@ -179,17 +199,21 @@ const ReviewForm = ({ propertyId }) => {
                 </div>
               </div>
 
-
-
-
-
-
             </div>
 
           )
           )
         }
         <button type="button" className="btn btn-dark btn_add" onClick={handleSubmit}  >Submit</button>
+        <ToastContainer position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
       </div>
 
 

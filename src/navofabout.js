@@ -4,22 +4,26 @@ import './index.css';
 
 const Navi = () =>
 (
-    <div>
+    <div className="margin_top_new1_nav">
 
         <ul>
-            <h2>Registration Form</h2>
-            <li><Link to='/detail'>Property Details</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/gallery">Gallery</Link></li>
-            <li><Link to="/review">Review</Link></li>
-            <li><Link to="/services">Services</Link></li>
+        
+    <li style={{ marginLeft: "-3px",fontSize:"20px",
+    marginTop: "30px" }}><Link to='/'>Dashboard</Link></li>
+      <h4 style={{ marginLeft: "10px", marginBottom: "12px" }}>Property Registration</h4>
+      <li><Link to='/detail'>Property Details</Link></li>
+      <li><Link to="/contact">Contact</Link></li>
+      <li><Link to="/gallery">Gallery</Link></li>
+      <li><Link to="/review">Review</Link></li>
+      <li><Link to="/services">Services</Link></li>
+      <li style={{fontSize:"17px",marginBottom:"-2px"}}><Link to="/about">About Property</Link></li>
 
 
-            <h2><Link to="/about">About Property</Link></h2>
-            <li>Property Images</li>
-            <li>Services</li>
-            <li>reviews</li>
-            <li>contacts</li>
+            
+            <li style={{ marginLeft: "20px",padding:"2px"}}>Property Images</li>
+            <li style={{ marginLeft: "20px",padding:"2px"}}>Services</li>
+            <li style={{ marginLeft: "20px",padding:"2px"}}>Reviews</li>
+            <li style={{ marginLeft: "20px",padding:"2px"}}>Contacts</li>
         </ul>
 
 
