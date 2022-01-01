@@ -8,6 +8,7 @@ const Nav = () =>
 
     <ul>
       <h2 style={{ marginLeft: "8px", marginBottom: "12px" }} >Registration Form</h2>
+      <li><Link to='/'>Dashboard</Link></li>
       <li><Link to='/detail'>Property Details</Link></li>
       <li><Link to="/contact">Contact</Link></li>
       <li><Link to="/gallery">Gallery</Link></li>
