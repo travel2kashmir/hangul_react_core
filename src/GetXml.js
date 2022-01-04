@@ -22,7 +22,7 @@ const GetXml = () => {
     const fetchXML = async () => {
         try {
             const url = `http://34.125.133.100:7860/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/xml`;
-           // const url = `http://34.125.133.100:7860/jammu-and-kashmir/srinagar/hotels/t2k0078/xml`
+           // const url = `http://34.125.133.100:7860/jammu-and-kashmir/srinagar/hotels/t2k0092/xml`
             console.log("URL " + url)
             const response = await axios.get(url, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
             console.log(response.data)
