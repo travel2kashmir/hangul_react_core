@@ -113,8 +113,7 @@ const Services = () => {
                                                 }}
                                             />
 
-
-                                            {i.service_value}
+                                            {i.service_value.replace(/_+/g, ' ').charAt(0).toUpperCase() + i.service_value.replace(/_+/g, ' ').slice(1)}
                                         </div>)
 
                                 })}
