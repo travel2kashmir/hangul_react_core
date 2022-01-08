@@ -58,7 +58,7 @@ const Roomimages = () => {
             headers: { 'content-type': 'application/json' }
         }).then(response => {
             console.log(response)
-            toast.success(JSON.stringify(response.roomdes.message), {
+            toast.success(JSON.stringify(response.data.message), {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,

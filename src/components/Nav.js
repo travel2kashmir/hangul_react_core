@@ -20,8 +20,7 @@ const Nav = () =>
       <li><Link to="/services">Services</Link></li>
       <li><Link to="/about">About Property</Link></li>
       <li><Link to="/XML">Google Integration</Link></li>
-
-      <li><Link to='/rooms'>Room Details</Link></li>
+     <li><Link to='/rooms'>Insert Room Details</Link></li>
 
     </ul>
 

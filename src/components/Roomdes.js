@@ -47,7 +47,7 @@ const Roomdes = (props) => {
           headers: { 'content-type': 'application/json' }
         }).then(response => {
           console.log(response.data)
-      toast.success("Room created with id " + response.roomdes.room_id ,{
+      toast.success("Room created with id " + response.data.room_id ,{
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -61,7 +61,7 @@ const Roomdes = (props) => {
         })
         .catch(error => {
           console.log(error.response)
-          toast.error("Some thing went wrong \n " + JSON.stringify(error.response.roomdes),{
+          toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data),{
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -174,7 +174,7 @@ const Roomdes = (props) => {
              <label for="rt">Breadth</label></div>  
              <div className="col-md-8 col-sm-8 col-xs-8 col-lg-8">
              <input type="text" id="rt" className=" form-control"
-              onChange={e => setAllRoomDes({ ...allRoomDes, room_breadth: e.target.value})}
+              onChange={e => setAllRoomDes({ ...allRoomDes, room_width: e.target.value})}
              placeholder="enter room breadth" />
              <br/>
         </div>

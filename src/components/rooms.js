@@ -4,6 +4,7 @@ import Roomfacilities from './Roomfacilities'
 import Roomtypes from './Roomtypes'
 import Roomimages from './Roomimages'
 import RoomStore from '../context/roomprovider'
+import GetRoom from './GetRoom'
 
 function Rooms() {
     const [roomDescription, setRoomdescription] = useState([])
@@ -14,6 +15,7 @@ function Rooms() {
                 {roomDescription?.length > 0 && <><Roomdes roomDescription={roomDescription} />
                     <Roomimages />
                     <Roomfacilities /></>}
+                    <GetRoom/> 
             </RoomStore>
         </div>
     )

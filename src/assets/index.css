@@ -1,5 +1,6 @@
 .fcontainernav {
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
+  background: linear-gradient(0deg, #ACD7E9, rgba(0,0,0,0));
  
   padding: 14px 16px;
   border-bottom: 2px solid #4e5faa;
@@ -28,7 +29,8 @@ ul {
   margin: 0;
   padding: 0;
   width: 20%;
-  background-color: #f1f1f1;
+  /* background-color: #bacaf7; */
+  background: linear-gradient(0deg, #ACD7E9, rgba(0,0,0,0)); 
   position: fixed;
   height: 100%;
   overflow: auto;
@@ -140,6 +142,7 @@ li hover{
 
 .margin_top_new1_nav {
   margin-top: 62px;
+  background-color: hsl(202, 89%, 83%);
   
 }
 

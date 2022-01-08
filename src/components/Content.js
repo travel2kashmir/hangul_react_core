@@ -36,7 +36,7 @@ const Content = () => {
             <Route path='/review' element={<ReviewForm />} />
             <Route path='/services' element={<Services />} />
             <Route path='/XML' element={<GetXml />} />
-            <Route path='/XML/room' element={<GetRoomXml/>}/>
+            
             <Route path='/about' element={<Get />} />
             <Route path='/rooms' element={<Rooms/>}/>
 
