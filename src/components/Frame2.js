@@ -1,10 +1,10 @@
 import React from 'react'
-import Carousel from 'react-multi-carousel';
+import Carousel from 'react-multi-carousel'; //installed using "npm i react-responsive-carousel"
 import 'react-multi-carousel/lib/styles.css';
 
 
 
-
+//function frame2 accepts variale as prop named as reviews
 function Frame2({ reviews }) {
     const responsive = {
         superLargeDesktop: {
@@ -25,9 +25,11 @@ function Frame2({ reviews }) {
             items: 1
         }
     };
+    //this variable holds the properties of the carousal
     return (
         <div style={{ float: "center" }}>
-            <Carousel responsive={responsive}>
+            <Carousel responsive={responsive}> {/*start of carousal taking responsive properties from the variable */}
+                {/*maps content of review to item and displays as jsx on browser */}
                 {reviews?.map((item) => {
                     return (
 
@@ -45,7 +47,7 @@ function Frame2({ reviews }) {
                 })
 
                 }
-            </Carousel>
+            </Carousel> {/*closing of carousal*/}
 
           
         </div>
