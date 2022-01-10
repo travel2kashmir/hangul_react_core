@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import '../assets/index.css';
+import '../../assets/index.css';
 
 const Navi = () =>
 (
@@ -16,6 +16,7 @@ const Navi = () =>
       <li><Link to="/gallery">Gallery</Link></li>
       <li><Link to="/review">Review</Link></li>
       <li><Link to="/services">Services</Link></li>
+      <li><Link to="/XML">Google Integration</Link></li>
       <li style={{fontSize:"17px",marginBottom:"-2px"}}><Link to="/about">About Property</Link></li>
 
 

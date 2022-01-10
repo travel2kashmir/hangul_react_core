@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { RoomContext } from "../context/roomprovider";
 import axios from "axios";
-import Nav from "./Nav";
+import Nav from "./Navbars/LeftNavbar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Context } from "../context/provider";

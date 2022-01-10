@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../context/provider';
 import axios from "axios";
-import Navi from './navofabout';
+
 import GetRoomGallery from './GetRoomGallery';
 import GetRoomServices from './GetRoomServices';
 
@@ -39,10 +39,7 @@ function GetRoom() {
 
     return (
         <div >
-           
-              <Navi/>
-              
-                <div className="container-fluid">
+             <div className="container-fluid">
             {
 
                 <div >

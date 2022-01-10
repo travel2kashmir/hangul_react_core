@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../context/provider";
 import axios from "axios";
-import Nav from "./Nav";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -54,7 +54,7 @@ const Roomtypes = (props) => {
 
 
     return (
-        <div><Nav />
+        <div>
             <div className="container-fluid"  >
                 <div className="row black_border_new1">{/*JSON.stringify(props)*/}
                     <h4 style={{ marginLeft: "20px", marginBottom: "-15px" }}>Room types</h4>

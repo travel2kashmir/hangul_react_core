@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { Context } from "../context/provider"
-import Nav from './Nav'
+import Nav from './Navbars/LeftNavbar'
 import Frame1 from './Frame1'
 import Frame2 from './Frame2'
 import Frame3 from './Frame3'

@@ -1,6 +1,6 @@
 import React from "react";
-import '../assets/hangul.png';
-import menu from '../assets/menu.png';
+import '../../assets/hangul.png';
+import menu from '../../assets/menu.png';
 
 const Header = () => (
 

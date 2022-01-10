@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../context/provider';
 import axios from "axios";
-import Navi from './navofabout';
+import Navi from './Navbars/LeftNavBarOfAbout';
 import GetReviews from './getReviews';
 import GetServices from './getServices';
 import GetGallery from './getGallery';

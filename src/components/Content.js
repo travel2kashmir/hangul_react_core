@@ -8,7 +8,6 @@ import Services from "./services";
 import Get from "./Get";
 import Dash from "./Dash";
 import GetXml from "./GetXml";
-import GetRoomXml from "./getroomsXML";
 import Rooms from "./rooms"
 import {
   HashRouter as Router,

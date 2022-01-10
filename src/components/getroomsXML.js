@@ -2,7 +2,7 @@ import React, { useContext, useState} from 'react'
 import { Context } from '../context/provider';
 import { RoomContext } from '../context/roomprovider';
 import axios from "axios";
-import Nav from './Nav';
+
 import XMLViewer from 'react-xml-viewer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

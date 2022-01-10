@@ -1,8 +1,8 @@
 import React, {useState, useContext} from 'react'
 import { RoomContext } from '../context/roomprovider';
-import {Context, context} from '../context/provider'
+import {Context} from '../context/provider'
 import Axios from "axios";
-import Navb from "./Navb";
+import Navb from "./Navbars/TopNavbar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

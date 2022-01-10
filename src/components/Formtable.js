@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Axios from "axios";
 import { Context } from '../context/provider';
-import Nav from "./Nav";
+import Nav from './Navbars/LeftNavbar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Formtable = () => {
@@ -298,9 +298,14 @@ const Formtable = () => {
               <div className="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                 <label>Country</label></div>
               <div className="col-md-7 col-sm-7 col-xs-7 col-lg-7">
-                <input type="text" className=" form-control" placeholder="enter country"
-                  onChange={e => setPropertyAddress({ ...propertyAddress, address_country: e.target.value })} />
-
+              <select className="custom-select mr-sm-2 form-control" id="inlineFormCustomSelect"
+             onChange={e => setPropertyAddress({ ...propertyAddress, address_country: e.target.value })}>
+                  <option selected>Select Country</option>
+                  <option value="IN" >India</option>
+                  <option value="US">United States Of America</option>
+                  <option value="PK">Pakistan</option>
+                 
+                </select>
                 <br />
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useContext, useState} from 'react'
 import { Context } from '../context/provider';
 import axios from "axios";
-import Nav from './Nav';
+import Nav from './Navbars/LeftNavbar'
 import XMLViewer from 'react-xml-viewer'
 import GetRoomXml from './getroomsXML';
 import { ToastContainer, toast } from 'react-toastify';

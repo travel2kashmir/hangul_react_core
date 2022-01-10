@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../context/provider";
 import Axios from "axios";
-import Nav from "./Nav";
+import Nav from './Navbars/LeftNavbar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Galleryform = ({ propertyId }) => {
