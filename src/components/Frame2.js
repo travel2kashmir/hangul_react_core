@@ -28,8 +28,8 @@ function Frame2({ reviews }) {
     //this variable holds the properties of the carousal
     return (
         <div style={{ float: "center" }}>
-            <Carousel responsive={responsive}> {/*start of carousal taking responsive properties from the variable */}
-                {/*maps content of review to item and displays as jsx on browser */}
+            <Carousel responsive={responsive}> 
+               
                 {reviews?.map((item) => {
                     return (
 
