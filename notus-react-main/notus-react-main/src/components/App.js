@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Gallery from './Gallery';
 import Reviews from './Reviews';
+import Services from './Services';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/contact" component={Contact}/>
           <Route path="/gallery" component={Gallery}/>
           <Route path="/reviews" component={Reviews}/>
+          <Route path="/services" component={Services}/>
         </Switch>
       </BrowserRouter>
       </Store> 
