@@ -7,7 +7,10 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import Gallery from './Gallery';
 import Reviews from './Reviews';
 import Services from './Services';
-
+import XML from './XML';
+import PropertySummary from './PropertySummary';
+import PropertySummary2 from './AdditionalPropertySummary';
+import AdditionalPropertySummary from './AdditionalPropertySummary';
 function App() {
   return (
     <div> <Store>
@@ -19,6 +22,10 @@ function App() {
           <Route path="/gallery" component={Gallery}/>
           <Route path="/reviews" component={Reviews}/>
           <Route path="/services" component={Services}/>
+          <Route path="/xml" component={XML}/>
+          <Route path="/property-summary" component={PropertySummary}/>
+          <Route path="/additional-credentials" component={AdditionalPropertySummary}/> 
+          
         </Switch>
       </BrowserRouter>
       </Store> 

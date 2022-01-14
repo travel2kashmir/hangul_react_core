@@ -28,7 +28,7 @@ function CardSettings() {
     address_landmark: '',
     address_city: '',
     address_precision: '',
-    address_zipCode: '',
+    address_zipcode: '',
     address_province: '',
     address_country: ''
   })
@@ -48,12 +48,25 @@ function CardSettings() {
     console.log("the data in context " + JSON.stringify(data))
 
   }
-
+function validateData({allPropertyDetails})
+{ console.log("inside fun"+JSON.stringify(allPropertyDetails));
+  if ((allPropertyDetails.star_rating<=7) && (allPropertyDetails.star_rating>=0))
+  { console.log("inside if");
+    return true
+  }
+  else
+  {
+    console.log("inside else");
+    return false
+  }
+}
 
   function finalHandleSubmit(e) {
     e.preventDefault()
-
-    const propertydata = { address: [propertyAddress] }
+    const result=validateData({allPropertyDetails})
+    if(result===true)
+    {
+      const propertydata = { address: [propertyAddress] }
     const finalData = { ...allPropertyDetails, ...propertydata }
     console.log(JSON.stringify(finalData), 'finaldata')
     Axios.post('/basic', JSON.stringify(finalData),
@@ -86,7 +99,20 @@ function CardSettings() {
         });
 
       });
+    }
+    else
+    {
+      toast.error("Value of Star rating must be between 0 to 7", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
 
+    }
   }
 
 
@@ -184,7 +210,7 @@ function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={e => e.target.value <= 7 && e.target.value >= 0 ? setAllPropertyDetails({ ...allPropertyDetails, star_rating: e.target.value }) : setAllPropertyDetails({ ...allPropertyDetails, starRating: '' })}
+                    onChange={e =>  setAllPropertyDetails({ ...allPropertyDetails, star_rating: e.target.value })}
                     placeholder="Enter Star Rating"
                   />
                 </div>
@@ -363,7 +389,7 @@ function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={e => setPropertyAddress({ ...propertyAddress, address_zipCode: e.target.value })}
+                    onChange={e => setPropertyAddress({ ...propertyAddress, address_zipcode: e.target.value })}
                     placeholder="Postal code"
                   />
                 </div>

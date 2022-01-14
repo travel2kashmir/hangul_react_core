@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 let initial = {
-  property_id: "t2k001",
-  property_name: "taj vivanta",
-  property_type: "hotel",
+  property_id: "",
+  property_name: "",
+  property_type: "",
   property_address_country:"",
-  property_address_province:"jammu-and-kashmir",
-  property_address_city:"srinagar"
+  property_address_province:"",
+  property_address_city:""
 }
 export const Context= React.createContext();
 

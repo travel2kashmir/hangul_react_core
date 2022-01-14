@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NotificationDropdown from "../Dropdowns/IndexDropdown";
 import UserDropdown from "../Dropdowns/UserDropdown";
+import t2k from "../../assets/img/t2k.png"
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -25,10 +26,10 @@ export default function Sidebar() {
           </button>
           {/* Brand */}
           <Link
-            className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+            className="md:block  md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
             to="/"
           >
-              Hangul
+              <img src={t2k} style={{width:'80%',height:'70%',paddingLeft:'20px',paddingBottom:'-40px'}}/>
           </Link>
           
           {/* Collapse */}
@@ -47,7 +48,7 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
+                    (window.location.href.indexOf("/") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -198,10 +199,20 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/login"
+                  to="/property-summary"
                 >
                   <i className="fas fa-wpforms text-blueGray-400 mr-2 text-sm"></i>{" "}
-                 Property Summary
+                 Essential Property Credentials
+                </Link>
+              </li>
+
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  to="/additional-credentials"
+                >
+                  <i className="fas fa-wpforms text-blueGray-400 mr-2 text-sm"></i>{" "}
+                 Additional  Credentials
                 </Link>
               </li>
 
@@ -220,7 +231,7 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/landing"
+                  to="/xml"
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
                  XML Generated File
