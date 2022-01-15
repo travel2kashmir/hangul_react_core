@@ -202,7 +202,7 @@ export default function Sidebar() {
                   to="/property-summary"
                 >
                   <i className="fas fa-wpforms text-blueGray-400 mr-2 text-sm"></i>{" "}
-                 Essential Property Credentials
+               Basic Details
                 </Link>
               </li>
 
