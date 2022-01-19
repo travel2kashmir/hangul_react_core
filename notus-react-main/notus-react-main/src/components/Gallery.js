@@ -2,7 +2,7 @@ import React from 'react'
 import Sidebar from './Sidebar/Sidebar';
 import HeaderStats from './Headers/HeaderStats'
 import CardGallery from './Cards/CardGallery'
-
+import Footer from './Footers/FooterAdmin'
 
 
 
@@ -11,10 +11,11 @@ function Gallery() {
         <>
        
         <Sidebar/>
-        <div style={{paddingLeft:"250px"}}>     
-         <HeaderStats/>
-         <div style={{padding:"60px",marginTop:"-130px",}}> 
-         <CardGallery/> 
+        <div className="relative md:ml-64 bg-blueGray-100">
+              <HeaderStats/>
+              <div className="px-4 md:px-10 mx-auto w-full -m-24"> 
+         <CardGallery/>
+         <Footer/> 
              </div>
          </div>
 

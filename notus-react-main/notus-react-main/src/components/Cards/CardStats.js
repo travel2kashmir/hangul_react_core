@@ -59,7 +59,7 @@ export default function CardStats({
 CardStats.defaultProps = {
   statSubtitle: "Traffic",
   statTitle: "350,897",
-  statArrow: "up",
+  statArrow: "",
   statPercent: "3.48",
   statPercentColor: "text-emerald-500",
   statDescripiron: "Since last month",
@@ -70,7 +70,7 @@ CardStats.defaultProps = {
 CardStats.propTypes = {
   statSubtitle: PropTypes.string,
   statTitle: PropTypes.string,
-  statArrow: PropTypes.oneOf(["up", "down"]),
+  statArrow: PropTypes.oneOf(["up", "down",""]),
   statPercent: PropTypes.string,
   // can be any of the text color utilities
   // from tailwindcss

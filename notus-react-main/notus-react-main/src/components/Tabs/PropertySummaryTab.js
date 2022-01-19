@@ -10,7 +10,7 @@ const PropertySummaryTab = () => {
         const fetchServices = async () => {
             try {
                 // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
-                const url = `/jammu-and-kashmir/srinagar/hotels/t2k001`
+                const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log(response.data)
@@ -19,7 +19,8 @@ const PropertySummaryTab = () => {
             }
             catch (error) {
                 if (error.response) {
-                    console.log("data" + error.response);
+
+                    console.log("data" + JSON.stringify(error.response));
                     console.log("status" + error.response.status);
                     console.log("header" + error.response.headers);
                 } else {
@@ -115,82 +116,96 @@ const PropertySummaryTab = () => {
                         <div className="tab-content tab-space">
 
                             <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-
-                                <tr>
-                                    <td><label className="tdr">Property Name</label></td>
+                                <h6 className="text-blueGray-700 text-xl font-bold">Basic Details</h6><br />
+                                <table> <tr>
+                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlFor="grid-password">Property Name</label></td>
                                     <td>{allHotelDetails?.property_name}</td>
                                 </tr>
 
-                                <tr>
-                                    <td><label className="tdr">Property Brand</label></td>
-                                    <td>{allHotelDetails?.property_brand}</td>
-                                </tr>
+                                    <tr>
+                                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            htmlFor="grid-password">Property Brand</label></td>
+                                        <td>{allHotelDetails?.property_brand}</td>
+                                    </tr>
 
-                                <tr>
-                                    <td><label className="tdr">Property Category</label></td>
-                                    <td>{allHotelDetails?.property_category}</td>
-                                </tr>
+                                    <tr>
+                                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            htmlFor="grid-password">Property Category</label></td>
+                                        <td>{allHotelDetails?.property_category}</td>
+                                    </tr>
 
-                                <tr>
-                                    <td><label className="tdr">Star Rating</label></td>
-                                    <td>{allHotelDetails?.star_rating}</td></tr>
+                                    <tr>
+                                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            htmlFor="grid-password">Star Rating</label></td>
+                                        <td>{allHotelDetails?.star_rating}</td></tr>
 
-                                <tr>
-                                    <td ><label className="tdr">{allHotelDetails?.description_title}</label></td>
-                                    <td >{allHotelDetails?.description_body}</td>
-                                </tr>
+                                    <tr>
+                                        <td ><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            htmlFor="grid-password">{allHotelDetails?.description_title}</label></td>
+                                        <td >{allHotelDetails?.description_body}</td>
+                                    </tr>
 
-
+                                </table>
 
                             </div>
 
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                <h2>Address:</h2>
+                                <h6 className="text-blueGray-700 text-xl font-bold">Address</h6><br />
                                 {allHotelDetails?.address?.map((item) => {
                                     return (
                                         <div>
+                                            <table>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Street address</label></td>
+                                                    <td className="tda"> {item.address_street_address}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Landmark</label></td>
+                                                    <td className="tda">  {item.address_landmark}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">City</label></td>
+                                                    <td className="tda">    {item.address_city}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Province</label></td>
+                                                    <td className="tda"> {item.address_province}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Country</label></td>
+                                                    <td className="tda">{item.address_country}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Precision</label></td>
+                                                    <td className="tda"> {item.address_precision}mtrs</td>
+                                                </tr>
 
-                                            <tr>
-                                                <td><label className="tdr">Street address</label></td>
-                                                <td className="tda"> {item.address_street_address}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label className="tdr">Landmark</label></td>
-                                                <td className="tda">  {item.address_landmark}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label className="tdr">City</label></td>
-                                                <td className="tda">    {item.address_city}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label className="tdr">Province</label></td>
-                                                <td className="tda"> {item.address_province}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label className="tdr">Country</label></td>
-                                                <td className="tda">{item.address_country}</td>
-                                            </tr>
-                                            <tr>
-                                                <td><label className="tdr">Precision</label></td>
-                                                <td className="tda"> {item.address_precision}mtrs</td>
-                                            </tr>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Postal code</label></td>
+                                                    <td className="tda">{item.address_zipcode}</td>
+                                                </tr>
 
-                                            <tr>
-                                                <td><label className="tdr">Postal code</label></td>
-                                                <td className="tda">{item.address_zipcode}</td>
-                                            </tr>
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Latitude</label></td>
+                                                    <td className="tda">
+                                                        {item.address_latitude}</td>
+                                                </tr>
 
-                                            <tr>
-                                                <td><label className="tdr">Latitude</label></td>
-                                                <td className="tda">
-                                                    {item.address_latitude}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><label className="tdr">Longitute</label></td>
-                                                <td className="tda">{item.address_longitude}</td>
-                                            </tr>
-
+                                                <tr>
+                                                    <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password">Longitute</label></td>
+                                                    <td className="tda">{item.address_longitude}</td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     )
                                 })}
@@ -202,15 +217,19 @@ const PropertySummaryTab = () => {
 
 
                             <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                                <h2>Contact's</h2>
+                                <h6 className="text-blueGray-700 text-xl font-bold">Contact</h6><br />
                                 {
                                     allHotelDetails?.contacts?.map((item) => {
                                         return (
                                             <div>
-                                                <tr><td> <label className="tdr">{item.contact_type} </label>
-                                                </td>
+                                                <table> <tr>
+                                                    <td>
+                                                        <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                            htmlFor="grid-password">{item.contact_type} </label>
+                                                    </td>
                                                     <td>{item.contact_data}</td></tr>
-                                                <br />
+                                                    <br />
+                                                </table>
                                             </div>
                                         )
                                     })
@@ -230,7 +249,7 @@ const PropertySummaryTab = () => {
                         </div>
                     </div>
                 </div>
-           :<div>Loading Data Please wait</div> }
+                : <div>Loading Data. Please wait......</div>}
 
 
 

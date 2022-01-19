@@ -2,15 +2,16 @@ import Store from 'context/provider';
 import Dashboard from './Dashboard';
 import BasicDetails from './BasicDetails';
 import Contact from './Contact';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch} from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Gallery from './Gallery';
 import Reviews from './Reviews';
 import Services from './Services';
 import XML from './XML';
 import PropertySummary from './PropertySummary';
-import PropertySummary2 from './AdditionalPropertySummary';
+import Room from './Room.js'
 import AdditionalPropertySummary from './AdditionalPropertySummary';
+
 function App() {
   return (
     <div> <Store>
@@ -24,8 +25,8 @@ function App() {
           <Route path="/services" component={Services}/>
           <Route path="/xml" component={XML}/>
           <Route path="/property-summary" component={PropertySummary}/>
-          <Route path="/additional-credentials" component={AdditionalPropertySummary}/> 
-          
+          <Route path="/additional-credentials" component={AdditionalPropertySummary}/>
+          <Route path="/room" component={Room}/> 
         </Switch>
       </BrowserRouter>
       </Store> 

@@ -1,7 +1,7 @@
 import React from 'react'
 import RoomTabs from '../Tabs/RoomTabs'
 
-export default function CardRoomDetails() {
+export default function CardRoomDetails(props) {
     return (
        
             <>
@@ -17,12 +17,12 @@ export default function CardRoomDetails() {
                     <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                      Property Room Details
                     </h6>
-                    <div><RoomTabs/></div>
+                    <div><RoomTabs roomDescription={props.roomDescription}/></div>
                     
                     <div className="text-center flex justify-end">
                     
                     <button
-                      className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1  mb-1 ease-linear transition-all duration-150"
                       type="button"
                     >
                       Submit

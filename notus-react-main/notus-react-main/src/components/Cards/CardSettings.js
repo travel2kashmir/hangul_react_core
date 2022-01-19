@@ -160,7 +160,7 @@ function validateData({allPropertyDetails})
                   </label>
                   <select className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={e => setAllPropertyDetails({ ...allPropertyDetails, property_category: e.target.value })}>
-                    <option selected>Select property type</option>
+                    <option value="selected">Select property type</option>
                     <option value="Hotel" >Hotel</option>
                     <option value="Resort">Resort</option>
                     <option value="Motel">Motel</option>
@@ -254,12 +254,14 @@ function validateData({allPropertyDetails})
                   >
                     Description Date
                   </label>
-                  <input
+                  
+                  <input id="today"
                     type="date"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={e => setAllPropertyDetails({ ...allPropertyDetails, description_date: e.target.value })}
-                    defaultValue=""
+                   
                   />
+               
                 </div>
               </div>
 
@@ -315,7 +317,7 @@ function validateData({allPropertyDetails})
                   </label>
                   <select className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={e => setPropertyAddress({ ...propertyAddress, address_city: e.target.value })}>
-                    <option selected>Select City</option>
+                    <option value="selected">Select City</option>
                     <option value="srinagar" >Srinagar</option>
                     <option value="baramulla">Baramulla</option>
                     <option value="budgam">Budgam</option>
@@ -335,7 +337,7 @@ function validateData({allPropertyDetails})
                   </label>
                   <select className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={e => setPropertyAddress({ ...propertyAddress, address_province: e.target.value })}  >
-                    <option selected>Select Province/State</option>
+                    <option value="selected">Select Province/State</option>
                     <option value="jammu and kashmir" >Jammu and Kashmir</option>
                     <option value="kargil">Kargil</option>
                     <option value="delhi">Delhi</option>
@@ -420,7 +422,7 @@ function validateData({allPropertyDetails})
                   </label>
                   <select className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={e => setPropertyAddress({ ...propertyAddress, address_country: e.target.value })}>
-                    <option selected>Select Country</option>
+                    <option value="selected">Select Country</option>
                     <option value="IN" >India</option>
                     <option value="PK">Pakistan</option>
                     <option value="UN">United States of America</option>
@@ -431,11 +433,11 @@ function validateData({allPropertyDetails})
             </div>
 
 
-            <div className="text-center flex justify-between">
+            <div className="text-center flex justify-end">
              
               <button
                 onClick={finalHandleSubmit}
-                className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1  mb-1 ease-linear transition-all duration-150"
                 type="button"
               >
                 Submit

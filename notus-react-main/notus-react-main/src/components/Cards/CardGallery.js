@@ -233,7 +233,7 @@ function CardGallery() {
 
               </div>
              ))}
-             <div className="text-center flex justify-end">
+             <div className="text-center flex justify-end" style={{marginTop:"10px"}}>
                 <button
                     className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                     onClick={addPhotos}
@@ -241,13 +241,13 @@ function CardGallery() {
                     +Add Image
                   </button>
                   <button
-                    className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1  mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={handleSubmit}>
                     Submit
                   </button>
                 </div>
-                <ToastContainer position="top-center"
+            <ToastContainer position="top-center"
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
