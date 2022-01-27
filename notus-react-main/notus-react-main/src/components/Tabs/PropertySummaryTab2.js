@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 const PropertySummaryTab2 = () => {
   //const [data] = useContext(Context)
   const [allHotelDetails, setAllHotelDetails] = useState({})
-  const [loader, setLoader] = useState(false)  
+  const [loader, setLoader] = useState(false)
   useEffect(() => {
     const fetchServices = async () => {
       setLoader(true)
@@ -20,7 +20,7 @@ const PropertySummaryTab2 = () => {
         setAllHotelDetails(response.data)
       }
       catch (error) {
-       
+
         if (error.response) {
           console.log("data" + error.response);
           console.log("status" + error.response.status);
@@ -65,7 +65,7 @@ const PropertySummaryTab2 = () => {
               role="tablist"
             >
               Reviews
-                    </a>
+            </a>
           </li>
           <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a
@@ -84,7 +84,7 @@ const PropertySummaryTab2 = () => {
               role="tablist"
             >
               Images
-                    </a>
+            </a>
           </li>
           <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a
@@ -103,7 +103,7 @@ const PropertySummaryTab2 = () => {
               role="tablist"
             >
               Services
-                    </a>
+            </a>
           </li>
 
 
@@ -119,7 +119,7 @@ const PropertySummaryTab2 = () => {
             <div className="tab-content tab-space">
 
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-              <h6 className="text-blueGray-700 text-xl font-bold">Reviews</h6><br/>
+                <h6 className="text-blueGray-700 text-xl font-bold">Reviews</h6><br />
                 {allHotelDetails?.Reviews?.map?.((item) => {
                   return (
                     <div>
@@ -127,13 +127,13 @@ const PropertySummaryTab2 = () => {
                       <span ><tr style={{ fontWeight: "bold" }}>By {item.review_author}</tr>
                       </span>
                       <tr>
-                        <td><label  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">Review Type</label></td>
+                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="grid-password">Review Type</label></td>
                         <td>{item?.review_type}</td>
                       </tr>
                       <tr>
-                        <td><label  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">Review Rating</label></td>
+                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="grid-password">Review Rating</label></td>
                         <td> {item?.review_rating}</td>
                       </tr>
 
@@ -142,20 +142,20 @@ const PropertySummaryTab2 = () => {
                         <td>{item?.review_content}</td>
                       </tr>
                       <tr>
-                        <td><label  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">Review Date</label></td>
+                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="grid-password">Review Date</label></td>
                         <td>
                           {item?.review_date}</td>
                       </tr>
                       <tr>
-                        <td><label  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">Service Date</label></td>
+                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="grid-password">Service Date</label></td>
                         <td>
                           {item?.service_date}</td>
                       </tr>
                       <tr>
-                        <td><label  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">Review Link</label></td>
+                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="grid-password">Review Link</label></td>
                         <td>
                           {item?.review_link}</td>
                       </tr>
@@ -164,25 +164,37 @@ const PropertySummaryTab2 = () => {
               </div>
 
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-              <h6 className="text-blueGray-700 text-xl font-bold">Gallery</h6><br/>
+                <h6 className="text-blueGray-700 text-xl font-bold">Gallery</h6><br />
                 {allHotelDetails?.images?.map((item) => {
                   return (
                     <div>
 
                       <tr>
                         <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">Image Title</label></td>
+                          htmlFor="grid-password">Image Title</label></td>
                         <td>
                           {item.image_title}</td>
                       </tr>
 
                       <tr>
-                        <img src={item.image_link} style={{ width: 200, height: 200 }} alt='pic' />
+
+
+                        <div className="flex flex-wrap ">
+                          <div className="w-6/12 sm:w-4/12 px-4">
+                            <img  src={item.image_link} alt='pic'  className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
+                          </div>
+                        </div>
+
+
+
+
+
+                       
                       </tr>
 
                       <tr>
-                        <td><label  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">About Image</label></td>
+                        <td><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="grid-password">About Image</label></td>
                         <td >
                           {item.image_description}</td></tr>
 
@@ -195,7 +207,7 @@ const PropertySummaryTab2 = () => {
 
               </div>
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-              <h6 className="text-blueGray-700 text-xl font-bold">Services</h6><br/>
+                <h6 className="text-blueGray-700 text-xl font-bold">Services</h6><br />
                 {allHotelDetails?.services?.map((item) => {
                   return (
                     <div>
@@ -203,7 +215,7 @@ const PropertySummaryTab2 = () => {
 
                       <tr>
                         <td ><label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password">{item.service_value.replace(/_+/g, ' ')}:</label></td>
+                          htmlFor="grid-password">{item.service_value.replace(/_+/g, ' ')}:</label></td>
                         <td> {item.service_type}
                         </td>
                       </tr>

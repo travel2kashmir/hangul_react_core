@@ -1,4 +1,4 @@
-import Sidebar from './Sidebar/Sidebar';
+import SidebarPropertyOwner from './Sidebar/SidebarPropertyOwner';
 import HeaderStats from './Headers/HeaderStats'
 import CardSocialTraffic from './Cards/CardSocialTraffic'
 import CardPageVisits from './Cards/CardPageVisits';
@@ -45,7 +45,7 @@ export default function Dashboard() {
 return (
     <>
     
-      <Sidebar/>
+      <SidebarPropertyOwner/>
 
       <div className="relative md:ml-64 bg-blueGray-100">  
         <HeaderStats />    
