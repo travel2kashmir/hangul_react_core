@@ -1,6 +1,7 @@
 import React from "react";
 
 
+
 // components
 
 
@@ -10,6 +11,7 @@ import FooterSmall from "components/Footers/FooterSmall.js";
 // views
 import Signin from 'views/auth/Signin';
 import Register from 'views/auth/Register';
+import AdminView from "views/Admin/AdminView";
 
 
 
@@ -108,6 +110,7 @@ export default function Auth() {
  </div>
           
         </section>
+       
         <FooterSmall absolute />
       </main>
       </>

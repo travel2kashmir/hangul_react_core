@@ -1,5 +1,5 @@
 export const signin = (data) =>{
-   
+  console.log("in actions "+JSON.stringify(data)) 
 return(dispatch)=>{
     dispatch({
         type: 'login',

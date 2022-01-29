@@ -28,7 +28,7 @@ export default function HeaderStats() {
   useEffect(() => {
     axios({
       method: 'get',
-      url: `http://103.136.36.27:5555/dashboard/${data.property_id}`,
+     // url: `http://103.136.36.27:5555/dashboard/${data.property_id}`,
       //url: `http://103.136.36.27:5555/dashboard/t2k001`,
       headers: { 'accept': 'application/json' }
     })
@@ -123,7 +123,7 @@ export default function HeaderStats() {
     return (
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
-          style={{ padding: "30px", fontSize: "16px" }}> Dashboard-- {loggedIn} is active
+          style={{ padding: "30px", fontSize: "16px" }}> Dashboard-- 
           <button 
           onClick={()=>{signout('')}}
           className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">

@@ -7,7 +7,7 @@ import Footer from './Footers/FooterAdmin'
 function BasicDetails() {
     return (
         <>
-
+                {console.warn("in basic details")}
             <Sidebar />
             <div className="relative md:ml-64 bg-blueGray-100">
               <HeaderStats/>

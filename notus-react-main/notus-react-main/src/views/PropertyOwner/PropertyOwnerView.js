@@ -15,14 +15,14 @@ import AdditionalPropertySummary from '../../components/AdditionalPropertySummar
 function PropertyOwnerView() {
     return (
         <div> <Store>
-            <BrowserRouter>
+           
                 <Switch>
-                    <Route path="/" exact component={Dashboard} />
+                    <Route path="/owner" exact component={Dashboard} />
                     <Route path="/xml" component={XML} />
                     <Route path="/property-summary" component={PropertySummary} />
                     <Route path="/additional-credentials" component={AdditionalPropertySummary} />
                 </Switch>
-            </BrowserRouter>
+          
         </Store>
         </div>
     );

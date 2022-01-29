@@ -1,7 +1,149 @@
 import React, { useState } from "react";
+import Axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register(props) {
   const [adminFlag, setAdminFlag] = useState("Admin")
+  const [admin, setAdmin] = useState({
+    "admin_type": "",
+    "admin_name": "",
+    "admin_email": "",
+    "admin_password": ""
+  })
+  const [user, setUser] = useState({
+    "user_name": "",
+    "user_email": "",
+    "user_password": ""
+  })
+
+
+  const validateAdminData = (props) => {
+
+    const pswdValid = CheckPassword(props.admin.admin_password)
+    return pswdValid
+  }
+
+  const validateUserData = (props) => {
+
+    const pswdValid = CheckPassword(props.user.user_password)
+    return pswdValid
+  }
+
+  function CheckPassword(inputtxt) {
+    var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    console.log("pswd" + inputtxt)
+    if (inputtxt.match(passw)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  const registerUser = (e) => {
+    console.log("user details" + JSON.stringify(user))
+    const result = validateUserData({ user })
+    if (result === true) {
+      Axios.post('/signup/user', JSON.stringify(user),
+        {
+          headers: { 'content-type': 'application/json' }
+        }).then(response => {
+          console.log(response.data)
+          toast.success("user created with id " + response.data.user_id, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
+          props.setOpenTab(1) // setContext(response.data.property_id)
+        })
+        .catch(error => {
+          console.log(error.response)
+          toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
+        });
+    }
+    else {
+      toast.error("password should be as per instructions", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+    }
+
+
+  }
+
+  const registerAdmin = (e) => {
+    e.preventDefault()
+    console.log("Admin details" + JSON.stringify(admin))
+
+    const result = validateAdminData({ admin })
+
+    if (result === true) {
+      Axios.post('/signup/admin', JSON.stringify(admin),
+        {
+          headers: { 'content-type': 'application/json' }
+        }).then(response => {
+          console.log(response.data)
+          toast.success("Admin Account created with id " + response.data.admin_id, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          props.setOpenTab(1)
+
+        })
+        .catch(error => {
+          console.log(error.response)
+          toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
+        });
+    }
+    else {
+      toast.error("password should be as per instructions", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+    }
+  }
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -22,7 +164,7 @@ export default function Register(props) {
                 <form>
                   <div>
                     <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      className="block uppercase mt-1 text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
                       Register As
@@ -35,7 +177,7 @@ export default function Register(props) {
                   </div>
                   {adminFlag === "User" ? <><div>
                     <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2 mt-2"
                       htmlFor="grid-password"
                     >
                       Username
@@ -44,6 +186,8 @@ export default function Register(props) {
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="User name"
+                      onChange={(e) => { setUser({ ...user, user_name: e.target.value }) }}
+
                     />
 
 
@@ -51,7 +195,7 @@ export default function Register(props) {
 
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2 mt-2"
                         htmlFor="grid-password"
                       >
                         Email
@@ -60,12 +204,13 @@ export default function Register(props) {
                         type="email"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         placeholder="Email"
+                        onChange={(e) => { setUser({ ...user, user_email: e.target.value }) }}
                       />
                     </div>
 
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2 mt-2"
                         htmlFor="grid-password"
                       >
                         Password
@@ -74,7 +219,10 @@ export default function Register(props) {
                         type="password"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         placeholder="Password"
+                        onChange={(e) => { setUser({ ...user, user_password: e.target.value }) }}
                       />
+
+                      {user?.user_password === '' ? <></> : user?.user_password.length < 6 ? <p>Password must be 6 to 20 character long with atleast 1 upper case character , 1 lower case character and 1 number</p> : <></>}
                     </div>
 
                     <div>
@@ -100,23 +248,25 @@ export default function Register(props) {
                     <>
                       <div>
                         <label
-                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2 mt-2"
                           htmlFor="grid-password"
                         >
                           Admin-Type
                         </label>
                         <select
 
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          className="border-0 px-3 py-3 mt-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Admin-name"
+                          onChange={(e) => { setAdmin({ ...admin, admin_type: e.target.value }) }}
                         >
+                          <option value="">Select</option>
                           <option value="Super-admin">Super-Admin</option>
                           <option value="admin">Admin</option>
                           <option value="editor">Editor</option>
                         </select>
 
                         <label
-                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          className="block uppercase mt-2 text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
                           Admin-name
@@ -125,6 +275,7 @@ export default function Register(props) {
                           type="text"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Admin-name"
+                          onChange={(e) => { setAdmin({ ...admin, admin_name: e.target.value }) }}
                         />
 
 
@@ -132,7 +283,7 @@ export default function Register(props) {
 
                       <div className="relative w-full mb-3">
                         <label
-                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          className="block uppercase mt-2 text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
                           Admin-Email
@@ -141,21 +292,24 @@ export default function Register(props) {
                           type="email"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Admin-Email"
+                          onChange={(e) => { setAdmin({ ...admin, admin_email: e.target.value }) }}
                         />
                       </div>
 
                       <div className="relative w-full mb-3">
                         <label
-                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          className="block uppercase mt-2 text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
                           Admin-Password
                         </label>
                         <input
                           type="password"
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          className="border-0 px-3 py-3 mt-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Admin-Password"
+                          onChange={(e) => { setAdmin({ ...admin, admin_password: e.target.value }) }}
                         />
+                        {admin?.admin_password === '' ? <></> : admin?.admin_password.length < 6 ? <p>Password must be 6 to 20 character long with atleast 1 upper case character , 1 lower case character and 1 number</p> : <></>}
                       </div>
 
                       <div>
@@ -184,6 +338,7 @@ export default function Register(props) {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
+                      onClick={adminFlag === 'Admin' ? registerAdmin : registerUser}
                     >
                       Create Account
                     </button>
@@ -191,7 +346,16 @@ export default function Register(props) {
                   </div>
 
                 </form>
-
+                <ToastContainer position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover />
+                  <button onClick={()=>{Axios.get('http://103.136.36.27:5555/dashboard/t2k001').then((response)=>{alert(JSON.stringify(response.data))})}}>try</button>
               </div>
             </div>
 

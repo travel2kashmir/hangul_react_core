@@ -2,7 +2,7 @@ import Store from '../../context/provider';
 //import Dashboard from './Dashboard';
 import BasicDetails from '../../components/BasicDetails';
 import Contact from '../../components/Contact';
-import { BrowserRouter, Route, Switch} from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Gallery from '../../components/Gallery';
 import Reviews from '../../components/Reviews';
@@ -16,7 +16,7 @@ function AdminView() {
   return (
     <div> 
         <Store>
-        <BrowserRouter>
+        <h1>abcdef</h1>
         <Switch>
           <Route path="/" exact component={BasicDetails} />
           <Route path="/basic-details" exact component={BasicDetails} />
@@ -26,7 +26,7 @@ function AdminView() {
           <Route path="/services" component={Services}/>
           <Route path="/room" component={Room}/> 
         </Switch>
-      </BrowserRouter>
+        <h1>qwerty</h1>
       </Store> 
               
       </div>
