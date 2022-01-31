@@ -37,8 +37,6 @@ export default function Sidebar() {
            
           
            
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Property Registration
@@ -54,7 +52,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/basic-details"
+                  to="/admin"
                 >
                   <i
                     className={

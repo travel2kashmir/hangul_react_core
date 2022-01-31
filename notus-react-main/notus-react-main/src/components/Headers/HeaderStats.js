@@ -13,6 +13,9 @@ import { useDispatch } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import  actionCreators  from '../../states/index.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 export default function HeaderStats() {
@@ -51,7 +54,7 @@ export default function HeaderStats() {
     return (
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
-          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  -- {loggedIn} is active
+          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  -- {loggedIn?.name} is active
           <button 
           onClick={()=>{signout('')}}
           className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
@@ -123,7 +126,7 @@ export default function HeaderStats() {
     return (
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
-          style={{ padding: "30px", fontSize: "16px" }}> Dashboard-- 
+          style={{ padding: "30px", fontSize: "16px" }}> Dashboard--  {loggedIn?.name} is active 
           <button 
           onClick={()=>{signout('')}}
           className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
@@ -191,6 +194,25 @@ export default function HeaderStats() {
             </div>
           </div>
         </div>
+        {loggedIn?.id===''?<> {toast.error("Login to see content", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })}
+          <Redirect to='/'/></>:<></>}
+          <ToastContainer position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover />
       </div>);
   }
 

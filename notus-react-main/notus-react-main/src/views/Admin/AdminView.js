@@ -10,23 +10,24 @@ import Services from '../../components/Services';
 //import XML from './XML';
 //import PropertySummary from './PropertySummary';
 import Room from '../../components/Room.js'
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 //import AdditionalPropertySummary from './AdditionalPropertySummary';
 
 function AdminView() {
   return (
     <div> 
         <Store>
-        <h1>abcdef</h1>
+        <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={BasicDetails} />
-          <Route path="/basic-details" exact component={BasicDetails} />
-          <Route path="/contact" component={Contact}/>
-          <Route path="/gallery" component={Gallery}/>
-          <Route path="/reviews" component={Reviews}/>
-          <Route path="/services" component={Services}/>
-          <Route path="/room" component={Room}/> 
+          <Route path="/admin" exact component={BasicDetails} />
+          
+          <Route path="/contact" exact component={Contact}/>
+          <Route path="/gallery" exact component={Gallery}/>
+          <Route path="/reviews" exact component={Reviews}/>
+          <Route path="/services" exact component={Services}/>
+          <Route path="/room" exact component={Room}/> 
         </Switch>
-        <h1>qwerty</h1>
+        </BrowserRouter>
       </Store> 
               
       </div>

@@ -5,22 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actionCreators from '../../states/index.js';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import AdminView from "views/Admin/AdminView";
-import PropertyOwnerView from "views/PropertyOwner/PropertyOwnerView";
-
-
-
-
-
-
-
+import { Redirect } from 'react-router-dom';
 
 
 function Signin(props) {
   const dispatch = useDispatch();//used to send action to reducer
   const { signin } = bindActionCreators(actionCreators, dispatch) //will creator fuction to send action to reducer
-
   const loggedIn = useSelector(state => state.session)//will downlink data from store.session in const
 
 
@@ -268,8 +258,8 @@ function Signin(props) {
         </div>
       </div>
 
-      <div style={{color:"white"}}>
-        <button onClick={()=>{<Redirect to='/owner'/>}}>redirect</button>
+      <div style={{color:"white",background:'red'}}>
+       
         {loggedIn?.id?.match(/user.[0-9]*/) ?
          <><Redirect to='/owner'/></>
          : <>{loggedIn?.id?.match(/admin.[0-9]*/)?<Redirect to='/admin'/>:<></>}</>}
