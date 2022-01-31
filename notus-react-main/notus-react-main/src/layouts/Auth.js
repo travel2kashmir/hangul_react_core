@@ -11,14 +11,15 @@ import FooterSmall from "components/Footers/FooterSmall.js";
 // views
 import Signin from 'views/auth/Signin';
 import Register from 'views/auth/Register';
-
+import { useSelector } from "react-redux";
 
 
 
 
 export default function Auth() {
-
+  const loggedIn=useSelector(state => state.session)
   const [openTab, setOpenTab] = React.useState(1);
+  console.log(JSON.stringify(loggedIn))
   return (
     <>
 

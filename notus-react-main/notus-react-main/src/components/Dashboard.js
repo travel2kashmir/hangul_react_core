@@ -6,7 +6,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios' // package installed using npm instal axios,used to perform the http request
 import { Context } from "../context/provider"
 import Footer from './Footers/FooterAdmin'
-
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 export default function Dashboard() {
   const [data] = useContext(Context)  //local initialisation of context data take argument of context whose values are to be used 
@@ -43,28 +44,32 @@ export default function Dashboard() {
   }
       , [])
 
-return (
-    <>
+      const loggedIn = useSelector(state => state.session);
+     
+      return (
+          <div>
+            
+          <SidebarPropertyOwner/>
     
-      <SidebarPropertyOwner/>
+    <div className="relative md:ml-64 bg-blueGray-100">  
+     
+     <HeaderStats />    
 
-      <div className="relative md:ml-64 bg-blueGray-100">  
-        <HeaderStats />    
-
-        <div className="flex flex-wrap mt-4" >
-      <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-          <CardPageVisits item={dash?.reviews}/>
-        </div>
-        <div className="w-full xl:w-4/12 px-4">
-          <CardSocialTraffic item={dash?.services}/>
-        
-        </div>
-       
+      <div className="flex flex-wrap mt-4" >
+    <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+        <CardPageVisits item={dash?.reviews}/>
       </div>
-      <Footer/>
+      <div className="w-full xl:w-4/12 px-4">
+        <CardSocialTraffic item={dash?.services}/>
+      
       </div>
-    </>
-  );
+     
+    </div>
+    <Footer/>
+    </div>
+    </div>
+      );
+      
 }
 
 

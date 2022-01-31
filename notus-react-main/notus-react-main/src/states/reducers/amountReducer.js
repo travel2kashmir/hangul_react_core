@@ -23,8 +23,14 @@ const reducer = (state=initial,action) =>{
         return state
     }
     else if(action.type==='logout')
-    {
-        state= ''
+    {   var dataRemove={
+        "id":'none',
+        "name":'none',
+        "email":'none',
+        "password":'none'
+
+       }
+        state= dataRemove
         return state
     }
     else

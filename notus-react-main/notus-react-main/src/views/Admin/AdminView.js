@@ -20,7 +20,6 @@ function AdminView() {
         <BrowserRouter>
         <Switch>
           <Route path="/admin" exact component={BasicDetails} />
-          
           <Route path="/contact" exact component={Contact}/>
           <Route path="/gallery" exact component={Gallery}/>
           <Route path="/reviews" exact component={Reviews}/>

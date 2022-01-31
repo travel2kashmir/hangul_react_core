@@ -13,13 +13,14 @@ import { useDispatch } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import  actionCreators  from '../../states/index.js';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Redirect } from 'react-router-dom';
+
+
 
 
 export default function HeaderStats() {
-  //local initialisation of context data take argument of context whose values are to be used 
+  const loggedIn = useSelector(state => state.session)
+    //local initialisation of context data take argument of context whose values are to be used 
   const [data] = useContext(Context)
   //declaration of state and state method initialized with empty array 
   const [dash, setDash] = useState(null)
@@ -44,22 +45,17 @@ export default function HeaderStats() {
       })
   }
     , [])// eslint-disable-line react-hooks/exhaustive-deps
-
-  const loggedIn = useSelector(state => state.session)
-
-
-
-  const checkData = dash ?? false
+    let st=window.location.href;
+    let lo=st.split('/');
+    console.log('url to be hit'+lo[2])
+ const checkData = dash ?? false
   if (checkData) {
     return (
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
-          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  -- {loggedIn?.name} is active
-          <button 
-          onClick={()=>{signout('')}}
-          className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
-            Signout
-          </button>   </div>
+          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  -- {loggedIn?.name} is active{JSON.stringify(loggedIn)}
+         <a href={lo[0]+'//'+lo[2]}><button onClick={()=>{signout('')}} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
+            Signout</button>  </a> </div>
         <div className="px-4 md:px-10 mx-auto w-full">
           <Link className="text-white text-sm uppercase  lg:inline-block font-semibold" to={"#pablo"}></Link>
           {dash !== null && dash !== undefined
@@ -123,15 +119,19 @@ export default function HeaderStats() {
       </div>);
   }
   else {
+    
+      
     return (
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
           style={{ padding: "30px", fontSize: "16px" }}> Dashboard--  {loggedIn?.name} is active 
-          <button 
+          
+          <a href={lo[0]+'//'+lo[2]}><button 
           onClick={()=>{signout('')}}
           className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
             Signout
           </button>
+          </a>
 
 
         </div>
@@ -194,25 +194,7 @@ export default function HeaderStats() {
             </div>
           </div>
         </div>
-        {loggedIn?.id===''?<> {toast.error("Login to see content", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })}
-          <Redirect to='/'/></>:<></>}
-          <ToastContainer position="top-center"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover />
+       
       </div>);
   }
 
