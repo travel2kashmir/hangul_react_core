@@ -15,7 +15,7 @@ const Roomfacilities = () => {
     useEffect(() => {
         const fetchRoomfacilities = async () => {
             try {
-               const url=`http://34.125.133.100:5555/services/${data.property_id}`;
+                const url = `http://103.136.36.27:5555/services/${data.property_id}`;
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log("room facilities " + JSON.stringify(response.data))
 
@@ -72,54 +72,64 @@ const Roomfacilities = () => {
 
     }
 
+if(roomdes?.room_id==='none')
+{
+    return(<h3>Submit Room Description First Then Facilities Can Be Added </h3>) 
+}
+else
+{return (
+    <div>
+        <h6 className="text-blueGray-400 text-sm mt-3  font-bold uppercase">
+            Select Room Services
+        </h6><br />
 
+        <div class="flex ">
 
+            {roomfacilities?.map(i => {
+                return (<div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
+                    <input type="checkbox" class="mr-1"
 
-    return (
-        <div>
-          <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                Select Room Services
-            </h6><br />
-              
-                            <div style={{ flexDirection: "row", flex: 1, flexWrap: "wrap" }}>
+                        onClick={() => {
+                            setRoomfacilities(roomfacilities.map((item) => {
+                                if (item.service_id === i.service_id) {
+                                    item.check = !item.check
+                                }
+                                return item
+                            }))
 
-                                {roomfacilities?.map(i => {
-                                    return (<div  className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
-                                        <input type="checkbox"
+                        }}
+                    />
 
-                                            onClick={() => {
-                                                setRoomfacilities(roomfacilities.map((item) => {
-                                                    if (item.service_id === i.service_id) {
-                                                        item.check = !item.check
-                                                    }
-                                                    return item
-                                                }))
+                    {i.service_value.replace(/_+/g, ' ')}
 
-                                            }}
-                                        />
+                </div>)
 
-                                        {i.service_value.replace(/_+/g, ' ')}
-
-                                    </div>)
-
-                                })}
-                            </div>
-                       
-               
-                <button type="submit" style={{ marginBottom: "50px" }} className="btn btn-dark btn_add" name="submit" onClick={sendToDb}>Submit </button>
-                <ToastContainer position="top-center"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover />
-
-
-           
+            })}
         </div>
-    )
+
+
+
+
+
+        <button onClick={sendToDb}
+            className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+        >Submit Room Facilities</button> 
+          
+
+        <ToastContainer limit={1}
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
+    </div>
+)}
+
+
+    
 }
 export default Roomfacilities;

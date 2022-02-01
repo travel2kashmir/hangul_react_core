@@ -6,14 +6,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Roomdescription = (props) => {
+const Roomdescription = ({id}) => {
 
     const [roomdes, setRoomdes] = React.useContext(RoomContext)
     const [property] = useContext(Context)
     const [allRoomDes, setAllRoomDes] =
         useState({
             room_name: '',
-            room_type_id: '',
+            room_type_id: id,
             property_id: property.property_id,
             room_description: '',
             room_capacity: '',
@@ -77,30 +77,14 @@ const Roomdescription = (props) => {
             )
     }
 
-
+    
 
     return (
 
 
         <div className="flex flex-wrap">
 
-            <h4 style={{ marginLeft: "10px", marginBottom: "20px", marginTop: "30px" }}>In Property "Property name" for
-                <select className="custom-select mr-sm-2 form-control" id="inlineFormCustomSelect"
-                    onChange={(e) => {
-                        setAllRoomDes({
-                            ...allRoomDes,
-                            room_type_id: props.roomDescription.find(i => i.room_type_name === e.target.value)?.room_type_id,
-                            room_type_name: e.target.value
-                        })
-                    }} >{allRoomDes?.room_type_id === '' && <option value="select">Select</option>}
-                    {props.roomDescription.map((item, id) => {
-                        return (<option value={item.room_type_name}>{item.room_type_name}</option>)
-                    })}
-
-                </select>
-
-
-            </h4><br />
+            <br />
 
 
             <div className="w-full lg:w-6/12 px-4">
@@ -114,7 +98,9 @@ const Roomdescription = (props) => {
                     <input
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        
                         onChange={e => setAllRoomDes({ ...allRoomDes, room_name: e.target.value })}
+                         placeholder="Room Name"
                     />
 
                 </div>
@@ -130,7 +116,7 @@ const Roomdescription = (props) => {
                     <textarea rows="2" columns="60"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, room_description: e.target.value })}
-                    />
+                     placeholder="Room Description"/>
 
                 </div>
             </div>
@@ -146,7 +132,7 @@ const Roomdescription = (props) => {
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, room_capacity: e.target.value })}
-                    />
+                        placeholder="Room Capacity"/>
                 </div>
             </div>
             <div className="w-full lg:w-6/12 px-4">
@@ -161,7 +147,7 @@ const Roomdescription = (props) => {
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, maximum_number_of_occupants: e.target.value })}
-                    />
+                        placeholder="Maximum Number Of Occupants"/>
                 </div>
             </div>
             <div className="w-full lg:w-6/12 px-4">
@@ -176,7 +162,7 @@ const Roomdescription = (props) => {
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, minimum_number_of_occupants: e.target.value })}
-                    />
+                        placeholder="minimum number of occupants"/>
                 </div>
             </div>
             <div className="w-full lg:w-6/12 px-4">
@@ -191,7 +177,7 @@ const Roomdescription = (props) => {
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, minimum_age_of_occupants: e.target.value })}
-                    />
+                        placeholder="minimum age of occupants"/>
                 </div>
             </div>
             <div className="w-full lg:w-6/12 px-4">
@@ -206,7 +192,7 @@ const Roomdescription = (props) => {
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, room_length: e.target.value })}
-                    />
+                        placeholder="Room length"/>
                 </div>
             </div>
             <div className="w-full lg:w-6/12 px-4">
@@ -221,7 +207,8 @@ const Roomdescription = (props) => {
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, room_width: e.target.value })}
-                    />
+                        placeholder="Room Breadth"
+                        />
                 </div>
             </div>
 
@@ -237,18 +224,16 @@ const Roomdescription = (props) => {
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         onChange={e => setAllRoomDes({ ...allRoomDes, room_height: e.target.value })}
+                        placeholder="Room Height"
                     />
+                <button onClick={finalHandleSubmit}
+                className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                >Submit Room Description</button>
+                
                 </div>
+                
             </div>
 
-            <div className="text-center flex justify-end">
-
-                <button
-                    className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1  mb-1 ease-linear transition-all duration-150"
-                    onClick={finalHandleSubmit} type="button"
-                >
-                    Submit
-                </button>
                 <ToastContainer position="top-center"
                     autoClose={5000}
                     hideProgressBar={false}
@@ -258,7 +243,7 @@ const Roomdescription = (props) => {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover />
-            </div>
+            
 
         </div>
     )

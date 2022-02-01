@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { RoomContext } from "../context/roomprovider";
 import { Context } from "../context/provider";
 import axios from "axios";
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,7 +13,7 @@ const Roomimages = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const url = `http://34.125.133.100:5555/images/${data.property_id}`;
+                const url = `http://103.136.36.27:5555/images/${data.property_id}`;
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log("Response from API" + response.data)
 
@@ -84,54 +83,83 @@ const Roomimages = () => {
 
     }
 
-
-
-
-    return (
-        <div>
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                Select Room Images
-            </h6><br />
-
-            <div style={{ flexDirection: "row", flex: 1, flexWrap: "wrap" }}>
-                {images?.map(i => {
-                    return (
-                        <div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
-                            <input type="checkbox"
-                                style={{ backgroundColor: i.check === true ? "grey" : "white", color: i.check === true ? 'white' : 'black' }}
-                                onClick={() => {
-                                    setImages(images.map((item) => {
-                                        if (item.image_id === i.image_id) {
-                                            item.check = !item.check
-                                        }
-                                        return item
-                                    }))
-
-                                }}
-                            />
-
-
-                            <img src={i.image_link} style={{ width: 100, height: 100 }} alt='pic_room' />
-
-                        </div>)
-
-                })}
+    if(roomdes?.room_id==='none')
+    {
+        return(<h3>Submit Room Description First Then Images Can Be Added </h3>) 
+    }
+    else{
+        return (
+            <div>
+                <h6 className="text-blueGray-400 text-sm mt-3  font-bold uppercase">
+                    Select Room Images
+                </h6><br />
+    
+                <div className="flex" >
+                    {images?.map(i => {
+                        return (
+    
+                            <div className="block text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
+                                <div class="container grid grid-cols-4 gap-2 mx-auto">
+                                    <div class="w-full rounded" >
+                                        <img src={i.image_link} alt='pic_room' style={{ height: "160px", width: "260px" }} />
+                                    </div>
+                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox"
+    
+                                                onClick={() => {
+                                                    setImages(images.map((item) => {
+                                                        if (item.image_id === i.image_id) {
+                                                            item.check = !item.check
+                                                        }
+                                                        return item
+                                                    }))
+    
+                                                }}
+                                            />
+    
+                                        </td>
+                                        <td>
+    
+    
+                                            <h4 class="pl-2 pt-1">{i.image_title}</h4>
+                                        </td>
+    
+                                    </tr>
+    
+                                </table>
+    
+    
+    
+    
+                            </div>)
+    
+                    })}
+                </div>
+    
+    
+    
+                <ToastContainer position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
+    
+                
+    
+    <button onClick={sendToDb}
+                    className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                >Submit Room Images</button>
             </div>
+        )
+    }
 
-
-            <button type="submit" style={{ marginBottom: "50px" }} className="btn btn-dark btn_add" name="submit" onClick={sendToDb}>Submit </button>
-            <ToastContainer position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover />
-
-
-        </div>
-    )
+    
 }
 export default Roomimages;

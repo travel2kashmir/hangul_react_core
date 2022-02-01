@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../../context/provider";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
+import Tabs from '../Tabs/RoomTabs'
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function CardRoomTypes(props) {
+export default function CardRoomTypes() {
   const [roomdes, setRoomdes] = useContext(Context);
-  const data = { "property_id": "t2k0092" }
-  console.log("property_id in room_types is " + data.property_id)
+  
   const [roomtypes, setRoomtypes] = useState([])
   useEffect(() => {
     const fetchRoomtypes = async () => {
@@ -63,10 +63,40 @@ export default function CardRoomTypes(props) {
 
     console.log("room id s selected " + datas.map(i => i.room_type_id))
     console.log("Datas is " + JSON.stringify(datas))
-    props.setRoomDescription(datas)
+    //props.setRoomDescription(datas)
 
 
   }
+  const roomTypeTemp = {
+    room_type_id: '', 
+    property_id:''
+    
+  }
+  const [roomTypes, setRoomTypes] = useState([roomTypeTemp]?.map((i, id) => { return { ...i, index: id } }))
+  const addRoomType = () => {
+    setRoomTypes([...roomTypes, roomTypeTemp]?.map((i, id) => { return { ...i, index: id } }))
+  }
+
+  const removeRoom = (index) => {
+    console.log("index is" + index)
+    const filteredRooms = roomTypes.filter((i, id) => i.index !== index)
+    console.log("data sent to state " + JSON.stringify(filteredRooms))
+    setRoomTypes(filteredRooms)
+  }
+
+  const onChange = (e, index, i) => {
+    console.log(index + 'index \n ' + i + e.target.value)
+    setRoomTypes(roomTypes?.map((item, id) => {
+      if (item.index === index) {
+        item[i] = e.target.value
+      }
+      console.log("set in state" + JSON.stringify(item))
+      return item
+
+    }))
+  }
+
+
 
   return (
 
@@ -74,62 +104,102 @@ export default function CardRoomTypes(props) {
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">Room Types</h6>
+            <h6 className="text-blueGray-700 text-xl font-bold">Room Details</h6>
 
           </div>
         </div>
-        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-          <form>
-            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Property Room Types
-            </h6>
-            <div className="flex" style={{ flexDirection: "row", flex: 1, flexWrap: "wrap" }}>
-            {roomtypes?.map(i => {
-              return (
-                <div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
-                  <input type="checkbox"
 
-                    onClick={() => {
-                      setRoomtypes(roomtypes.map((item) => {
-                        if (item.room_type_id === i.room_type_id) {
-                          item.check = !item.check
-                        }
-                        return item
-                      }))
-
-
-                    }
-
-                    }
-                  />
-
-
-                  {i.room_type_name}
+        {roomTypes?.map((roomTypes, index) => (
+          <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+            <form>
+              <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                Property Room Type
                 
-                </div>)
+              </h6>
 
-            })}
-            </div>
+              <div className="block text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
+                <label
+                  className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  htmlFor="grid-password" >
+                  Room Type
+                </label>
+                <select
+                  onChange={e => onChange(e, roomTypes?.index, 'room_type_id')}
+                  className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
+                  <option value="Select Room Type">Select Room Type</option>
+                  {roomtypes?.map(i => {
+                    return (
+                      <option value={i.room_type_id}>{i.room_type_name}</option>)
+                  }
+                  )}
+                </select>
 
-            
-            <div className="text-center flex justify-end">
-            <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1  mb-1 ease-linear transition-all duration-150"
-                type="button"  onClick={sendToDb}> Submit </button>
-            </div>
-            <ToastContainer position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover />
+              </div>
+
+              <div>
+                {roomTypes?.room_type_id ? <><h6 className="text-blueGray-400 text-sm mt-6 mb-4 font-bold uppercase">
+                  Property Room Description</h6>
+
+                  <Tabs id={roomTypes?.room_type_id} setRoomTypes={setRoomTypes} roomTypes={roomTypes}/>
+                </> : <></>
+                } </div>
 
 
-          </form>
+              <div className="text-center flex justify-end">
+                <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button" onClick={() => removeRoom(roomTypes?.index)}
+                > -Remove Room </button>
+              </div>
+
+
+            </form>
+          </div>
+
+
+
+
+        ))}
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div className="text-center flex justify-end" style={{ paddingBottom: "20px", marginTop: "-30px" }}>
+
+          <button
+            onClick={addRoomType}
+            className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+
+          >
+            +Add Room
+          </button>
+
+          <button
+            className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            onClick={sendToDb}
+            type="button"
+          >
+            Submit
+          </button>
         </div>
       </div>
+      <ToastContainer position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover />
 
     </>
   );

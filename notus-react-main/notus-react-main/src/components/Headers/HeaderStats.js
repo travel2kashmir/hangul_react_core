@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import  actionCreators  from '../../states/index.js';
-import { Redirect } from 'react-router-dom';
+
 
 
 
@@ -33,7 +33,7 @@ export default function HeaderStats() {
     axios({
       method: 'get',
      // url: `http://103.136.36.27:5555/dashboard/${data.property_id}`,
-      //url: `http://103.136.36.27:5555/dashboard/t2k001`,
+      url: `http://103.136.36.27:5555/dashboard/t2k001`,
       headers: { 'accept': 'application/json' }
     })
       .then(response => {
@@ -47,13 +47,13 @@ export default function HeaderStats() {
     , [])// eslint-disable-line react-hooks/exhaustive-deps
     let st=window.location.href;
     let lo=st.split('/');
-    console.log('url to be hit'+lo[2])
+
  const checkData = dash ?? false
   if (checkData) {
     return (
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
-          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  -- {loggedIn?.name} is active{JSON.stringify(loggedIn)}
+          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  -- {loggedIn?.name} is active
          <a href={lo[0]+'//'+lo[2]}><button onClick={()=>{signout('')}} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
             Signout</button>  </a> </div>
         <div className="px-4 md:px-10 mx-auto w-full">

@@ -1,6 +1,6 @@
 import Store from 'context/provider';
 import Dashboard from '../../components/Dashboard';
-import { BrowserRouter, Route, Switch,Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import XML from '../../components/XML';
 import PropertySummary from '../../components/PropertySummary';
@@ -26,7 +26,7 @@ function PropertyOwnerView() {
                 </Switch>
                 </BrowserRouter>    
         </Store>
-        </>} 
+        </>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 const initial = {
-  room_id: "",
-  room_name: ""
+  room_id: "none",
+  room_name: "none"
   }
 export const RoomContext= React.createContext();
 

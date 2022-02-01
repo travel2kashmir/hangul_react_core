@@ -6,8 +6,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios' // package installed using npm instal axios,used to perform the http request
 import { Context } from "../context/provider"
 import Footer from './Footers/FooterAdmin'
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+
 
 export default function Dashboard() {
   const [data] = useContext(Context)  //local initialisation of context data take argument of context whose values are to be used 
@@ -44,7 +43,7 @@ export default function Dashboard() {
   }
       , [])
 
-      const loggedIn = useSelector(state => state.session);
+      
      
       return (
           <div>

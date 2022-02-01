@@ -75,12 +75,12 @@ const Tabs = (props) => {
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  <Roomdescription/>
+                  <Roomdescription id={props.id} />
 
              
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <Roomimages />
+                  <Roomimages/>
                 </div>
                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                   <Roomfacilities/>
