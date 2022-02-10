@@ -13,7 +13,7 @@ export default function CardRoomTypes() {
   useEffect(() => {
     const fetchRoomtypes = async () => {
       try {
-        const response = await axios.get('http://103.136.36.27:5555/room-types', { headers: { 'accept': 'application/json' } });
+        const response = await axios.get('/room-types', { headers: { 'accept': 'application/json' } });
         console.log("room types " + JSON.stringify(response.data))
 
         setRoomtypes(response.data)
@@ -154,25 +154,8 @@ export default function CardRoomTypes() {
 
             </form>
           </div>
-
-
-
-
         ))}
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div className="text-center flex justify-end" style={{ paddingBottom: "20px", marginTop: "-30px" }}>
+        <div className="text-center flex justify-end " style={{ paddingBottom: "20px",paddingRight:"36px", marginTop: "-30px" }}>
 
           <button
             onClick={addRoomType}
@@ -182,13 +165,6 @@ export default function CardRoomTypes() {
             +Add Room
           </button>
 
-          <button
-            className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            onClick={sendToDb}
-            type="button"
-          >
-            Submit
-          </button>
         </div>
       </div>
       <ToastContainer position="top-center"

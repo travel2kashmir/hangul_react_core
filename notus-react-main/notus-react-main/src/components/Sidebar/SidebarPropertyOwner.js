@@ -9,7 +9,7 @@ export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
     <>
- <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-3 px-6">
+   <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-3 px-6">
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */}
           <button
@@ -70,20 +70,31 @@ export default function Sidebar() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                 
+                 className={
+                  "text-xs uppercase py-3 font-bold block " +
+                  (window.location.href.indexOf("/property-summary") !== -1
+                    ? "text-lightBlue-500 hover:text-lightBlue-600"
+                    : "text-blueGray-700 hover:text-blueGray-500")
+                }
                   to="/property-summary"
                 >
-                  <i className="fas fa-wpforms text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  <i className="fas fa-hotel text-blueGray-400 mr-2 text-sm"></i>{" "}
                Basic Details
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                 className={
+                  "text-xs uppercase py-3 font-bold block " +
+                  (window.location.href.indexOf("/additional-credentials") !== -1
+                    ? "text-lightBlue-500 hover:text-lightBlue-600"
+                    : "text-blueGray-700 hover:text-blueGray-500")
+                }
                   to="/additional-credentials"
                 >
-                  <i className="fas fa-wpforms text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  <i className="fas fa-hotel text-blueGray-400 mr-2 text-sm"></i>{" "}
                  Additional  Credentials
                 </Link>
               </li>
@@ -94,9 +105,29 @@ export default function Sidebar() {
 
              {/* Divider */}
              <hr className="my-4 md:min-w-full" />
-           
-           
+              {/* Heading */}
+            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+             About Rooms
+            </h6>
+            {/* Navigation */}
 
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            <li className="items-center">
+                <Link
+                 className={
+                  "text-xs uppercase py-3 font-bold block " +
+                  (window.location.href.indexOf("/rooms") !== -1
+                    ? "text-lightBlue-500 hover:text-lightBlue-600"
+                    : "text-blueGray-700 hover:text-blueGray-500")
+                }
+                  to="/rooms"
+                >
+                  <i className="fas fa-bed text-blueGray-400 mr-2 text-sm"></i>{" "}
+             All Rooms Details
+                </Link>
+              </li> 
+             
+            </ul>
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
@@ -108,14 +139,34 @@ export default function Sidebar() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                 className={
+                  "text-xs uppercase py-3 font-bold block " +
+                  (window.location.href.indexOf("/xml") !== -1
+                    ? "text-lightBlue-500 hover:text-lightBlue-600"
+                    : "text-blueGray-700 hover:text-blueGray-500")
+                }
                   to="/xml"
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
-                 XML Generated File
+                 Property XML File
                 </Link>
               </li>
-
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/room-xml") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/all-rooms-xml"
+                >
+                  <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
+                 Rooms XML File
+                </Link>
+              </li>
+             
+              
               
             </ul>
 

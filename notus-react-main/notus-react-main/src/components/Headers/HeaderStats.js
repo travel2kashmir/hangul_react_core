@@ -15,10 +15,26 @@ import { bindActionCreators } from 'redux';
 import  actionCreators  from '../../states/index.js';
 
 
+import { createPopper } from "@popperjs/core";
+
 
 
 
 export default function HeaderStats() {
+  const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
+  const btnDropdownRef = React.createRef();
+  const popoverDropdownRef = React.createRef();
+  const openDropdownPopover = () => {
+    console.log("hey");
+    createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
+      placement: "bottom-start",
+    });
+    setDropdownPopoverShow(true);
+  };
+  const closeDropdownPopover = () => {
+    setDropdownPopoverShow(false);
+  };
+
   const loggedIn = useSelector(state => state.session)
     //local initialisation of context data take argument of context whose values are to be used 
   const [data] = useContext(Context)
@@ -33,7 +49,7 @@ export default function HeaderStats() {
     axios({
       method: 'get',
      // url: `http://103.136.36.27:5555/dashboard/${data.property_id}`,
-      url: `http://103.136.36.27:5555/dashboard/t2k001`,
+      url: `/dashboard/t2k001`,
       headers: { 'accept': 'application/json' }
     })
       .then(response => {
@@ -50,12 +66,52 @@ export default function HeaderStats() {
 
  const checkData = dash ?? false
   if (checkData) {
+
+   
     return (
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
+        <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
-          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  -- {loggedIn?.name} is active
-         <a href={lo[0]+'//'+lo[2]}><button onClick={()=>{signout('')}} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
-            Signout</button>  </a> </div>
+          style={{ padding: "30px", fontSize: "16px" }}> Dashboard  
+            </div> 
+            <a
+        className="text-white  block px-6"
+        href="#pablo"
+        ref={btnDropdownRef}
+        onClick={(e) => {
+          e.preventDefault();
+          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
+        }}
+      >
+        
+        <i className="fas fa-user fa-2x"></i>
+      </a>
+      <div
+        ref={popoverDropdownRef}
+        className={
+          (dropdownPopoverShow ? "block " : "hidden ") +
+          "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48"
+        }
+      >
+        <a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-6 font-normal uppercase block w-full whitespace-nowrap bg-transparent  text-blueGray-700"
+          }
+          onClick={(e) => e.preventDefault()}
+        >
+       <span className="text-lightBlue-600 font-bold">{loggedIn?.name} is active </span>
+        </a>
+        <div className="h-0 my-2 border border-solid border-blueGray-100" />
+        <a href={lo[0]+'//'+lo[2]}><button onClick={()=>{signout('')}}
+          className=" text-sm py-2  px-4 font-normal uppercase block w-full whitespace-nowrap bg-transparent text-blueGray-700" type="button">
+            Signout</button>  </a>
+
+
+
+</div>
+          
+             </div>
         <div className="px-4 md:px-10 mx-auto w-full">
           <Link className="text-white text-sm uppercase  lg:inline-block font-semibold" to={"#pablo"}></Link>
           {dash !== null && dash !== undefined
@@ -122,18 +178,50 @@ export default function HeaderStats() {
     
       
     return (
+
+      
+
       <div className=" bg-lightBlue-600 md:pt-30 pb-32 pt-10">
+      <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
         <div className="text-white text-sm uppercase  lg:inline-block font-semibold"
-          style={{ padding: "30px", fontSize: "16px" }}> Dashboard--  {loggedIn?.name} is active 
-          
-          <a href={lo[0]+'//'+lo[2]}><button 
-          onClick={()=>{signout('')}}
-          className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
-            Signout
-          </button>
-          </a>
+          style={{ padding: "30px", fontSize: "16px" }}> Dashboard
+        </div>
+        <a
+        className="text-white  block px-6" 
+        href="#pablo"
+        ref={btnDropdownRef}
+        onClick={(e) => {
+          e.preventDefault();
+          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
+        }}
+      >
+        
+        <i className="fas fa-user fa-2x"></i>
+      </a>
+      <div
+        ref={popoverDropdownRef}
+        className={
+          (dropdownPopoverShow ? "block " : "hidden ") +
+          "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48"
+        }
+      >
+        <a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-6 font-normal uppercase block w-full whitespace-nowrap bg-transparent  text-blueGray-700"
+          }
+          onClick={(e) => e.preventDefault()}
+        >
+       <span className="text-lightBlue-600 font-bold">{loggedIn?.name} is active</span>
+        </a>
+        <div className="h-0 my-2 border border-solid border-blueGray-100" />
+        <a href={lo[0]+'//'+lo[2]}><button onClick={()=>{signout('')}}
+          className=" text-sm py-2  px-4 font-normal uppercase block w-full whitespace-nowrap bg-transparent text-blueGray-700" type="button">
+            Signout</button>  </a>
 
 
+
+        </div>
         </div>
         <div className="px-4 md:px-10 mx-auto w-full">
           <Link className="text-white text-sm uppercase  lg:inline-block font-semibold" to={"#pablo"}></Link>

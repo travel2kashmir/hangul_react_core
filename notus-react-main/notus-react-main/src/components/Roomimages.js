@@ -13,7 +13,8 @@ const Roomimages = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const url = `http://103.136.36.27:5555/images/${data.property_id}`;
+                //const url = `/images/${data.property_id}`;
+                const url = `/images/t2k001`;
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log("Response from API" + response.data)
 
@@ -152,11 +153,16 @@ const Roomimages = () => {
                     pauseOnHover />
     
                 
-    
+  
+                <div className="relative w-full mb-3">
+                <div className="text-center flex justify-end">
     <button onClick={sendToDb}
                     className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                 >Submit Room Images</button>
             </div>
+            </div>
+            </div>
+            
         )
     }
 

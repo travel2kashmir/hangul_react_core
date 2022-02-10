@@ -84,7 +84,7 @@ const Roomdescription = ({id}) => {
 
         <div className="flex flex-wrap">
 
-            <br />
+            
 
 
             <div className="w-full lg:w-6/12 px-4">
@@ -226,14 +226,15 @@ const Roomdescription = ({id}) => {
                         onChange={e => setAllRoomDes({ ...allRoomDes, room_height: e.target.value })}
                         placeholder="Room Height"
                     />
-                <button onClick={finalHandleSubmit}
-                className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-                >Submit Room Description</button>
-                
                 </div>
-                
+               
             </div>
-
+            <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3 ml-52">
+                <div className="text-center flex justify-end">
+                <button onClick={finalHandleSubmit}
+                className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 mt-8  rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                >Submit Room Description</button></div></div></div>
                 <ToastContainer position="top-center"
                     autoClose={5000}
                     hideProgressBar={false}

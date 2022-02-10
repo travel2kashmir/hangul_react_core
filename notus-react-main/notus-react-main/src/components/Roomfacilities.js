@@ -15,7 +15,8 @@ const Roomfacilities = () => {
     useEffect(() => {
         const fetchRoomfacilities = async () => {
             try {
-                const url = `http://103.136.36.27:5555/services/${data.property_id}`;
+               // const url = `/services/${data.property_id}`;
+                const url = `/services/t2k001`;
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log("room facilities " + JSON.stringify(response.data))
 
@@ -83,7 +84,7 @@ else
             Select Room Services
         </h6><br />
 
-        <div class="flex ">
+        <div class="flex flex-wrap ">
 
             {roomfacilities?.map(i => {
                 return (<div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
@@ -108,13 +109,15 @@ else
         </div>
 
 
-
-
-
+        
+                <div className="relative w-full mb-3">
+                <div className="text-center flex justify-end">
         <button onClick={sendToDb}
             className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
         >Submit Room Facilities</button> 
-          
+          </div>
+            </div>
+           
 
         <ToastContainer limit={1}
             position="top-center"

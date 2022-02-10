@@ -355,7 +355,7 @@ export default function Register(props) {
                   pauseOnFocusLoss
                   draggable
                   pauseOnHover />
-                  <button onClick={()=>{Axios.get('http://103.136.36.27:5555/dashboard/t2k001').then((response)=>{alert(JSON.stringify(response.data))})}}>try</button>
+                 
               </div>
             </div>
 

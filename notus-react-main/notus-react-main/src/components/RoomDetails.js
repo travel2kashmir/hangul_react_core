@@ -7,7 +7,7 @@ function RoomDetails() {
     return (
         <>
        
-         <CardRoomDetails/> 
+         <CardRoomDetails /> 
         
          
 </>

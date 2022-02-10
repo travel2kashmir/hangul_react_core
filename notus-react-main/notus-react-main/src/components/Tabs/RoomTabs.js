@@ -18,7 +18,7 @@ const Tabs = (props) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 1
-                    ? "text-white bg-lightBlue-600"
+                    ? "text-white bg-orange-500"
                     : "text-lightBlue-600 bg-white")
                 }
                 onClick={e => {
@@ -29,7 +29,7 @@ const Tabs = (props) => {
                 href="#link1"
                 role="tablist"
               >
-                 Room Description
+                Room Description
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -37,7 +37,7 @@ const Tabs = (props) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 2
-                    ? "text-white bg-lightBlue-600"
+                    ? "text-white bg-orange-500"
                     : "text-lightBlue-600 bg-white")
                 }
                 onClick={e => {
@@ -48,7 +48,7 @@ const Tabs = (props) => {
                 href="#link2"
                 role="tablist"
               >
-                  Room Gallery
+                Room Gallery
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -56,7 +56,7 @@ const Tabs = (props) => {
                 className={
                   "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
                   (openTab === 3
-                    ? "text-white bg-lightBlue-600"
+                    ? "text-white bg-orange-500"
                     : "text-lightBlue-600 bg-white")
                 }
                 onClick={e => {
@@ -77,13 +77,13 @@ const Tabs = (props) => {
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                   <Roomdescription id={props.id} />
 
-             
+
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <Roomimages/>
+                  <Roomimages />
                 </div>
                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                  <Roomfacilities/>
+                  <Roomfacilities />
                 </div>
               </div>
             </div>

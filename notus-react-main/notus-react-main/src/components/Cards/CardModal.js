@@ -5,12 +5,15 @@ import XMLViewer from 'react-xml-viewer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export default function Modal()
  {
   const [openTab, setOpenTab] = React.useState(0);
   const [data] = useContext(Context)
   const [hotelXML, setHotelXML] = useState()
+  
 
+  
   const call = () => {
     toast.success("Data Sent To Google SucessFully", {
       position: "top-center",
@@ -25,8 +28,8 @@ export default function Modal()
   useEffect(() => {
     const fetchXML = async () => {
       try {
-        const url = `http://103.136.36.27:7860/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_type}s/${data.property_id}/xml`;
-        // const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001/xml`
+        //const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_type}s/${data.property_id}/xml`;
+         const url = `/jammu-and-kashmir/srinagar/hotels/t2k001/xml`
         console.log("URL " + url)
         const response = await axios.get(url, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
         console.log(response.data)
@@ -48,6 +51,8 @@ export default function Modal()
 
     fetchXML();
   }, []) // eslint-disable-next-line
+
+  const breaker ={"overflowBreak" : true}
 
  return (
     <>
@@ -88,8 +93,11 @@ export default function Modal()
                {hotelXML?<><div className="text-center flex justify-end">
                  <button  className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                onClick={call}>Send to Google</button></div>
-               <XMLViewer xml={hotelXML}/> </>:<h3>XML being fetched.Please wait.</h3> }
-         
+               <div><XMLViewer xml={hotelXML} theme={breaker}/></div> </>:<h3>XML being fetched.Please wait.</h3> }
+               
+               
+               
+              
 
                 </div>
                 

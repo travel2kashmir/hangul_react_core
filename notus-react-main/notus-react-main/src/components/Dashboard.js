@@ -19,7 +19,7 @@ export default function Dashboard() {
       const fetchDash = async () => {
           try {
              //const url=`http://103.136.36.27:5555/dashboard/${data.property_id}`
-              const url='http://103.136.36.27:5555/dashboard/t2k001'
+              const url='/dashboard/t2k001'
               const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
               //axios library is used to hit the url which is in 1st argument and headers in 2nd argument,
               //the response from the request is stored in the response variable and response is of the type object
@@ -48,21 +48,18 @@ export default function Dashboard() {
       return (
           <div>
             
-          <SidebarPropertyOwner/>
-    
-    <div className="relative md:ml-64 bg-blueGray-100">  
-     
-     <HeaderStats />    
-
-      <div className="flex flex-wrap mt-4" >
+          <SidebarPropertyOwner/>    
+    <div className="relative md:ml-64 bg-blueGray-100">       
+     <HeaderStats />   
+     <div className="px-4 md:px-10 mx-auto w-full -m-24">  
+   <div className="flex flex-wrap mt-4 mb-24" >
     <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
         <CardPageVisits item={dash?.reviews}/>
       </div>
       <div className="w-full xl:w-4/12 px-4">
-        <CardSocialTraffic item={dash?.services}/>
-      
+        <CardSocialTraffic item={dash?.services}/>      
       </div>
-     
+       </div>  
     </div>
     <Footer/>
     </div>
