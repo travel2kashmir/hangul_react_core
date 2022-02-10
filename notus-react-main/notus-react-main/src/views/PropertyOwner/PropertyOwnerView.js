@@ -10,17 +10,21 @@ import Auth from 'layouts/Auth';
 import RoomSummary from '../../components/RoomSummary'
 import AllRooms from '../../components/AllRooms'
 import AllRoomsXML from '../../components/AllRoomsXML'
+import { Redirect } from 'react-router';
 
 
 function PropertyOwnerView() {
     
-    return (
+    return(
+    
+         
         <div>
+            
         <>
         <Store>
            <BrowserRouter>
                 <Switch>
-                <Route path="/auth" exact component={Auth} />
+                <Route path="/" exact component={Auth} />
                     <Route path="/owner" exact component={Dashboard} />
                     <Route path="/xml" exact component={XML} />
                     <Route path="/property-summary" exact component={PropertySummary} />
@@ -29,12 +33,13 @@ function PropertyOwnerView() {
                     <Route path="/room-xml" exact component={RoomXML}/>
                     <Route path="/rooms" exact component={AllRooms}/>
                     <Route path="/all-rooms-xml" exact component={AllRoomsXML}/>
+                    <Redirect from="*" to="/" />
                 </Switch>
                 </BrowserRouter>    
         </Store>
         </>
         </div>
-    );
+    )
 }
 
 export default PropertyOwnerView;

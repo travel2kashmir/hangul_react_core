@@ -1,32 +1,22 @@
 import React from "react";
-
-
-
 // components
-
-
 import Navbar from "components/Navbars/AuthNavbar.js";
 import FooterSmall from "components/Footers/FooterSmall.js";
-
 // views
 import Signin from 'views/auth/Signin';
 import Register from 'views/auth/Register';
 import { useSelector } from "react-redux";
-
-
-
-
 export default function Auth() {
-  const loggedIn=useSelector(state => state.session)
+  const loggedIn = useSelector(state => state.session)
   const [openTab, setOpenTab] = React.useState(1);
   console.log(JSON.stringify(loggedIn))
   return (
     <>
 
       <main>
-      
+
         <section className="relative w-full h-full py-40 min-h-screen">
-        
+
           <div
             className="absolute top-0 w-full h-full bg-blueGray-600 bg-no-repeat bg-full"
             style={{
@@ -36,7 +26,7 @@ export default function Auth() {
           >
 
             <>
-            <Navbar/>
+              <Navbar />
               <div className="flex flex-wrap mt-16">
                 <div className="w-full">
                   <ul
@@ -85,35 +75,31 @@ export default function Auth() {
                   </ul>
                   <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div className="px-4 py-5 flex-auto bg-blueGray-600"
-                     style={{
-                      backgroundImage:
-                        "url(" + require("assets/img/register_bg_2.png").default + ")",
-                    }}>
+                      style={{
+                        backgroundImage:
+                          "url(" + require("assets/img/register_bg_2.png").default + ")",
+                      }}>
                       <div className="tab-content tab-space ">
                         <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                          <Signin setOpenTab={setOpenTab}/>
-
+                          <Signin setOpenTab={setOpenTab} />
                         </div>
-
-                        
-
                       </div>
                       <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                          <Register setOpenTab={setOpenTab}/>
+                        <Register setOpenTab={setOpenTab} />
 
-                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </>
 
- </div>
-          
+          </div>
+
         </section>
-       
+
         <FooterSmall absolute />
       </main>
-      </>
+    </>
   );
 }

@@ -6,9 +6,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios' // package installed using npm instal axios,used to perform the http request
 import { Context } from "../context/provider"
 import Footer from './Footers/FooterAdmin'
-
+import {useSelector} from 'react-redux'
+import { Redirect } from 'react-router';
 
 export default function Dashboard() {
+  const isLogged=useSelector(state=>state.session)
   const [data] = useContext(Context)  //local initialisation of context data take argument of context whose values are to be used 
   const [dash, setDash] = useState([])//declaration of state and state method initialized with empty array
   console.log("property_id in Dashboard is " + data.property_id)
@@ -46,25 +48,27 @@ export default function Dashboard() {
       
      
       return (
-          <div>
+        <div>  
+     {isLogged?.id===''?<Redirect to='/'/>:<div>
             
-          <SidebarPropertyOwner/>    
-    <div className="relative md:ml-64 bg-blueGray-100">       
-     <HeaderStats />   
-     <div className="px-4 md:px-10 mx-auto w-full -m-24">  
-   <div className="flex flex-wrap mt-4 mb-24" >
-    <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-        <CardPageVisits item={dash?.reviews}/>
-      </div>
-      <div className="w-full xl:w-4/12 px-4">
-        <CardSocialTraffic item={dash?.services}/>      
-      </div>
-       </div>  
-    </div>
-    <Footer/>
-    </div>
-    </div>
-      );
+     <SidebarPropertyOwner/>    
+<div className="relative md:ml-64 bg-blueGray-100">       
+<HeaderStats />   
+<div className="px-4 md:px-10 mx-auto w-full -m-24">  
+<div className="flex flex-wrap mt-4 mb-24" >
+<div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+   <CardPageVisits item={dash?.reviews}/>
+ </div>
+ <div className="w-full xl:w-4/12 px-4">
+   <CardSocialTraffic item={dash?.services}/>      
+ </div>
+  </div>  
+</div>
+<Footer/>
+
+</div>
+</div>}
+ </div> );
       
 }
 
