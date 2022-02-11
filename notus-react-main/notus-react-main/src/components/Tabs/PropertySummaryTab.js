@@ -9,6 +9,8 @@ const PropertySummaryTab = () => {
     const [updatebasic, setUpdatebasic] = useState(false)
     const [updateaddress, setUpdateaddress] = useState(false)
     const [updatecontact, setUpdatecontact] = useState(false)
+    const [editcontact, setEditcontact] = useState({})
+
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -220,6 +222,13 @@ const PropertySummaryTab = () => {
                                                     /></div>
                                             </div>
                                         </div>
+
+                                        <div className="text-center flex justify-end" style={{ paddingBottom: "10px" }}>
+
+
+                                            <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdatebasic(!updatebasic)}>Edit</button>
+
+                                        </div>
                                     </div>
                                     :
                                     <div>
@@ -321,14 +330,14 @@ const PropertySummaryTab = () => {
                                                     /></div>
                                             </div>
                                         </div>
+                                        <div className="text-center flex justify-end" style={{ paddingBottom: "10px" }}>
 
+
+                                            <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdatebasic(!updatebasic)}>Cancel</button>
+                                            <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
+                                        </div>
                                     </div>}
-                                <div className="text-center flex justify-end" style={{ paddingBottom: "10px" }}>
 
-
-                                    <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdatebasic(!updatebasic)}>{updatebasic === false ? <h3>Edit</h3> : <h3>Cancel</h3>}</button>
-                                    <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
-                                </div>
                             </div>
 
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
@@ -471,7 +480,15 @@ const PropertySummaryTab = () => {
 
                                                 </div>
                                             )
-                                        })}</div>
+                                        })}
+                                        <div className="text-center flex justify-end" style={{ paddingBottom: "10px" }}>
+
+
+                                            <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdateaddress(!updateaddress)}>Edit</button>
+
+                                        </div>
+
+                                    </div>
 
 
                                     :
@@ -610,14 +627,26 @@ const PropertySummaryTab = () => {
                                                     </div>
 
                                                 </div>
+
+
                                             )
-                                        })}</div>}
-                                <div className="text-center flex justify-end" style={{ paddingBottom: "10px" }}>
+
+                                        })
 
 
-                                    <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdateaddress(!updateaddress)}>{updateaddress === false ? <h3>Edit</h3> : <h3>Cancel</h3>}</button>
-                                    <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
-                                </div>
+
+
+
+                                        }
+                                        <div className="text-center flex justify-end" style={{ paddingBottom: "10px" }}>
+
+
+                                            <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdateaddress(!updateaddress)}>Cancel</button>
+                                            <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
+                                        </div>
+
+
+                                    </div>}
 
 
                             </div>
@@ -670,23 +699,34 @@ const PropertySummaryTab = () => {
                                                                 />
                                                             </div>
                                                         </div>
+                                                       
                                                         <div className="w-full lg:w-4/12 px-4">
                                                             <div className="relative w-full mb-3">
-                                                                <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatecontact(!updatecontact)}>{updatecontact === false ? <h3>Edit</h3> : <h3>Cancel edit</h3>}</button>
-
-
+                                                                <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" onClick={() => { setUpdatecontact(!updatecontact); setEditcontact(item) }}>Edit</button>
+                                                                <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
+                                                               
                                                             </div>
                                                         </div>
+
                                                     </div>
 
 
 
 
                                                 )
-                                            })
+                                                
+                                            }
+                                            
+                                            
+                                            )
 
+
+
+
+
+                                            
                                         }
-
+                                       
 
                                     </div>
                                     :
@@ -706,9 +746,7 @@ const PropertySummaryTab = () => {
                                                         htmlFor="grid-password">Contact Value</label>
                                                 </div>
                                             </div></div>
-                                        {
-                                            allHotelDetails?.contacts?.map((item) => {
-                                                return (
+                                        
 
                                                     <div className="flex flex-wrap">
                                                         <div className="w-full lg:w-3/12 px-4">
@@ -718,7 +756,7 @@ const PropertySummaryTab = () => {
                                                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                                                 >
                                                                     <option >Select contact type</option>
-                                                                    <option selected>{item.contact_type}</option>
+                                                                    <option selected>{editcontact.contact_type}</option>
                                                                     <option value="phone" >Phone</option>
                                                                     <option value="email">Email</option>
                                                                     <option value="website" >Website</option>
@@ -734,27 +772,24 @@ const PropertySummaryTab = () => {
                                                                     type="text"
 
                                                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.contact_data}
+                                                                    defaultValue={editcontact.contact_data}
                                                                 />
                                                             </div>
                                                         </div>
-
                                                         <div className="w-full lg:w-4/12 px-4">
                                                             <div className="relative w-full mb-3">
-                                                                <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatecontact(!updatecontact)}>{updatecontact === true ? <h3> Cancel</h3> : <h3> Edit</h3>}</button>
-                                                                <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
+                                                                <button className=" bg-blueGray-600  text-white active:bg-blueGray-600  font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" onClick={() =>setUpdatecontact(!updatecontact)}>Cancel</button>
                                                                 <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
+                                                               
                                                             </div>
                                                         </div>
+                                                        
                                                     </div>
 
+                                                   
 
-
-                                                )
-                                            })
-
-                                        }
-
+                                              
+                                           
 
                                     </div>}
 

@@ -63,6 +63,7 @@ const Change =(id)=>{
               >
                 View Details
               </button></Link>
+              <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-3 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
               
              
                 </div>

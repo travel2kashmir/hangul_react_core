@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
+import CardGallery from '../Cards/CardGallery'
 
 
 const PropertySummaryTab2 = () => {
@@ -8,6 +9,7 @@ const PropertySummaryTab2 = () => {
   const [updatereview, setUpdatereview] = useState(false)
   const [review, setReview] = useState({})
   const [viewreview, setViewreview] = useState(false)
+  const [addimage, setAddimage] = useState(false) 
   const [loader, setLoader] = useState(false)
   useEffect(() => {
     const fetchServices = async () => {
@@ -38,6 +40,7 @@ const PropertySummaryTab2 = () => {
 
 
   const [openTab, setOpenTab] = React.useState(1);
+  const [deleteimage,setDeleteimage]=React.useState(false);
 
   return (
     <div className="flex flex-wrap">
@@ -331,6 +334,7 @@ const PropertySummaryTab2 = () => {
                             <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
                               onClick={() => setUpdatereview(!updatereview)}>
                               Edit</button>
+                              <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
                           </div>
                         </div>
                         :
@@ -473,7 +477,7 @@ const PropertySummaryTab2 = () => {
 
                           <div className="text-center flex justify-end mt-8"  >
                             <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatereview(!updatereview)}>Cancel</button>
-                            <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
+                           
                             <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
                           </div>
                         </div>
@@ -486,6 +490,10 @@ const PropertySummaryTab2 = () => {
               </div>
 
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
+               
+              {addimage === false ?
+
+                 <div>
                 <h6 className="text-blueGray-700 text-xl font-bold">Property Gallery</h6><br />
                 <div className="flex flex-wrap" style={{ width: "100%" }} >
                   {allHotelDetails?.images?.map((item) => {
@@ -500,19 +508,54 @@ const PropertySummaryTab2 = () => {
                         <table>
                           <tr>
                             <td>
-                              <h4 class="pl-2 pt-1">{item.image_title}</h4>
+                              <h4 class="pl-2 pt-1">{item.image_title}</h4>  
                             </td>
-                          </tr>
+                            </tr>     
+                         
                         </table>
+                        {deleteimage===true?
+                               <div className="text-center  flex justify-end"> 
+                               <i className="fas fa-trash text-blueGray-600 mr-2  text-base"></i>
+                                </div>
+                              :<></>}
                       </div>
+                      
                     )
                   }
                   )
                   }
                 </div>
+                {deleteimage===false?
+                <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
+
+                                            
+                                            <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setAddimage(!addimage)}>Add More Images</button>
+                                            <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={()=>setDeleteimage(!deleteimage)} >Delete Images</button>
+                                        </div>:
+                                        
+                                        <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
+
+                                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={()=>setDeleteimage(!deleteimage)} >Back</button>
+                                    </div>                      
+                                        
+                                        
+                                        }
+                                        
+                                        
+                                        
+                                        </div>
+
+  :       
+  <div>
+       <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={()=>setAddimage(!addimage)} >Back</button>
+  <CardGallery/>
+  </div>
+  }
+
+
               </div>
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                <h6 className="text-blueGray-700 text-xl font-bold">Property Services</h6><br />
+                <h6 className="text-blueGray-700 text-lg font-bold">Property Services</h6><br />
                 <div class="flex flex-wrap" style={{ width: "100%" }}>
                   {allHotelDetails?.services?.map((item) => {
                     return (
