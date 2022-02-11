@@ -61,13 +61,17 @@ function RoomSummaryTab(props) {
       }
 
   }
+
+
+  
+       
  
 
     fetchServices();
     fetchRoomfacilities();
     
   
-  }, [])
+  }, [])// eslint-disable-next-line
 
   const filtering = () =>{
     const data2= allRoomDetails?.room_facilities;
@@ -81,10 +85,9 @@ function RoomSummaryTab(props) {
       }).filter(i=> i !== undefined)   
       setFilteredservices(finaldata)
       console.warn("services not selected so far "+JSON.stringify(filteredservices))
-      alert("filtered services"+JSON.stringify(filteredservices))  
-    }
-         
-
+      
+    } 
+   
   return (<>
 
     <div className="flex flex-wrap">
@@ -110,7 +113,7 @@ function RoomSummaryTab(props) {
               href="#link1"
               role="tablist"
             >
-              Room Description
+              Room Description 
             </a>
           </li>
           <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -143,6 +146,7 @@ function RoomSummaryTab(props) {
               onClick={e => {
                 e.preventDefault();
                 setOpenTab(3);
+                filtering();
               }}
               data-toggle="tab"
               href="#link3"
@@ -513,7 +517,7 @@ function RoomSummaryTab(props) {
                      
                  <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
                         onClick={() =>{ 
-                          filtering();
+                          
                         setUpdatefacilities(!updatefacilities);
                         }}>
                         Edit</button>
@@ -524,12 +528,12 @@ function RoomSummaryTab(props) {
                   <div>
                   <h6 className="text-blueGray-700 text-lg font-bold">Select Room Services</h6><br />
                   <div class="flex flex-wrap" style={{ width: "100%" }}>
-                  {roomfacilities?.map(i => {
+                  {filteredservices?.map(i => {
                    return (<div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
                     <input type="checkbox" class="mr-1"
 
                         onClick={() => {
-                            setRoomfacilities(roomfacilities.map((item) => {
+                            setFilteredservices(filteredservices.map((item) => {
                                 if (item.service_id === i.service_id) {
                                     item.check = !item.check
                                 }
