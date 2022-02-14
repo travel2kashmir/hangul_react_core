@@ -77,7 +77,10 @@ const PropertySummaryTab2 = () => {
       console.warn("services not selected so far "+JSON.stringify(filteredservices))
       
     } 
- 
+    
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    } 
 
   return (
     <div className="flex flex-wrap">
@@ -199,7 +202,7 @@ const PropertySummaryTab2 = () => {
                                 {item?.review_title}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {item?.review_type}
+                                {capitalizeFirstLetter(item?.review_type)}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
 

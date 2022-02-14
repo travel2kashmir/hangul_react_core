@@ -44,29 +44,24 @@ const IndexDropdown = () => {
           Admin Layout
         </span>
         <Link
-          to="/admin/dashboard"
+          to=""
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Dashboard
         </Link>
         <Link
-          to="/admin/settings"
+          to=""
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Settings
         </Link>
         <Link
-          to="/admin/tables"
+          to=""
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Tables
         </Link>
-        <Link
-          to="/admin/maps"
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-        >
-          Maps
-        </Link>
+       
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
@@ -76,13 +71,13 @@ const IndexDropdown = () => {
           Auth Layout
         </span>
         <Link
-          to="/auth/login"
+          to=""
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Login
         </Link>
         <Link
-          to="/auth/register"
+          to=""
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Register
@@ -96,13 +91,13 @@ const IndexDropdown = () => {
           No Layout
         </span>
         <Link
-          to="/landing"
+          to=""
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Landing
         </Link>
         <Link
-          to="/profile"
+          to=""
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
           Profile

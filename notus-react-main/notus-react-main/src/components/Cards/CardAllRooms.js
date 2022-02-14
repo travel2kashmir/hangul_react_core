@@ -4,10 +4,7 @@ import { Redirect,Link } from 'react-router-dom';
 // components
 
 export default function CardPageVisits({item}) {
-const Change =(id)=>{
- console.log("id is "+id);
- <Redirect to='/room-summary'/>
-}
+
   
   
   return (
@@ -59,7 +56,7 @@ const Change =(id)=>{
                   }
                   }}> <button 
                 className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150"
-                type="button" onClick={()=>Change(item.room_id)}
+                type="button" 
               >
                 View Details
               </button></Link>

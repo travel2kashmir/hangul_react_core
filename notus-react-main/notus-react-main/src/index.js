@@ -9,12 +9,14 @@ import { Route, Switch,Redirect } from 'react-router';
 import Auth from 'layouts/Auth';
 import AdminView from "views/Admin/AdminView";
 import PropertyOwnerView from "views/PropertyOwner/PropertyOwnerView";
+import Profile from './views/PropertyOwner/Profile'
 ReactDOM.render(
  <Provider store={store}>
  <BrowserRouter>
  <Switch>
  <Route exact path="/" component={Auth}/>
- <Route exact path="/owner" component={PropertyOwnerView}/>
+ <Route exact path="/owner" component={Profile}/>
+ <Route exact path="/owner-view" component={PropertyOwnerView}/>
  <Route excat path="/admin" component={AdminView}/>
  <Redirect from="*" to="/" />
  </Switch>
