@@ -6,10 +6,17 @@ import CardGallery from '../Cards/CardGallery'
 const PropertySummaryTab2 = () => {
   //const [data] = useContext(Context)
   const [allHotelDetails, setAllHotelDetails] = useState({})
+  const [allservices, setAllservices] = useState({})
+  const[filteredservices,setFilteredservices]= useState({})
   const [updatereview, setUpdatereview] = useState(false)
+  const [updateservices, setUpdateservices] = useState(false)
   const [review, setReview] = useState({})
   const [viewreview, setViewreview] = useState(false)
-  const [addimage, setAddimage] = useState(false) 
+  const [addimage, setAddimage] = useState(false)
+  const [openTab, setOpenTab] = React.useState(1);
+  const [deleteimage, setDeleteimage] = React.useState(false);
+  const [deleteservices, setDeleteservices] = useState(false)
+ 
   const [loader, setLoader] = useState(false)
   useEffect(() => {
     const fetchServices = async () => {
@@ -35,12 +42,42 @@ const PropertySummaryTab2 = () => {
         }
       }
     }
+    const fetchAllservices = async () => {
+      try {
+        const response = await axios.get('http://103.136.36.27:7860/services', { headers: { 'accept': 'application/json' } });
+        console.log(response.data)
+        setAllservices(response.data)
+      }
+      catch (error) {
+        if (error.response) {
+          console.log("data" + error.response);
+          console.log("status" + error.response.status);
+          console.log("header" + error.response.headers);
+        } else {
+          console.log("error" + error.message);
+        }
+      }
+
+    }
+    fetchAllservices();
     fetchServices();
   }, [])
 
-
-  const [openTab, setOpenTab] = React.useState(1);
-  const [deleteimage,setDeleteimage]=React.useState(false);
+  const filtering = () =>{
+    const data2= allHotelDetails?.services;
+    const Uservices  = data2.map(i=> i.service_value)
+    const data1=allservices;
+    const finaldata= data1.map((i)=>{
+      const newOne= Uservices?.includes(i.service_value) ?? false
+     if(!newOne){
+     return i
+     }
+      }).filter(i=> i !== undefined)   
+      setFilteredservices(finaldata)
+      console.warn("services not selected so far "+JSON.stringify(filteredservices))
+      
+    } 
+ 
 
   return (
     <div className="flex flex-wrap">
@@ -65,7 +102,7 @@ const PropertySummaryTab2 = () => {
               href="#link1"
               role="tablist"
             >
-              Reviews
+              Reviews 
             </a>
           </li>
           <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -98,6 +135,7 @@ const PropertySummaryTab2 = () => {
               onClick={e => {
                 e.preventDefault();
                 setOpenTab(3);
+                filtering();
               }}
               data-toggle="tab"
               href="#link3"
@@ -121,11 +159,9 @@ const PropertySummaryTab2 = () => {
 
                   <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center">
-                      <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                        <h3 className="font-semibold text-base text-blueGray-700">
-                          Property Reviews
-                        </h3>
-                      </div>
+                   
+                    <h6 className="text-blueGray-700 text-xl font-bold">Property Reviews</h6><br />
+
 
                     </div>
                   </div>
@@ -334,7 +370,7 @@ const PropertySummaryTab2 = () => {
                             <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
                               onClick={() => setUpdatereview(!updatereview)}>
                               Edit</button>
-                              <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
+                            <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
                           </div>
                         </div>
                         :
@@ -476,8 +512,8 @@ const PropertySummaryTab2 = () => {
                           </form>
 
                           <div className="text-center flex justify-end mt-8"  >
-                            <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatereview(!updatereview)}>Cancel</button>
-                           
+                            <button className=" bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatereview(!updatereview)}>Cancel</button>
+
                             <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
                           </div>
                         </div>
@@ -490,71 +526,73 @@ const PropertySummaryTab2 = () => {
               </div>
 
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-               
-              {addimage === false ?
 
-                 <div>
-                <h6 className="text-blueGray-700 text-xl font-bold">Property Gallery</h6><br />
-                <div className="flex flex-wrap" style={{ width: "100%" }} >
-                  {allHotelDetails?.images?.map((item) => {
-                    return (
+                {addimage === false ?
 
-                      <div className="block text-blueGray-600 text-xs font-bold mb-2 " style={{ margin: "10px", marginLeft: "46px" }}>
-                        <div className="container grid grid-cols-3 gap-2">
-                          <div class="w-full rounded" >
-                            <img src={item.image_link} alt='pic_room' style={{ height: "160px", width: "260px" }} />
+                  <div>
+                    <h6 className="text-blueGray-700 text-xl font-bold">Property Gallery</h6><br />
+                    <div className="flex flex-wrap" style={{ width: "100%" }} >
+                      {allHotelDetails?.images?.map((item) => {
+                        return (
+
+                          <div className="block text-blueGray-600 text-xs font-bold mb-2 " style={{ margin: "10px", marginLeft: "46px" }}>
+                            <div className="container grid grid-cols-3 gap-2">
+                              <div class="w-full rounded" >
+                                <img src={item.image_link} alt='pic_room' style={{ height: "160px", width: "260px" }} />
+                              </div>
+                            </div>
+                            <table>
+                              <tr>
+                                <td>
+                                  <h4 class="pl-2 pt-1">{item.image_title}</h4>
+                                </td>
+                              </tr>
+
+                            </table>
+                            {deleteimage === true ?
+                              <div className="text-center  flex justify-end">
+                                <i className="fas fa-trash  mr-2  text-base" ></i>
+                              </div>
+                              : <></>}
                           </div>
-                        </div>
-                        <table>
-                          <tr>
-                            <td>
-                              <h4 class="pl-2 pt-1">{item.image_title}</h4>  
-                            </td>
-                            </tr>     
-                         
-                        </table>
-                        {deleteimage===true?
-                               <div className="text-center  flex justify-end"> 
-                               <i className="fas fa-trash text-blueGray-600 mr-2  text-base"></i>
-                                </div>
-                              :<></>}
+
+                        )
+                      }
+                      )
+                      }
+                    </div>
+                    {deleteimage === false ?
+                      <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
+
+
+                        <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setAddimage(!addimage)}>Add More Images</button>
+                        <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setDeleteimage(!deleteimage)} >Delete Images</button>
+                      </div> :
+
+                      <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
+
+                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setDeleteimage(!deleteimage)} >Back</button>
                       </div>
-                      
-                    )
-                  }
-                  )
-                  }
-                </div>
-                {deleteimage===false?
-                <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
 
-                                            
-                                            <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setAddimage(!addimage)}>Add More Images</button>
-                                            <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={()=>setDeleteimage(!deleteimage)} >Delete Images</button>
-                                        </div>:
-                                        
-                                        <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
 
-                                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={()=>setDeleteimage(!deleteimage)} >Back</button>
-                                    </div>                      
-                                        
-                                        
-                                        }
-                                        
-                                        
-                                        
-                                        </div>
+                    }
 
-  :       
-  <div>
-       <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={()=>setAddimage(!addimage)} >Back</button>
-  <CardGallery/>
-  </div>
-  }
+
+
+                  </div>
+
+                  :
+                  <div>
+                    <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setAddimage(!addimage)} >Back</button>
+                    <CardGallery />
+                  </div>
+                }
 
 
               </div>
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
+                {updateservices === false?
+                <div>
                 <h6 className="text-blueGray-700 text-lg font-bold">Property Services</h6><br />
                 <div class="flex flex-wrap" style={{ width: "100%" }}>
                   {allHotelDetails?.services?.map((item) => {
@@ -563,7 +601,11 @@ const PropertySummaryTab2 = () => {
                         <tr style={{ width: "400px" }}>
 
                           <td >
-                            <input type="checkbox" checked></input> </td>
+                             {deleteservices === false?
+                            <></> :
+                            <input type="checkbox"></input>}
+                            </td>
+
                           <td >
                             <label
                               htmlFor="grid-password">{item.service_value.replace(/_+/g, ' ')}- </label></td>
@@ -576,6 +618,61 @@ const PropertySummaryTab2 = () => {
                   })
                   }
                 </div>
+                {deleteservices === true?
+                <div className="text-center flex justify-end mt-8" >
+                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setDeleteservices(!deleteservices)} type="button"> Back</button>  
+                        <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button"  > Services</button>
+                      </div> :
+                       <div className="text-center flex justify-end mt-8" >
+                        
+                       <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
+                         onClick={() => setUpdateservices(!updateservices)}>
+                           
+                         Add More Services</button>
+                       <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setDeleteservices(!deleteservices)} >Delete</button>
+                     </div> 
+                    
+                    }
+
+                  </div> 
+                :
+                  <div>
+                     <h6 className="text-blueGray-700 text-lg font-bold">Select Property Services</h6><br />
+                  <div class="flex flex-wrap" style={{ width: "100%" }}>
+                  {filteredservices?.map(i => {
+                   return (<div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
+                    <input type="checkbox" class="mr-1"
+
+                        onClick={() => {
+                            setFilteredservices(filteredservices.map((item) => {
+                                if (item.service_id === i.service_id) {
+                                    item.check = !item.check
+                                }
+                                return item
+                            }))
+
+                        }}
+                    />
+
+                    {i.service_value.replace(/_+/g, ' ')}
+
+                </div>)
+
+            })}
+                  </div>
+
+
+
+                    <div className="text-center flex justify-end mt-8" >
+
+                      <button className=" bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        onClick={() => setUpdateservices(!updateservices)}>
+                        Cancel</button>
+                        <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
+                     
+                    </div>
+                  </div>
+                   }
               </div>
             </div>
           </div>
