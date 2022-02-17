@@ -2,14 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../context/provider';
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { createPopper } from "@popperjs/core";
 
 
-function RoomSummaryTab(props) {  
+
+function RoomSummaryTab(props) {
   const [data] = useContext(Context)
-  const [popoverShow, setPopoverShow] = React.useState(false);
-  const btnRef = React.createRef();
-  const popoverRef = React.createRef();
   const [roomfacilities, setRoomfacilities] = useState({})
   const [roomimages, setRoomimages] = useState({})
   const [allRoomDetails, setAllRoomDetails] = useState([])
@@ -17,12 +14,10 @@ function RoomSummaryTab(props) {
   const [updateimage, setUpdateimage] = useState(false)
   const [updatefacilities, setUpdatefacilities] = useState(false)
   const [openTab, setOpenTab] = React.useState(1);
-  const [filteredservices,setFilteredservices]=useState([])
-  const[filteredimages,setFilteredimages]=useState([])
-  const [deleteimage,setDeleteimage]=React.useState(false);
-  const [deletefacilities,setDeletefacilities]=React.useState(false);
-  
- 
+  const [filteredservices, setFilteredservices] = useState([])
+  const [filteredimages, setFilteredimages] = useState([])
+  const [deleteimage, setDeleteimage] = React.useState(false);
+  const [deletefacilities, setDeletefacilities] = React.useState(false);
 
   //For Rooms
   useEffect(() => {
@@ -51,100 +46,122 @@ function RoomSummaryTab(props) {
 
     const fetchRoomfacilities = async () => {
       try {
-         // const url = `/room-services/${data.property_id}`;
-          const url = `/room-services/t2k001`; //fetches all room type services of hotel
-          const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
-          console.log("room facilities " + JSON.stringify(response.data))
+        // const url = `/room-services/${data.property_id}`;
+        const url = `/room-services/t2k001`; //fetches all room type services of hotel
+        const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
+        console.log("room facilities " + JSON.stringify(response.data))
 
-          setRoomfacilities(response.data)
+        setRoomfacilities(response.data)
       }
       catch (error) {
-          if (error.response) {
-              console.log("roomdes" + JSON.stringify(error.response));
-              console.log("status" + JSON.stringify(error.response.status));
-              console.log("header" + JSON.stringify(error.response.headers));
-          } else {
-              console.log("error" + error.message);
-          }
+        if (error.response) {
+          console.log("roomdes" + JSON.stringify(error.response));
+          console.log("status" + JSON.stringify(error.response.status));
+          console.log("header" + JSON.stringify(error.response.headers));
+        } else {
+          console.log("error" + error.message);
+        }
       }
 
-  }
-  const fetchImages = async () => {
-    try {
+    }
+    const fetchImages = async () => {
+      try {
         //const url = `/images/${data.property_id}`;
         const url = `/images/t2k001`;
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log("Response from API" + response.data)
         setRoomimages(response.data)
         console.log("image state" + roomimages)
-    }
-    catch (error) {
+      }
+      catch (error) {
         if (error.response) {
-            console.log("data" + error.response);
-            console.log("status" + error.response.status);
-            console.log("header" + error.response.headers);
+          console.log("data" + error.response);
+          console.log("status" + error.response.status);
+          console.log("header" + error.response.headers);
         } else {
-            console.log("error" + error.message);
+          console.log("error" + error.message);
         }
-    }
+      }
 
-}
+    }
     fetchImages();
     fetchServices();
     fetchRoomfacilities();
-    
-  
+
+
   }, [])// eslint-disable-next-line
-  const openTooltip = () => {
-    createPopper(btnRef.current, popoverRef.current, {
-      placement: "left"
-    });
-    setPopoverShow(true);
-  };
-  const closeTooltip = () => {
-    setPopoverShow(false);
-  };
-  const filteringimages = () =>{
-    const data2= allRoomDetails?.room_images;
-    const Uimages  = data2.map(i=> i.image_link)
-    const data1=roomimages;
-    const finaldata= data1.map((i)=>{
-      const newOne= Uimages?.includes(i.image_link) ?? false
-     if(!newOne){
-     return i
-     }
-      }).filter(i=> i !== undefined)   
-      setFilteredimages(finaldata)
-      console.warn("images not selected so far "+JSON.stringify(filteredimages))
-      
-    } 
 
-    const filtering = () =>{
-      const data2= allRoomDetails?.room_facilities;
-      const Uservices  = data2.map(i=> i.service_name)
-      const data1=roomfacilities;
-      const finaldata= data1.map((i)=>{
-        const newOne= Uservices?.includes(i.service_value) ?? false
-       if(!newOne){
-       return i
-       }
-        }).filter(i=> i !== undefined)   
-        setFilteredservices(finaldata)
+  const filteringimages = () => {
+    const data2 = allRoomDetails?.room_images;
+    const Uimages = data2.map(i => i.image_link)
+    const data1 = roomimages;
+    const finaldata = data1.map((i) => {
+      const newOne = Uimages?.includes(i.image_link) ?? false
+      if (!newOne) {
+        return i
+      }
+    }).filter(i => i !== undefined)
+    setFilteredimages(finaldata)
+    console.warn("images not selected so far " + JSON.stringify(filteredimages))
 
-        
-      } 
-    
+  }
 
-    
-        
-        
-     
-   
+  const filtering = () => {
+    const data2 = allRoomDetails?.room_facilities;
+    const Uservices = data2.map(i => i.service_name)
+    const data1 = roomfacilities;
+    const finaldata = data1.map((i) => {
+      const newOne = Uservices?.includes(i.service_value) ?? false
+      if (!newOne) {
+        return i
+      }
+    }).filter(i => i !== undefined)
+    setFilteredservices(finaldata)
+
+
+  }
+
+  const submitRoomDescriptionEdit = () => {
+    console.log(JSON.stringify(data))
+    const final_data = {
+      "room_id": props.room_id,
+      "room_name": allRoomDetails.room_name,
+      "room_type_id": allRoomDetails.room_type_id,
+      "room_description": allRoomDetails.room_description,
+      "room_capacity": allRoomDetails.room_capacity,
+      "maximum_number_of_occupants": allRoomDetails.maximum_number_of_occupants,
+      "minimum_number_of_occupants": allRoomDetails.minimum_number_of_occupants,
+      "minimum_age_of_occupants": allRoomDetails.minimum_age_of_occupants,
+      "room_length": allRoomDetails.room_length,
+      "room_width": allRoomDetails.room_width,
+      "room_height": allRoomDetails.room_height
+
+        }
+
+    console.log("the new information " + JSON.stringify(final_data))
+    const url = '/basic'
+    axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+      ((response) => {
+        console.log(response.data);
+        alert('Put Basic Details successful')
+      })
+      .catch((response) => {
+        console.log(response);
+        alert('Put Basic Details failed')
+      })
+  }
+
+
+
+
+
+
+
   return (<>
 
     <div className="flex flex-wrap">
       <div className="w-full">
-          
+
         <ul
           className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
           role="tablist"
@@ -165,7 +182,7 @@ function RoomSummaryTab(props) {
               href="#link1"
               role="tablist"
             >
-              Room Description 
+              Room Description
             </a>
           </li>
           <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -206,7 +223,7 @@ function RoomSummaryTab(props) {
               role="tablist"
             >
               Room Services
-              
+
             </a>
           </li>
         </ul>
@@ -366,6 +383,11 @@ function RoomSummaryTab(props) {
 
                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                             defaultValue={allRoomDetails?.room_name}
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, room_name: e.target.value })
+                              )
+                          }
                           />
                         </div>
                       </div>
@@ -379,6 +401,11 @@ function RoomSummaryTab(props) {
 
                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                             defaultValue={allRoomDetails?.room_type}
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, room_type: e.target.value })
+                              )
+                          }
                           />
                         </div>
                       </div>
@@ -390,7 +417,12 @@ function RoomSummaryTab(props) {
                             htmlFor="grid-password">Room description</label>
                           <textarea rows="2" columns="60"
                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            defaultValue={allRoomDetails?.room_description} />
+                            defaultValue={allRoomDetails?.room_description} 
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, room_description: e.target.value })
+                              )
+                          }/>
                         </div>
                       </div>
 
@@ -402,6 +434,11 @@ function RoomSummaryTab(props) {
 
                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                             defaultValue={allRoomDetails?.room_capacity}
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, room_capacity: e.target.value })
+                              )
+                          }
                           />
                         </div>
                       </div>
@@ -410,14 +447,24 @@ function RoomSummaryTab(props) {
                         <div className="relative w-full mb-3">
                           <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">Maximum number of occupants</label>
                           <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            defaultValue={allRoomDetails?.maximum_number_of_occupants} />
+                            defaultValue={allRoomDetails?.maximum_number_of_occupants} 
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, maximum_number_of_occupants: e.target.value })
+                              )
+                          } />
                         </div>
                       </div>
                       <div className="w-full lg:w-6/12 px-4">
                         <div className="relative w-full mb-3">
                           <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">Minimum number of occupants</label>
                           <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            defaultValue={allRoomDetails?.minimum_number_of_occupants} />
+                            defaultValue={allRoomDetails?.minimum_number_of_occupants}
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, minimum_number_of_occupants: e.target.value })
+                              )
+                          } />
                         </div>
                       </div>
 
@@ -428,7 +475,12 @@ function RoomSummaryTab(props) {
                           <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                             Maximum age of occupants</label>
                           <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            defaultValue={allRoomDetails?.minimum_age_of_occupants} />
+                            defaultValue={allRoomDetails?.minimum_age_of_occupants} 
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, minimum_age_of_occupants: e.target.value })
+                              )
+                          }/>
                         </div>
                       </div>
 
@@ -437,7 +489,12 @@ function RoomSummaryTab(props) {
                           <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                             Length(in feets)</label>
                           <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            defaultValue={allRoomDetails?.room_length} />
+                            defaultValue={allRoomDetails?.room_length} 
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, room_length: e.target.value })
+                              )
+                          }/>
                         </div>
                       </div>
 
@@ -446,7 +503,12 @@ function RoomSummaryTab(props) {
                           <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                             Breadth(in feets)</label>
                           <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            defaultValue={allRoomDetails?.room_width} />
+                            defaultValue={allRoomDetails?.room_width}
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, room_width: e.target.value })
+                              )
+                          } />
                         </div>
                       </div>
 
@@ -455,7 +517,12 @@ function RoomSummaryTab(props) {
                           <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                             Height(in feets)</label>
                           <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            defaultValue={allRoomDetails?.room_height} />
+                            defaultValue={allRoomDetails?.room_height}
+                            onChange={
+                              (e) => (
+                                  setAllRoomDetails({ ...allRoomDetails, room_height: e.target.value })
+                              )
+                          } />
                         </div>
                       </div>
 
@@ -482,8 +549,8 @@ function RoomSummaryTab(props) {
                     </div>
                     <div className="text-center flex justify-end mt-8"  >
                       <button className="bg-blueGray-600  text-white active:bg-blueGray-600  font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdateroom(!updateroom)}>Cancel</button>
-                     
-                      <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
+
+                      <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"  onClick={submitRoomDescriptionEdit} type="button" >Submit</button>
                     </div>
                   </div>
                 }
@@ -503,21 +570,21 @@ function RoomSummaryTab(props) {
                                 <img src={item.image_link} alt='pic_room' style={{ height: "160px", width: "260px" }} />
                               </div>
                             </div>
-                            
-                              <tr>
-                                <td>
+
+                            <tr>
+                              <td>
 
 
-                                  <h4 class="pl-2 pt-1">{item.image_title}</h4>
-                                </td>
+                                <h4 class="pl-2 pt-1">{item.image_title}</h4>
+                              </td>
 
-                              </tr>
-                             {deleteimage===true?
-                               <div className="text-center  flex justify-end"> 
-                               <i className="fas fa-trash  mr-2  text-base"></i>
-                                </div>
-                              :<></>}
-                           
+                            </tr>
+                            {deleteimage === true ?
+                              <div className="text-center  flex justify-end">
+                                <i className="fas fa-trash  mr-2  text-base"></i>
+                              </div>
+                              : <></>}
+
                           </div>
                         )
                       }
@@ -526,84 +593,84 @@ function RoomSummaryTab(props) {
                       }
                     </div>
 
-                    {deleteimage===false?
-                    <div className="text-center flex justify-end mt-8" >
-                    <Link to='/rooms'>
-                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"> Back</button>
-                      </Link>
-                      <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
-                        onClick={() => setUpdateimage(!updateimage)}>
-                        Edit</button>
-                      <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button"  onClick={() => setDeleteimage(!deleteimage)} >Delete</button>
-                    </div>
-:
-<div className="text-center flex justify-end mt-8" >
+                    {deleteimage === false ?
+                      <div className="text-center flex justify-end mt-8" >
+                        <Link to='/rooms'>
+                          <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"> Back</button>
+                        </Link>
+                        <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
+                          onClick={() => setUpdateimage(!updateimage)}>
+                          Edit</button>
+                        <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setDeleteimage(!deleteimage)} >Delete</button>
+                      </div>
+                      :
+                      <div className="text-center flex justify-end mt-8" >
 
-    <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setDeleteimage(!deleteimage)} type="button"> Back</button>
- 
-  
-</div>
+                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setDeleteimage(!deleteimage)} type="button"> Back</button>
 
 
-}
+                      </div>
+
+
+                    }
 
                   </div>
                   :
                   <div>
-                  <h6 className="text-blueGray-400 text-sm mt-3  font-bold uppercase">
+                    <h6 className="text-blueGray-400 text-sm mt-3  font-bold uppercase">
                       Select Room Images
-                  </h6><br />
-      
-                  <div className="flex" >
+                    </h6><br />
+
+                    <div className="flex" >
                       {filteredimages?.map(i => {
-                          return (
-      
-                              <div className="block text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
-                                  <div class="container grid grid-cols-4 gap-2 mx-auto">
-                                      <div class="w-full rounded" >
-                                          <img src={i.image_link} alt='pic_room' style={{ height: "160px", width: "260px" }} />
-                                      </div>
-                                  </div>
-                                  <table>
-                                      <tr>
-                                          <td>
-                                              <input type="checkbox"
-      
-                                                  onClick={() => {
-                                                      setFilteredimages(filteredimages.map((item) => {
-                                                          if (item.image_link === i.image_link) {
-                                                              item.check = !item.check
-                                                          }
-                                                          return item
-                                                      }))
-      
-                                                  }}
-                                              />
-      
-                                          </td>
-                                          <td>
-      
-      
-                                              <h4 class="pl-2 pt-1">{i.image_title}</h4>
-                                          </td>
-      
-                                      </tr>
-      
-                                  </table>
-                              </div>)
-      
+                        return (
+
+                          <div className="block text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
+                            <div class="container grid grid-cols-4 gap-2 mx-auto">
+                              <div class="w-full rounded" >
+                                <img src={i.image_link} alt='pic_room' style={{ height: "160px", width: "260px" }} />
+                              </div>
+                            </div>
+                            <table>
+                              <tr>
+                                <td>
+                                  <input type="checkbox"
+
+                                    onClick={() => {
+                                      setFilteredimages(filteredimages.map((item) => {
+                                        if (item.image_link === i.image_link) {
+                                          item.check = !item.check
+                                        }
+                                        return item
+                                      }))
+
+                                    }}
+                                  />
+
+                                </td>
+                                <td>
+
+
+                                  <h4 class="pl-2 pt-1">{i.image_title}</h4>
+                                </td>
+
+                              </tr>
+
+                            </table>
+                          </div>)
+
                       })}
-                  </div>
-                  <div className="relative w-full mb-3">
-                  <div className="text-center flex justify-end">
-                  <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"  onClick={() => setUpdateimage(!updateimage)} type="button"> Cancel</button>
+                    </div>
+                    <div className="relative w-full mb-3">
+                      <div className="text-center flex justify-end">
+                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdateimage(!updateimage)} type="button"> Cancel</button>
                         <button
                           className='bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                         >Submit </button>
-              </div>
-              </div>
-              </div>     
-                 }
+                      </div>
+                    </div>
+                  </div>
+                }
               </div>
 
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
@@ -619,13 +686,13 @@ function RoomSummaryTab(props) {
 
                             <tr style={{ width: "400px" }}>
                               <td >
-                              {deletefacilities === false ?
-                                <>
+                                {deletefacilities === false ?
+                                  <>
 
-                                </>:
-                              <input type="checkbox">
+                                  </> :
+                                  <input type="checkbox">
 
-                              </input> }
+                                  </input>}
                               </td>
                               <td >
                                 <label
@@ -634,68 +701,68 @@ function RoomSummaryTab(props) {
                               </td>
 
                             </tr>
-                           
+
                           </div>
                         )
                       })
 
                       }
                     </div>
-                    {deletefacilities === true?
-                <div className="text-center flex justify-end mt-8" >
-                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setDeletefacilities(!deletefacilities)} type="button"> Back</button>  
+                    {deletefacilities === true ?
+                      <div className="text-center flex justify-end mt-8" >
+                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setDeletefacilities(!deletefacilities)} type="button"> Back</button>
                         <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150"
-                       type="button" >Delete </button>
+                          type="button" >Delete </button>
                       </div> :
-                    <div className="text-center flex justify-end mt-8"  >
-                    <Link to='/rooms'>
-                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"> Back</button>
-                      </Link>
-                     
-                 <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
-                        onClick={() =>{ 
-                          
-                        setUpdatefacilities(!updatefacilities);
-                        }}>
-                        Edit</button>
-                      <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150"
-                       onClick={() =>{  
-                        setDeletefacilities(!deletefacilities);
-                        }} type="button" >Delete Facilities</button>
-                    </div>}
+                      <div className="text-center flex justify-end mt-8"  >
+                        <Link to='/rooms'>
+                          <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"> Back</button>
+                        </Link>
+
+                        <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
+                          onClick={() => {
+
+                            setUpdatefacilities(!updatefacilities);
+                          }}>
+                          Edit</button>
+                        <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150"
+                          onClick={() => {
+                            setDeletefacilities(!deletefacilities);
+                          }} type="button">Delete Facilities</button>
+                      </div>}
                   </div>
                   :
                   <div>
-                  <h6 className="text-blueGray-700 text-lg font-bold">Select Room Services</h6><br />
-                  <div class="flex flex-wrap" style={{ width: "100%" }}>
-                  {filteredservices?.map(i => {
-                   return (<div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
-                    <input type="checkbox" class="mr-1"
+                    <h6 className="text-blueGray-700 text-lg font-bold">Select Room Services</h6><br />
+                    <div class="flex flex-wrap" style={{ width: "100%" }}>
+                      {filteredservices?.map(i => {
+                        return (<div className="block   text-blueGray-600 text-xs font-bold mb-2" style={{ margin: "10px", marginLeft: "15px", fontSize: "15px" }}>
+                          <input type="checkbox" class="mr-1"
 
-                        onClick={() => {
-                            setFilteredservices(filteredservices.map((item) => {
+                            onClick={() => {
+                              setFilteredservices(filteredservices.map((item) => {
                                 if (item.service_id === i.service_id) {
-                                    item.check = !item.check
+                                  item.check = !item.check
                                 }
                                 return item
-                            }))
+                              }))
 
-                        }}
-                    />
+                            }}
+                          />
 
-                    {i.service_value.replace(/_+/g, ' ')}
+                          {i.service_value.replace(/_+/g, ' ')}
 
-                </div>)
+                        </div>)
 
-            })}
+                      })}
+                    </div>
+                    <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
+                      <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatefacilities(!updatefacilities)} type="button"> Cancel</button>
+                      <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"  >Submit</button>
+                    </div>
                   </div>
-                  <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
-                  <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"  onClick={() => setUpdatefacilities(!updatefacilities)} type="button"> Cancel</button>
-                  <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
-                 </div>
-                  </div>
-                 
-                 }
+
+                }
 
               </div>
 

@@ -17,7 +17,7 @@ ReactDOM.render(
  <Route exact path="/" component={Auth}/>
  <Route exact path="/owner" component={Profile}/>
  <Route exact path="/owner-view" component={PropertyOwnerView}/>
- <Route excat path="/admin" component={AdminView}/>
+ <Route exact path="/admin" component={AdminView}/>
  <Redirect from="*" to="/" />
  </Switch>
  </BrowserRouter>

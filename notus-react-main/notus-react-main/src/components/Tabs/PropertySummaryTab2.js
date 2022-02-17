@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useContext, useState } from 'react';
 import CardGallery from '../Cards/CardGallery'
-
+import { Context } from '../../context/provider';
 
 const PropertySummaryTab2 = () => {
-  //const [data] = useContext(Context)
+  const [data] = useContext(Context)
   const [allHotelDetails, setAllHotelDetails] = useState({})
   const [allservices, setAllservices] = useState({})
   const[filteredservices,setFilteredservices]= useState({})
@@ -16,8 +16,10 @@ const PropertySummaryTab2 = () => {
   const [openTab, setOpenTab] = React.useState(1);
   const [deleteimage, setDeleteimage] = React.useState(false);
   const [deleteservices, setDeleteservices] = useState(false)
- 
   const [loader, setLoader] = useState(false)
+  const [showModal, setShowModal] = React.useState(false);
+  const [id,setId]= useState()
+
   useEffect(() => {
     const fetchServices = async () => {
       setLoader(true)
@@ -28,11 +30,9 @@ const PropertySummaryTab2 = () => {
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log(response.data)
         setLoader(false)
-
         setAllHotelDetails(response.data)
       }
       catch (error) {
-
         if (error.response) {
           console.log("data" + error.response);
           console.log("status" + error.response.status);
@@ -42,6 +42,7 @@ const PropertySummaryTab2 = () => {
         }
       }
     }
+ 
     const fetchAllservices = async () => {
       try {
         const response = await axios.get('http://103.136.36.27:7860/services', { headers: { 'accept': 'application/json' } });
@@ -77,7 +78,48 @@ const PropertySummaryTab2 = () => {
       console.warn("services not selected so far "+JSON.stringify(filteredservices))
       
     } 
+    const submitDelete = (props) => {
+      console.log(JSON.stringify(data))
+      alert("id is "+JSON.stringify(props))
+      const url = `/${props}`
+      alert("url to be hit"+url)
+      axios.delete(url).then
+          ((response) => {
+              console.log(response.data);
+              alert('Delete Review Successful')
+          })
+          .catch((response) => {
+              console.log(response);
+              alert('Delete Review Failed')
+          })
+  }
     
+    const submitReviewEdit = () => {
+      console.log(JSON.stringify(data))
+      const final_data = {
+        "property_id": data.property_id,
+        "review_link": allHotelDetails.review_link,
+        "review_title":  allHotelDetails.review_title,
+        "review_author": allHotelDetails.review_author ,
+        "review_rating": allHotelDetails.review_rating ,
+        "review_type":  allHotelDetails.review_type,
+        "service_date":  allHotelDetails.service_date,
+        "review_date": allHotelDetails.review_date ,
+        "review_content":  allHotelDetails.review_content
+      }
+      console.log("the new information " + JSON.stringify(final_data))
+      const url = '/review'
+      axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+          ((response) => {
+              console.log(response.data);
+              alert('Put Reviews successful')
+          })
+          .catch((response) => {
+              console.log(response);
+              alert('Put Reviews failed')
+          })
+  }
+
     function capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
     } 
@@ -157,19 +199,12 @@ const PropertySummaryTab2 = () => {
 
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 <>
-
-
-
                   <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center">
                    
                     <h6 className="text-blueGray-700 text-xl font-bold">Property Reviews</h6><br />
-
-
                     </div>
                   </div>
-
-
                   {viewreview === false ?
                     <div className="block w-full overflow-x-auto">
                       {/* Projects table */}
@@ -178,7 +213,7 @@ const PropertySummaryTab2 = () => {
                           <tr>
 
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Reviewe Author
+                              Review Author
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Review title
@@ -218,9 +253,7 @@ const PropertySummaryTab2 = () => {
                         </tbody>
                       </table>
                     </div>
-
                     :
-
                     <div>
                       {updatereview === false ?
                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -256,7 +289,6 @@ const PropertySummaryTab2 = () => {
                                     type="text"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     readOnly="readonly" defaultValue={review?.review_title}
-
                                   />
                                 </div>
                               </div>
@@ -373,8 +405,54 @@ const PropertySummaryTab2 = () => {
                             <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"
                               onClick={() => setUpdatereview(!updatereview)}>
                               Edit</button>
-                            <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button" >Delete</button>
+                            <button className="bg-red-600 text-white active:bg-red-600 
+                            font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md
+                             outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150"
+                             onClick={() => {setId(review?.review_id);
+                              setShowModal(true)}} 
+                             type="button" >Delete</button>
                           </div>
+
+                          <div className="text-center flex justify-end" >{showModal ? (
+                                                                    <>
+                                                                        <div
+                                                                            className="justify-center items-center flex overflow-x-hidden overflow-y-auto absolute inset-0 z-50 outline-none focus:outline-none"
+                                                                            onClick={() => setShowModal(false)}
+                                                                        >
+                                                                            <div className="relative w-auto my-6 mx-auto max-w-sm">
+                                                                                {/*content*/}
+                                                                                <div className="border-2 px-2 rounded-lg shadow-lg relative flex flex-col w-full bg-blueGray-600 outline-none focus:outline-none">
+                                                                                    {/*header*/}
+                                                                                    {/*body*/}
+                                                                                    <div className=" p-6  flex-auto">
+                                                                                        <p className="my-2 text-white text-sm leading-relaxed">
+                                                                                            Are you sure, you want to delete?
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    {/*footer*/}
+                                                                                    <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                                                                                        <button
+                                                                                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                                                            type="button"
+                                                                                            onClick={() => setShowModal(false)}
+                                                                                        >
+                                                                                            Close
+                                                                                        </button>
+                                                                                        <button
+                                                                                            className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                                                            type="button"
+                                                                                            onClick={() => submitDelete(id)}
+                                                                                        >
+                                                                                            Delete
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </>
+                                                                ) : <></>}</div>
+
                         </div>
                         :
                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -393,6 +471,11 @@ const PropertySummaryTab2 = () => {
                                   <input
                                     type="text"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    onChange={
+                                      (e) => (
+                                          setAllHotelDetails({ ...allHotelDetails,review_link : e.target.value })
+                                      )
+                                  }
                                     defaultValue={review?.review_link}
 
                                   />
@@ -410,6 +493,11 @@ const PropertySummaryTab2 = () => {
                                     type="text"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     defaultValue={review?.review_title}
+                                    onChange={
+                                      (e) => (
+                                          setAllHotelDetails({ ...allHotelDetails,review_title : e.target.value })
+                                      )
+                                  }
 
                                   />
                                 </div>
@@ -426,7 +514,11 @@ const PropertySummaryTab2 = () => {
                                     type="text"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     defaultValue={review?.review_author}
-
+                                    onChange={
+                                      (e) => (
+                                          setAllHotelDetails({ ...allHotelDetails,review_author: e.target.value })
+                                      )
+                                  }
 
                                   />
                                 </div>
@@ -442,7 +534,11 @@ const PropertySummaryTab2 = () => {
                                   <input
                                     type="text"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-
+                                    onChange={
+                                      (e) => (
+                                          setAllHotelDetails({ ...allHotelDetails,review_rating: e.target.value })
+                                      )
+                                  }
                                     defaultValue={review?.review_rating}
 
                                   />
@@ -456,13 +552,20 @@ const PropertySummaryTab2 = () => {
                                   >
                                     Reviewer Category
                                   </label>
-                                  <input
-                                    type="text"
-                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    defaultValue={review?.review_type}
-
-
-                                  />
+                                 
+                                  <select
+                                    onChange={
+                                      (e) => (
+                                        setAllHotelDetails({ ...allHotelDetails, review_type: e.target.value })
+                                      )
+                                    }
+                                    className="border-0 px-3 py-3 
+                                    placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                    <option selected>Select Reviewer Category</option>
+                                    <option value="user" >User</option>
+                                    <option value="editorial">Editorial</option>
+                                  </select>
+                                 
                                 </div>
                               </div>
                               <div className="w-full lg:w-6/12 px-4">
@@ -477,6 +580,11 @@ const PropertySummaryTab2 = () => {
                                     type="date"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     defaultValue={review?.service_date}
+                                    onChange={
+                                      (e) => (
+                                          setAllHotelDetails({ ...allHotelDetails, service_date: e.target.value })
+                                      )
+                                  }
                                   />
                                 </div>
                               </div>
@@ -492,6 +600,11 @@ const PropertySummaryTab2 = () => {
                                     type="date"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     defaultValue={review?.review_date}
+                                    onChange={
+                                      (e) => (
+                                          setAllHotelDetails({ ...allHotelDetails,review_date: e.target.value })
+                                      )
+                                  }
                                   />
                                 </div>
                               </div>
@@ -505,7 +618,11 @@ const PropertySummaryTab2 = () => {
                                   </label>
                                   <textarea rows="5" columns="50"
                                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-
+                                    onChange={
+                                      (e) => (
+                                          setAllHotelDetails({ ...allHotelDetails, review_content: e.target.value })
+                                      )
+                                  }
                                     defaultValue={review?.review_content}
 
                                   />
@@ -516,15 +633,15 @@ const PropertySummaryTab2 = () => {
 
                           <div className="text-center flex justify-end mt-8"  >
                             <button className=" bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatereview(!updatereview)}>Cancel</button>
-
-                            <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" >Submit</button>
+                            <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600
+                             font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none
+                              focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" 
+                              onClick={submitReviewEdit} type="button" >Submit</button>
                           </div>
                         </div>
-
                       }
                     </div>
                   }
-
                 </>
               </div>
 
@@ -625,7 +742,10 @@ const PropertySummaryTab2 = () => {
                 <div className="text-center flex justify-end mt-8" >
                         <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => setDeleteservices(!deleteservices)} type="button"> Back</button>  
                         <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" type="button"  > Services</button>
-                      </div> :
+                      </div>
+                      
+                      
+                      :
                        <div className="text-center flex justify-end mt-8" >
                         
                        <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-2 mb-1 ease-linear transition-all duration-150"

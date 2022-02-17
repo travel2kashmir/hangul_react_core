@@ -18,19 +18,20 @@ export default function Navbar(props) {
   return (
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+      
+        <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
             <Link
-              className="text-white text-sm font-bold leading-relaxed inline-block  py-2 mx-2 whitespace-nowrap "
+              className="text-white text-md font-bold leading-relaxed inline-block  py-3 mx-4 whitespace-nowrap "
               to="/"
             >
-              <span className="bg-blueGray-600">Travel 2 Kashmir</span>
-            </Link>
+              <span className="bg-blueGray-600">Travel2Kashmir</span>
+            </Link></div></div>
             
             <div className="text-center justify-end">
             <Link to='/'><button 
-            className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none  mb-1 ease-linear transition-all duration-150"
-            onClick={()=>signout('')}>Logout</button></Link></div>
+            className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-2  rounded outline-none focus:outline-none  mb-1 mx-32 ease-linear transition-all duration-150"
+            onClick={()=>signout('')}>Logout</button></Link>
 
 
             <button
@@ -39,12 +40,10 @@ export default function Navbar(props) {
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               <i className="text-white fas fa-bars"></i>
-            </button>
-          </div>
-
+            </button></div>
         
 
-          </div>
+        
       </nav>
     </>
   );

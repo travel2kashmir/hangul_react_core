@@ -10,6 +10,7 @@ import Room from '../../components/Room.js'
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import Auth from 'layouts/Auth';
 import { Redirect } from 'react-router';
+import Profile from '../PropertyOwner/Profile'
 
 
 function AdminView() {
@@ -19,6 +20,7 @@ function AdminView() {
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={Auth} />
+            <Route exact path="/owner" component={Profile}/>
             <Route path="/admin" exact component={BasicDetails} />
             <Route path="/contact" exact component={Contact} />
             <Route path="/gallery" exact component={Gallery} />

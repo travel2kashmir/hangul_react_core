@@ -4,20 +4,20 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
-
 import FooterSmall from "../../components/Footers/FooterSmall";
+
 export default function Profile() {
   const logged = useSelector(state => state.session);
   const [ownerdata, setOwnerdata] = useState([])
+  let count = 0;
   useEffect(() => {
     const fetchProperty = async () => {
       try {
         const url = '/properties/user003';
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log("response" + JSON.stringify(response.data))
-
         setOwnerdata(response.data)
-        // setRoomfacilities(response.data)
+        
       }
       catch (error) {
         if (error.response) {
@@ -32,8 +32,6 @@ export default function Profile() {
     }
     fetchProperty();
   }, [])
-
-
 
 
 
@@ -74,92 +72,94 @@ export default function Profile() {
               </svg>
             </div>
           </section>
-
-
           <section className="relative py-16 bg-blueGray-200">
             <div className="container mx-auto px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
                 <div className="px-6">
                   <div className="flex flex-wrap justify-center">
-                    
-                   {/*Place for Something in center*/}
-                    
+                    {/*Place for Something in center*/}
                   </div>
                   <div className="text-center mt-12">
-                    <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                      welcome! {logged?.name}
+                    <h3 className="text-4xl uppercase font-semibold leading-normal text-blueGray-700 mb-2">
+                      Welcome {logged?.name}
                     </h3>
-
-
                   </div>
-                  <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                      
-                        <Link to='/admin'>
-                        <button
-                          className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                          type="button"
-                        >
-                          Add New Property
-                        </button>
-                        </Link>
-                        
-                      
-                    </div>
-                  <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
-                    <div className="flex flex-wrap justify-center">
-                      <div className="w-full lg:w-9/12 px-4">
-                        <h2 className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                          list of your properties
-                        </h2>
-            
-                        <table className="items-center w-full bg-transparent border-collapse">
-                          <thead>
-                            <tr>
-                              <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                Property name</th>
-                              
-                              <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              
-                              </th>
+                  <div className="w-full text-lg font-semibold font-mono px-4 lg:order-3 text-center ">
+                    
+                    <p>Welcome to Travel2Kashmir, we are happy that you choose us.</p>
+                    <Link to='/admin'>
+                      <button
+                        className="bg-lightBlue-500 my-4 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Add New Property
+                      </button>
+                    </Link>
+                  </div>
 
-                            </tr>
-                          </thead>
-                          {ownerdata.map(i => (
-                            <div>
+
+                  {ownerdata.length === undefined && ownerdata.property_id === undefined ? <></> :
+                    <div className="mt-2 py-4 border-t border-blueGray-200 text-center">
+                      <div className="flex flex-wrap justify-center">
+                        <div className="w-full lg:w-9/12 sm:9:12 px-4">
+                          <div className="text-center flex justify-between">
+                            <h6 className="text-blueGray-400 text-xl mt-3 mb-6 font-bold "> List of your Registered Properties</h6>
+                          </div>
+                          <div className="block w-full overflow-x-auto">
+                          <table className="items-center w-full bg-transparent border-collapse">
+                            <thead>
                               <tr>
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                <h1>{i.property_name}</h1></td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                               <Link to='/owner-view'>click here</Link></td>
+                                <th className="border-t-0 bg-blueGray-200 px-6 align-middle border-l-0 border-r-0 text-lg whitespace-nowrap p-4">
+                                  Sno.</th>
+
+                                <th className="border-t-0 bg-blueGray-200 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                                  Property Name</th>
+
+                                <th className="px-6 bg-blueGray-200 text-base text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                </th>
                               </tr>
-                            </div>
+                            </thead>
+                            {ownerdata.property_id !== undefined ?
+                              <tbody>
+                                <tr>
 
+                                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                                    {count = count + 1} </td>
+                                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                                    {ownerdata.property_name}</td>
+                                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                                    <Link to='/owner-view'>Click Here...</Link></td>
+                                </tr>
+                              </tbody> :
+                              <tbody>
+                                {ownerdata.map(i => (
 
+                                  <tr>
 
-                          ))}
-                        </table>
-                       
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-lg whitespace-nowrap p-4">
+                                      {count = count + 1} </td>
+                                    <td className="border-t-0 px-6  align-middle border-l-0 border-r-0 text-lg whitespace-nowrap p-4">
+                                     <p className="uppercase"> {i.property_name}</p></td>
+                                    <td className="border-t-0  px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                                      <Link to='/owner-view'>Click Here...</Link></td>
+                                  </tr>
+
+                                ))}
+                              </tbody>
+                            }
+
+                          </table>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </div>}
                 </div>
               </div>
             </div>
           </section>
         </main>
         <FooterSmall />
-        {/*
-    <>
-      
-              
-       
-         
         
-        
-          </section>
-      </main>
-      <FooterSmall />
-    </>*/}
       </div>
       }
     </div>

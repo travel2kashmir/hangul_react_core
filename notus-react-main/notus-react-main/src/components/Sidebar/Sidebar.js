@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import NotificationDropdown from "../Dropdowns/IndexDropdown";
 import UserDropdown from "../Dropdowns/UserDropdown";
 import t2k from "../../assets/img/t2k.png"
-
+import {useSelector} from 'react-redux'
 export default function Sidebar() {
+  const isLogged=useSelector(state=>state.session)
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
     <>{console.warn("in sidebar")}
@@ -33,8 +34,29 @@ export default function Sidebar() {
               "md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
               collapseShow
             }
-          >
-           
+          >  {isLogged?.id.match(/user[0-9]*/)?<ul className="md:flex-col md:min-w-full flex flex-col list-none">
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/admin") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/owner"
+                >
+                  <i
+                    className={
+                      "fas fa-info-circle mr-2 text-sm " +
+                      (window.location.href.indexOf("/owner") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Profile
+                </Link>
+              </li>
+              </ul>:<></>}
           
            
             {/* Heading */}
