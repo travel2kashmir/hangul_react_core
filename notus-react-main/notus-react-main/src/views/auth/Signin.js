@@ -143,38 +143,70 @@ function Signin(props) {
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
-            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+            <div className="relative flex flex-col min-w-0 break-words w-full mb-3 shadow-lg rounded-lg bg-blueGray-200 border-0">
               <div className="rounded-t mb-0 px-6 py-6">
-                <div className="text-center mb-3">
-                  <h6 className="text-blueGray-500 text-sm font-bold">
-                    Sign in
+                <div className="text-center mb-1">
+                  <h6 className="text-blueGray-500 mt-2 text-xl font-bold">
+                    Sign In
                   </h6>
                 </div>
 
-                <hr className="mt-6 border-b-1 border-blueGray-300" />
+                <hr className="mt-3 border-b-1 border-blueGray-300 " />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
 
                 <form>
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    
+                    <h2
+                      className="block text-blueGray-500 text-base font-bold
+                      font-mono mb-1"
                       htmlFor="grid-password"
                     >
-                      Log-in As "{adminFlag}"
+                      Sign In As:
+                    </h2>
+                    <div className="flex">
+                    <div class="form-check form-check-inline"> 
+                    <input type="radio" 
+                    className="form-check-input form-check-input 
+                    appearance-none rounded-full h-4 w-4 border 
+                    border-gray-300 
+                    bg-white checked:bg-blue-600 
+                    checked:border-blue-600 focus:outline-none
+                     transition duration-200 mt-2  align-top
+                      bg-no-repeat bg-center bg-contain float-left
+                       mr-2 cursor-pointer"
+                    value="User" 
+                     name="who" id='ip1'
+                      onChange={(e) => { setAdminFlag(e.target.value) }}/>
+                      <label
+                      className="form-check-label inline-block 
+                      text-blueGray-500 text-sm font-bold"
+                      htmlFor="ip1"
+                    >
+                      User
                     </label>
-                    <select
-                      onChange={(e) => { setAdminFlag(e.target.value) }}
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-                      <option value="">Select</option>
-                      <option value="Admin">Admin</option>
-                      <option value="User">User</option>
-                    </select>
+                      </div>
+                      <div class="form-check form-check-inline">
+                   
+                    <input type="radio" id='ip2' value="Admin"
+                     className="form-check-input form-check-input appearance-none 
+                     rounded-full h-4 w-4 border border-gray-300
+                      bg-white checked:bg-blue-600 checked:border-blue-600
+                       focus:outline-none transition duration-200 mt-2  align-top bg-no-repeat bg-center bg-contain float-left mb-2 mr-1 ml-2 cursor-pointer"
+                    name="who" onChange={(e) => { setAdminFlag(e.target.value) }}/>
+                     <label
+                      className="form-check-label inline-block 
+                      text-blueGray-500 text-sm font-bold "
+                      htmlFor="ip2"
+                    >
+                    Admin</label>
+                    </div>
 
-
+                    </div>
 
                     <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      className="block uppercase text-blueGray-600 text-xs font-bold mt-2 mb-2"
                       htmlFor="grid-password"
                     >
                       Email

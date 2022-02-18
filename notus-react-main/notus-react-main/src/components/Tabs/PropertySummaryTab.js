@@ -7,6 +7,7 @@ const PropertySummaryTab = () => {
     const [data] = useContext(Context)
     const [showModal, setShowModal] = React.useState(false);
     const [allHotelDetails, setAllHotelDetails] = useState([])
+    
     const [id,setId]= useState()
     // For Display 
     const [updatebasic, setUpdatebasic] = useState(false)
