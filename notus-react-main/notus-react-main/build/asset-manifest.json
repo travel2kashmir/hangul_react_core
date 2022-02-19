@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4eb6e874.chunk.css",
+    "main.js": "/static/js/main.36453358.chunk.js",
+    "main.js.map": "/static/js/main.36453358.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b342fe87.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b342fe87.js.map",
+    "static/css/2.528a78f9.chunk.css": "/static/css/2.528a78f9.chunk.css",
+    "static/js/2.9798566e.chunk.js": "/static/js/2.9798566e.chunk.js",
+    "static/js/2.9798566e.chunk.js.map": "/static/js/2.9798566e.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.528a78f9.chunk.css.map": "/static/css/2.528a78f9.chunk.css.map",
+    "static/css/main.4eb6e874.chunk.css.map": "/static/css/main.4eb6e874.chunk.css.map",
+    "static/js/2.9798566e.chunk.js.LICENSE.txt": "/static/js/2.9798566e.chunk.js.LICENSE.txt",
+    "static/media/all.min.css": "/static/media/fa-solid-900.efbd5d20.eot",
+    "static/media/register_bg_2.png": "/static/media/register_bg_2.4f2cb0ac.png",
+    "static/media/team-1-800x800.jpg": "/static/media/team-1-800x800.fa5a7ac2.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b342fe87.js",
+    "static/css/2.528a78f9.chunk.css",
+    "static/js/2.9798566e.chunk.js",
+    "static/css/main.4eb6e874.chunk.css",
+    "static/js/main.36453358.chunk.js"
+  ]
+}
