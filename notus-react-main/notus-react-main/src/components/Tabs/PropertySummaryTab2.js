@@ -14,8 +14,11 @@ const PropertySummaryTab2 = () => {
   const [updatereview, setUpdatereview] = useState(false)
   const [updateservices, setUpdateservices] = useState(false)
   const [review, setReview] = useState({})
+  const [image, setImage] = useState({})
   const [viewreview, setViewreview] = useState(false)
   const [addimage, setAddimage] = useState(false)
+  const [modifyimage, setModifyimage] = useState(false)
+  const [editimage, setEditimage] = useState(false)
   const [openTab, setOpenTab] = React.useState(1);
   const [deleteimage, setDeleteimage] = React.useState(false);
   const [deleteservices, setDeleteservices] = useState(false)
@@ -67,6 +70,29 @@ const PropertySummaryTab2 = () => {
     fetchServices();
   }, [])
 
+ const updateImageDetails = () => {
+  const final_data = {
+    "property_id": data.property_id,
+    "image_title": allHotelDetails.image_title,
+    "image_description": allHotelDetails.image_description,
+    "image_type": allHotelDetails.image_type
+    }
+    console.log("the new information " + JSON.stringify(final_data))
+    const url = '/images'
+    
+    axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+      ((response) => {
+        console.log(response.data);
+        alert('Put successful')
+      })
+      .catch((response) => {
+        console.log(response);
+        alert('Put failed')
+      })
+    
+
+ }
+
   const filtering = () => {
     const data2 = allHotelDetails?.services;
     const Uservices = data2.map(i => i.service_value)
@@ -81,6 +107,7 @@ const PropertySummaryTab2 = () => {
     console.warn("services not selected so far " + JSON.stringify(filteredservices))
 
   }
+
   const submitDelete = (props) => {
     console.log(JSON.stringify(data))
     alert("id is " + JSON.stringify(props))
@@ -157,9 +184,6 @@ const PropertySummaryTab2 = () => {
       });
 
   }
-
-
-
 
   const submitReviewEdit = () => {
     console.log(JSON.stringify(data))
@@ -715,6 +739,8 @@ const PropertySummaryTab2 = () => {
               </div>
 
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
+            {editimage===false?
+            <div>
                 {addimage === false ?
                   <div>
                     <h6 className="text-blueGray-700 text-xl font-bold">Property Gallery</h6><br />
@@ -772,7 +798,7 @@ const PropertySummaryTab2 = () => {
                             <table>
                               <tr>
                                 <td>
-                                  <h4 class="pl-2 pt-1">{item.image_title}</h4>
+                                  <h4 class="pl-2 pt-1">{image.image_title}</h4>
                                 </td>
                               </tr>
 
@@ -784,12 +810,15 @@ const PropertySummaryTab2 = () => {
                                   setShowModal(true)
                                 }}>
                                   <i className="fas fa-trash  mr-2  text-base" >
-
                                   </i>  </button>
-
-
-
-
+                              </div>
+                              : <></>}
+                               {modifyimage === true ?
+                              <div className="text-center  flex justify-end">
+                               <button onClick={() => 
+                                  {setEditimage(!editimage);  setImage(item)
+                               }}><i className="fas fa-edit  mr-2  text-base"></i>
+                              </button>
                               </div>
                               : <></>}
                           </div>
@@ -802,17 +831,28 @@ const PropertySummaryTab2 = () => {
                     </div>
                     {deleteimage === false ?
                       <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
+                        {modifyimage===false?
+                        <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+                         onClick={() =>setModifyimage(!modifyimage)}>Edit Images</button>
+                        :
+                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+                        onClick={() =>setModifyimage(!modifyimage)}>Cancel</button>}
                         <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setAddimage(!addimage)}>Add More Images</button>
+                       
                         <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                           onClick={() => setDeleteimage(!deleteimage)} >Delete Images</button>
-
-
                       </div>
                       :
 
-                      <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
+                      <div className="text-center flex justify-end mt-6" 
+                      style={{ paddingBottom: "10px" }}>
 
-                        <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setDeleteimage(!deleteimage)} >Back</button>
+                        <button className="bg-blueGray-600 text-white
+                         active:bg-blueGray-600 font-bold uppercase text-xs
+                          px-4 py-2 rounded shadow hover:shadow-md outline-none
+                           focus:outline-none mr-1 mb-1 ease-linear transition-all
+                            duration-150" type="button" 
+                            onClick={() => setDeleteimage(!deleteimage)} >Back</button>
                       </div>
 
 
@@ -824,11 +864,131 @@ const PropertySummaryTab2 = () => {
 
                   :
                   <div>
+                   
                     <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setAddimage(!addimage)} >Back</button>
                     <CardGallery />
                   </div>
                 }
+</div>
+:<div>
+   <div className="rounded-t bg-white mb-0 px-6 py-6">
+          <div className="text-center flex justify-between">
+            <h6 className="text-blueGray-700 text-xl font-bold">Gallery Details</h6>
 
+          </div>
+        </div>
+        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+          <form>
+            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+              Image Gallery  
+            </h6>
+          
+              <div>
+                        
+                <div className="flex flex-wrap">
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3">
+                              <div class="w-full rounded" >
+                                <img src={image?.image_link} alt='pic_room' style={{ height: "200px", width: "400px" }} />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3 mt-6">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Image description {JSON.stringify(allHotelDetails?.image_description)}
+                    </label>
+                    <textarea rows="2" columns="60"
+                     
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      onChange={
+                        (e) => (
+                          setAllHotelDetails({ ...allHotelDetails, 
+                            image_description: e.target.value })
+                        )
+                      }
+                      defaultValue={image?.image_description}
+                    />
+                  </div>
+                </div>          
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Image title {JSON.stringify(allHotelDetails?.image_title)}
+                    </label>
+                    <input
+                      type="text"
+                      defaultValue={image?.image_title}
+                      onChange={
+                        (e) => (
+                          setAllHotelDetails({ ...allHotelDetails, 
+                            image_title: e.target.value })
+                        )
+                      }
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Image Title"                    />
+                  </div>
+                </div>
+              
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Image category  {JSON.stringify(allHotelDetails?.image_category)}
+                    </label>
+                    <select className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                   onChange={
+                    (e) => (
+                      setAllHotelDetails({ ...allHotelDetails, 
+                        image_category: e.target.value })
+                    )
+                  }>
+                      <option selected>Select Image Category</option>
+                      <option value="room">Room</option>
+                      <option value="hotel">Hotel</option>
+
+                    </select>
+                  </div>
+                </div>
+              </div>
+              </div>
+           
+             <div className="text-center flex justify-end" style={{marginTop:"10px"}}>
+             <button className="bg-blueGray-600 text-white
+                         active:bg-blueGray-600 font-bold uppercase text-xs
+                          px-4 py-2 rounded shadow hover:shadow-md outline-none
+                           focus:outline-none mr-1 mb-1 ease-linear transition-all
+                            duration-150" type="button" 
+                            onClick={() => setEditimage(!editimage)} >Back</button>
+                  <button
+                    className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1  mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={updateImageDetails}
+                   >
+                    Submit
+                  </button>
+                 
+                </div>
+            <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
+          </form>
+        </div>
+  </div>}
 
               </div>
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
