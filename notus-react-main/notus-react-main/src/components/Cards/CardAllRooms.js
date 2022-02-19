@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// components
+// components components
 
 export default function CardPageVisits({item}) {
   const [showModal, setShowModal] = React.useState(false);
