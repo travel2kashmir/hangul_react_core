@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // components components
 
 export default function CardPageVisits({item}) {
+//declare the states first
   const [showModal, setShowModal] = React.useState(false);
   const [deleteId, setDeleteId] = useState()
 
