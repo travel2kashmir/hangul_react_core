@@ -7,34 +7,11 @@ import { bindActionCreators } from 'redux';
 import actionCreators from '../../states/index.js';
 import { Redirect } from 'react-router-dom';
 
-
 function Signin(props) {
   const dispatch = useDispatch();//used to send action to reducer
   const { signin } = bindActionCreators(actionCreators, dispatch) //will creator fuction to send action to reducer
   const loggedIn = useSelector(state => state.session)//will downlink data from store.session in const
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const [signinDetails, setSigninDetails] = useState({
+const [signinDetails, setSigninDetails] = useState({
     "email": '',
     "password": ''
   })
@@ -157,7 +134,7 @@ function Signin(props) {
 
                 <form>
                   <div className="relative w-full mb-3">
-                    
+
                     <h2
                       className="block text-blueGray-500 text-base font-bold
                       font-mono mb-1"
@@ -166,9 +143,9 @@ function Signin(props) {
                       Sign In As:
                     </h2>
                     <div className="flex">
-                    <div class="form-check form-check-inline"> 
-                    <input type="radio" 
-                    className="form-check-input form-check-input 
+                      <div class="form-check form-check-inline">
+                        <input type="radio"
+                          className="form-check-input form-check-input 
                     appearance-none rounded-full h-4 w-4 border 
                     border-gray-300 
                     bg-white checked:bg-blue-600 
@@ -176,32 +153,32 @@ function Signin(props) {
                      transition duration-200 mt-2  align-top
                       bg-no-repeat bg-center bg-contain float-left
                        mr-2 cursor-pointer"
-                    value="User" 
-                     name="who" id='ip1'
-                      onChange={(e) => { setAdminFlag(e.target.value) }}/>
-                      <label
-                      className="form-check-label inline-block 
+                          value="User"
+                          name="who" id='ip1'
+                          onChange={(e) => { setAdminFlag(e.target.value) }} />
+                        <label
+                          className="form-check-label inline-block 
                       text-blueGray-500 text-sm font-bold"
-                      htmlFor="ip1"
-                    >
-                      User
-                    </label>
+                          htmlFor="ip1"
+                        >
+                          User
+                        </label>
                       </div>
                       <div class="form-check form-check-inline">
-                   
-                    <input type="radio" id='ip2' value="Admin"
-                     className="form-check-input form-check-input appearance-none 
+
+                        <input type="radio" id='ip2' value="Admin"
+                          className="form-check-input form-check-input appearance-none 
                      rounded-full h-4 w-4 border border-gray-300
                       bg-white checked:bg-blue-600 checked:border-blue-600
                        focus:outline-none transition duration-200 mt-2  align-top bg-no-repeat bg-center bg-contain float-left mb-2 mr-1 ml-2 cursor-pointer"
-                    name="who" onChange={(e) => { setAdminFlag(e.target.value) }}/>
-                     <label
-                      className="form-check-label inline-block 
+                          name="who" onChange={(e) => { setAdminFlag(e.target.value) }} />
+                        <label
+                          className="form-check-label inline-block 
                       text-blueGray-500 text-sm font-bold "
-                      htmlFor="ip2"
-                    >
-                    Admin</label>
-                    </div>
+                          htmlFor="ip2"
+                        >
+                          Admin</label>
+                      </div>
 
                     </div>
 
@@ -290,11 +267,11 @@ function Signin(props) {
         </div>
       </div>
 
-      <div style={{color:"white",background:'red'}}>
-       
+      <div style={{ color: "white", background: 'red' }}>
+
         {loggedIn?.id?.match(/user.[0-9]*/) ?
-         <><Redirect to='/owner'/></>
-         : <>{loggedIn?.id?.match(/admin.[0-9]*/)?<Redirect to='/admin'/>:<></>}</>}
+          <><Redirect to='/owner' /></>
+          : <>{loggedIn?.id?.match(/admin.[0-9]*/) ? <Redirect to='/admin' /> : <></>}</>}
       </div>
     </>
   );
