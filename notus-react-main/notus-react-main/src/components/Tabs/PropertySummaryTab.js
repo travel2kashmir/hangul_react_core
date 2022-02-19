@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../context/provider';
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PropertySummaryTab = () => {
     //For Memory
@@ -34,11 +36,28 @@ const PropertySummaryTab = () => {
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
-                alert('Put Basic Details successful')
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
             })
-            .catch((response) => {
-                console.log(response);
-                alert('Put Basic Details failed')
+            .catch((error) => {
+                console.log(error);
+                toast.error("Some thing went wrong in Basic Details\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                   
             })
     }
 
@@ -62,11 +81,28 @@ const PropertySummaryTab = () => {
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
-                alert('Put Address successful')
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
             })
-            .catch((response) => {
-                console.log(response);
-                alert('put Address failed')
+            .catch((error) => {
+                console.log(error);
+                console.log(error);
+                toast.error("Some thing went wrong in Address\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
             })
     }
     const submitContactEdit = () => {
@@ -81,27 +117,60 @@ const PropertySummaryTab = () => {
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
-                alert('Put Contact successful')
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+            
             })
-            .catch((response) => {
-                console.log(response);
-                alert('Put Contact failed')
+            .catch((error) => {
+                console.log(error);
+                console.log(error);
+                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
             })
     }
 
     const submitDelete = (props) => {
         console.log(JSON.stringify(data))
-        alert("id is "+JSON.stringify(props))
         const url = `/${props}`
-        alert("url to be hit"+url)
         axios.delete(url).then
             ((response) => {
                 console.log(response.data);
-                alert('Delete Contact Successful')
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
             })
-            .catch((response) => {
-                console.log(response);
-                alert('Delete Contact Failed')
+            .catch((error) => {
+                console.log(error);
+                console.log(error);
+                toast.error("Some thing went wrong in Basic Details\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
             })
     }
 
@@ -1015,9 +1084,20 @@ const PropertySummaryTab = () => {
                             </div>
                         </div>
                     </div>
+                    <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
                 </div>
                 : <div>Loading Data. Please wait......</div>}
         </div>)
+
+        
 }
 
 export default PropertySummaryTab;

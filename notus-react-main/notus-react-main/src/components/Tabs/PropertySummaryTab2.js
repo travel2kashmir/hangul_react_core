@@ -83,11 +83,29 @@ const PropertySummaryTab2 = () => {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        alert('Put successful')
+        toast.success(JSON.stringify(response.data.message), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
-      .catch((response) => {
-        console.log(response);
-        alert('Put failed')
+      .catch((error) => {
+        console.log(error);
+        console.log(error);
+        toast.error("Some thing went wrong in Edit\n " + JSON.stringify(error.response.data), {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
       })
     
 
@@ -110,17 +128,34 @@ const PropertySummaryTab2 = () => {
 
   const submitDelete = (props) => {
     console.log(JSON.stringify(data))
-    alert("id is " + JSON.stringify(props))
     const url = `/${props}`
-    alert("url to be hit" + url)
     axios.delete(url).then
       ((response) => {
         console.log(response.data);
-        alert('Delete  Successful')
+        toast.success(JSON.stringify(response.data.message), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+  
       })
-      .catch((response) => {
-        console.log(response);
-        alert('Delete  Failed')
+      .catch((error) => {
+        console.log(error);
+        console.log(error);
+        toast.error("Some thing went wrong in Delete\n " + JSON.stringify(error.response.data), {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
       })
   }
 
@@ -132,11 +167,28 @@ const PropertySummaryTab2 = () => {
     axios.delete(url).then
       ((response) => {
         console.log(response.data);
-        alert('Delete  Successful')
+        toast.success(JSON.stringify(response.data.message), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
-      .catch((response) => {
-        console.log(response);
-        alert('Delete  Failed')
+      .catch((error) => {
+        console.log(error);
+        console.log(error);
+        toast.error("Some thing went wrong in Basic Details\n " + JSON.stringify(error.response.data), {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
       })
   }
 
@@ -203,11 +255,29 @@ const PropertySummaryTab2 = () => {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        alert('Put successful')
+        toast.success(JSON.stringify(response.data.message), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+  
       })
-      .catch((response) => {
-        console.log(response);
-        alert('Put failed')
+      .catch((error) => {
+        console.log(error);
+        toast.error("Some thing went wrong\n " + JSON.stringify(error.response.data), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
       })
   }
 
@@ -798,7 +868,7 @@ const PropertySummaryTab2 = () => {
                             <table>
                               <tr>
                                 <td>
-                                  <h4 class="pl-2 pt-1">{image.image_title}</h4>
+                                  <h4 class="pl-2 pt-1">{item.image_title}</h4>
                                 </td>
                               </tr>
 
@@ -832,15 +902,24 @@ const PropertySummaryTab2 = () => {
                     {deleteimage === false ?
                       <div className="text-center flex justify-end mt-6" style={{ paddingBottom: "10px" }}>
                         {modifyimage===false?
+                        <div>
                         <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                          onClick={() =>setModifyimage(!modifyimage)}>Edit Images</button>
+                         <button className="bg-orange-500 text-white 
+                         active:bg-orange-500 font-bold uppercase text-xs px-4
+                          py-2 rounded shadow hover:shadow-md outline-none
+                           focus:outline-none mr-1 mb-1 ease-linear transition-all 
+                           duration-150" type="button" 
+                           onClick={() => setAddimage(!addimage)}>Add More Images</button>
+                        
+                         <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+                           onClick={() => setDeleteimage(!deleteimage)} >Delete Images</button>
+                           </div>
                         :
                         <button className="bg-blueGray-600 text-white active:bg-blueGray-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                         onClick={() =>setModifyimage(!modifyimage)}>Cancel</button>}
-                        <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setAddimage(!addimage)}>Add More Images</button>
                        
-                        <button className="bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
-                          onClick={() => setDeleteimage(!deleteimage)} >Delete Images</button>
+                      
                       </div>
                       :
 
