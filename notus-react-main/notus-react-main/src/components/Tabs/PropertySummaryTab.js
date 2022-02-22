@@ -64,8 +64,9 @@ const PropertySummaryTab = () => {
 
     const submitAddressEdit = () => {
         console.log(JSON.stringify(data))
+        console.log(JSON.stringify(allHotelDetails.address[0].address_id))
         const final_data = {
-            "property_id": data.property_id,
+            "address_id": allHotelDetails.address[0].address_id,
             "address_street_address": allHotelDetails.address_street_address,
             "address_longitude": allHotelDetails.address_longitude,
             "address_latitude": allHotelDetails.address_latitude,
@@ -105,15 +106,17 @@ const PropertySummaryTab = () => {
                   });
             })
     }
-    const submitContactEdit = () => {
+    
+    const submitContactEdit = (props) => {
+        console.log("props to edit contact i s "+props)
         console.log(JSON.stringify(data))
         const final_data = {
-            "property_id": data.property_id,
+            "contact_id":props,
             "contact_type": allHotelDetails.contact_type,
             "contact_data": allHotelDetails.contact_data
         }
         console.log("the new information " + JSON.stringify(final_data))
-        const url = '/'
+        const url = '/contact'
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
@@ -178,7 +181,7 @@ const PropertySummaryTab = () => {
         const fetchServices = async () => {
             try {
                 // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
-                const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
+                const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k004`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log(response.data)
@@ -424,9 +427,9 @@ const PropertySummaryTab = () => {
                                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                                     >
                                                         <option selected>Select property type</option>
-                                                        <option value="Hotel">Hotel</option>   
-                                                        <option value="Resort">Resort</option>
-                                                        <option value="Motel">Motel</option>
+                                                        <option value="hotel">Hotel</option>   
+                                                        <option value="resort">Resort</option>
+                                                        <option value="motel">Motel</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -983,7 +986,8 @@ const PropertySummaryTab = () => {
                                                         </div>
                                                         <div className="w-full lg:w-4/12 px-4">
                                                             <div className="relative w-full mb-3">
-                                                                <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" onClick={() => {setUpdatecontact(!updatecontact); setEditcontact(item) }}>Edit</button>
+                                                                <button className=" bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150"
+                                                                 onClick={() => {setUpdatecontact(!updatecontact); setEditcontact(item) }}>Edit</button>
                                                                 <button
                                                                  className=
                                                                  "bg-red-600 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" 
@@ -1072,8 +1076,12 @@ const PropertySummaryTab = () => {
                                             </div>
                                             <div className="w-full lg:w-4/12 px-4">
                                                 <div className="relative w-full mb-3">
-                                                    <button className=" bg-blueGray-600  text-white active:bg-blueGray-600  font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" onClick={() => setUpdatecontact(!updatecontact)}>Cancel</button>
-                                                    <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={submitContactEdit} >Submit</button>
+                                                    <button className=" bg-blueGray-600  text-white active:bg-blueGray-600  font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-4 mb-1 ease-linear transition-all duration-150" 
+                                                    onClick={() => setUpdatecontact(!updatecontact)}>Cancel</button>
+                                                    <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600 
+                                                    font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md 
+                                                    outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                     type="button" onClick={()=>submitContactEdit(editcontact?.contact_id)} >Submit</button>
 
                                                 </div>
                                             </div>

@@ -161,9 +161,9 @@ function validateData({allPropertyDetails})
                   <select className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={e => setAllPropertyDetails({ ...allPropertyDetails, property_category: e.target.value })}>
                     <option value="selected">Select property type</option>
-                    <option value="Hotel" >Hotel</option>
-                    <option value="Resort">Resort</option>
-                    <option value="Motel">Motel</option>
+                    <option value="hotel" >Hotel</option>
+                    <option value="resort">Resort</option>
+                    <option value="motel">Motel</option>
                   </select>
                 </div>
               </div>

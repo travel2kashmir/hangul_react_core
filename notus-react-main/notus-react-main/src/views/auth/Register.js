@@ -346,7 +346,15 @@ export default function Register(props) {
                   </div>
 
                 </form>
-                <ToastContainer position="top-center"
+               
+                 
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <ToastContainer position="top-center"
                   autoClose={5000}
                   hideProgressBar={false}
                   newestOnTop={false}
@@ -355,14 +363,6 @@ export default function Register(props) {
                   pauseOnFocusLoss
                   draggable
                   pauseOnHover />
-                 
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
     </>
   );
 }

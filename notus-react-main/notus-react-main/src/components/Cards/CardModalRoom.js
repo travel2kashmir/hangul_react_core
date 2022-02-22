@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const GetRoomXml = () => {
+const GetRoomXml = (props) => {
     const [data] = useContext(Context);
   //  const [roomData]=useContext(RoomContext);
     const [roomXML, setRoomXML] = useState();
@@ -26,7 +26,7 @@ const GetRoomXml = () => {
           const fetchXML = async () => {
             try {
                // const url = `http://103.136.36.27:7860/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${roomData.room_id}/xml`;
-               const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001/r001/xml`
+               const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k004/${props.id}/xml`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { "Content-Type": "application/xml; charset=utf-8" } });
                 console.log(response.data)

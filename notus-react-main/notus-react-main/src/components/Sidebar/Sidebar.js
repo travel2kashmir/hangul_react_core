@@ -1,5 +1,4 @@
 /*eslint-disable*/
-//file for side bar
 import React from "react";
 import { Link } from "react-router-dom";
 import NotificationDropdown from "../Dropdowns/IndexDropdown";

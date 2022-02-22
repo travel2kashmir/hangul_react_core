@@ -16,7 +16,7 @@ const Roomfacilities = () => {
         const fetchRoomfacilities = async () => {
             try {
                // const url = `/services/${data.property_id}`;
-                const url = `/services/t2k001`;
+                const url = `/services/t2k004`;
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log("room facilities " + JSON.stringify(response.data))
 
