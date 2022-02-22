@@ -14,7 +14,7 @@ const Roomimages = () => {
         const fetchImages = async () => {
             try {
                 //const url = `/images/${data.property_id}`;
-                const url = `/images/t2k004`;
+                const url = `/images/t2k001`;
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log("Response from API" + response.data)
 

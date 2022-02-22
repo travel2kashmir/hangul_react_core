@@ -34,7 +34,7 @@ function RoomSummaryTab(props) {
       try {
         // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
         console.log("room id is jakkas" + JSON.stringify(props.id))
-        const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k004/${props.id}`
+        const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001/${props.id}`
         console.log("URL " + url)
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log(response.data)
@@ -56,7 +56,7 @@ function RoomSummaryTab(props) {
     const fetchRoomfacilities = async () => {
       try {
         // const url = `/room-services/${data.property_id}`;
-        const url = `/room-services/t2k004`; //fetches all room type services of hotel
+        const url = `/room-services/t2k001`; //fetches all room type services of hotel
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log("room facilities " + JSON.stringify(response.data))
 
@@ -76,7 +76,7 @@ function RoomSummaryTab(props) {
     const fetchImages = async () => {
       try {
         //const url = `/images/${data.property_id}`;
-        const url = `/images/t2k004`;
+        const url = `/images/t2k001`;
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log("Response from API" + JSON.stringify(response.data))
         setRoomimages(response.data)

@@ -49,7 +49,7 @@ export default function HeaderStats() {
     axios({
       method: 'get',
       // url: `http://103.136.36.27:5555/dashboard/${data.property_id}`,
-      url: `/dashboard/t2k004`,
+      url: `/dashboard/t2k001`,
       headers: { 'accept': 'application/json' }
     })
       .then(response => {

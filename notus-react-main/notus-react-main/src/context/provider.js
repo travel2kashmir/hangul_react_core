@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 let initial = {
-  property_id: "t2k004",
+  property_id: "t2k001",
   property_name: "t2k test",
   property_type: "hotel",
   property_address_country:"IN",

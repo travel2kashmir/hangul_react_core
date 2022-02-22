@@ -21,7 +21,7 @@ export default function Dashboard() {
       const fetchDash = async () => {
           try {
              //const url=`http://103.136.36.27:5555/dashboard/${data.property_id}`
-              const url='/dashboard/t2k004'
+              const url='/dashboard/t2k001'
               const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
               //axios library is used to hit the url which is in 1st argument and headers in 2nd argument,
               //the response from the request is stored in the response variable and response is of the type object
