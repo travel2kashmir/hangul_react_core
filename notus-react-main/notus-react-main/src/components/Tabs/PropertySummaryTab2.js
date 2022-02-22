@@ -31,7 +31,7 @@ const PropertySummaryTab2 = () => {
       setLoader(true)
       try {
         // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
-        const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
+        const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k004`
         console.log("URL " + url)
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log(response.data)
@@ -70,9 +70,9 @@ const PropertySummaryTab2 = () => {
     fetchServices();
   }, [])
 
- const updateImageDetails = () => {
+ const updateImageDetails = (props) => {
   const final_data = {
-    "property_id": data.property_id,
+    "image_id": props,
     "image_title": allHotelDetails.image_title,
     "image_description": allHotelDetails.image_description,
     "image_type": allHotelDetails.image_type
@@ -161,9 +161,7 @@ const PropertySummaryTab2 = () => {
 
   const submitServiceDelete = (props) => {
     console.log("submit service delete " + JSON.stringify(data))
-    alert("id is " + JSON.stringify(props))
     const url = `/${data.property_id}/${props}`
-    alert("url to be hit" + url)
     axios.delete(url).then
       ((response) => {
         console.log(response.data);
@@ -237,10 +235,10 @@ const PropertySummaryTab2 = () => {
 
   }
 
-  const submitReviewEdit = () => {
+  const submitReviewEdit = (props) => {
     console.log(JSON.stringify(data))
     const final_data = {
-      "property_id": data.property_id,
+      "review_id": props,
       "review_link": allHotelDetails.review_link,
       "review_title": allHotelDetails.review_title,
       "review_author": allHotelDetails.review_author,
@@ -255,7 +253,7 @@ const PropertySummaryTab2 = () => {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        toast.success(JSON.stringify(response.data.message), {
+        toast.success("Review sucessfully edited", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -799,7 +797,7 @@ const PropertySummaryTab2 = () => {
                             <button className="bg-lightBlue-600 text-white active:bg-lightBlue-600
                              font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none
                               focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                              onClick={submitReviewEdit} type="button" >Submit</button>
+                              onClick={()=>submitReviewEdit(review.review_id)} type="button" >Submit</button>
                           </div>
                         </div>
                       }
@@ -978,7 +976,7 @@ const PropertySummaryTab2 = () => {
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Image description {JSON.stringify(allHotelDetails?.image_description)}
+                      Image description 
                     </label>
                     <textarea rows="2" columns="60"
                      
@@ -999,7 +997,7 @@ const PropertySummaryTab2 = () => {
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Image title {JSON.stringify(allHotelDetails?.image_title)}
+                      Image title 
                     </label>
                     <input
                       type="text"
@@ -1021,7 +1019,7 @@ const PropertySummaryTab2 = () => {
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Image category  {JSON.stringify(allHotelDetails?.image_category)}
+                      Image category 
                     </label>
                     <select className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    onChange={
@@ -1050,21 +1048,13 @@ const PropertySummaryTab2 = () => {
                   <button
                     className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1  mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={updateImageDetails}
+                    onClick={()=>updateImageDetails(image?.image_id)}
                    >
                     Submit
                   </button>
                  
                 </div>
-            <ToastContainer position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover />
+            
           </form>
         </div>
   </div>}
@@ -1239,15 +1229,7 @@ const PropertySummaryTab2 = () => {
                         type="button" >Submit</button>
 
                     </div>
-                    <ToastContainer position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover />
+                   
 
                   </div>
                 }
@@ -1256,6 +1238,15 @@ const PropertySummaryTab2 = () => {
           </div>
         </div>
       }
+      <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
     </div>
   )
 }
