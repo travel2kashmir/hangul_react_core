@@ -284,31 +284,28 @@ const PropertySummaryTab = () => {
                                 {updatebasic === false ?
                                     <div>
                                         <div className="text-center flex justify-between">
-                                            <h6 className="text-blueGray-700 text-xl font-bold mb-5">Basic Details</h6></div>
+                                            <h6 className="text-blueGray-700 text-xl font-bold mb-5">Basic Details</h6>
+                                            
+
+<button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-6 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdatebasic(!updatebasic)}>Edit</button>
+</div>
+
                                         <div className="flex flex-wrap">
 
                                             <div className="w-full lg:w-6/12 px-4">
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Property Name</label>
-                                                    <input
-                                                        type="text"
-                                                        rows="2" columns="60"
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        defaultValue={allHotelDetails?.property_name}
-                                                        readOnly="readonly"
-                                                    />
+                                                    <p>{allHotelDetails?.property_name}</p>
+                                                       
                                                 </div>
                                             </div>
                                             <div className="w-full lg:w-6/12 px-4">
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Property Category</label>
-                                                    <input type="text"
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        defaultValue={allHotelDetails?.property_category}
-                                                        readOnly="readonly"
-                                                    />
+                                                  <p>  {allHotelDetails?.property_category}
+                                                  </p>    
                                                 </div>
                                             </div>
 
@@ -316,33 +313,22 @@ const PropertySummaryTab = () => {
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Property Brand</label>
-                                                    <input type="text"
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        defaultValue={allHotelDetails?.property_brand}
-                                                        readOnly="readonly"
-                                                    /></div>
-                                            </div>
+                                                   <p>{allHotelDetails?.property_brand}
+                                                   </p>  </div>
+                                            </div>   
                                             <div className="w-full lg:w-6/12 px-4">
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Established Date</label>
-                                                    <input type="date"
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        defaultValue={allHotelDetails?.established_year}
-                                                        readOnly="readonly"
-                                                    /></div>
+                                                    <p>{allHotelDetails?.established_year}
+                                                    </p></div>
                                             </div>
                                             <div className="w-full lg:w-6/12 px-4">
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Star Rating</label>
-                                                    <input
-                                                        type="text"
-
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        Value={allHotelDetails?.star_rating}
-                                                        readOnly="readonly"
-                                                    />
+                                                <p>  {allHotelDetails?.star_rating}
+                                                </p>       
 
                                                 </div>
                                             </div>
@@ -350,13 +336,9 @@ const PropertySummaryTab = () => {
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Description Title</label>
-                                                    <input
-                                                        type="text"
-
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        Value={allHotelDetails?.description_title}
-                                                        readOnly="readonly"
-                                                    />
+                                                   <p>
+                                                        {allHotelDetails?.description_title}</p>
+                                                       
 
                                                 </div>
                                             </div>
@@ -364,9 +346,8 @@ const PropertySummaryTab = () => {
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Description</label>
-                                                    <textarea rows="2" columns="60"
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        defaultValue={allHotelDetails?.description_body} readOnly="readonly" />
+                                                   <p>
+                                                        {allHotelDetails?.description_body}</p>
 
                                                 </div>
                                             </div>
@@ -374,20 +355,14 @@ const PropertySummaryTab = () => {
                                                 <div className="relative w-full mb-3">
                                                     <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                         htmlFor="grid-password">Description Date</label>
-                                                    <input type="date"
-                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                        defaultValue={allHotelDetails?.description_date}
-                                                        readOnly="readonly"
-                                                    /></div>
+                                                    <p
+                                                        
+                                                       >{allHotelDetails?.description_date}</p>
+                                                   </div>
                                             </div>
                                         </div>
 
-                                        <div className="text-center flex justify-end" style={{ paddingBottom: "10px" }}>
-
-
-                                            <button className="bg-orange-500 text-white active:bg-orange-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setUpdatebasic(!updatebasic)}>Edit</button>
-
-                                        </div>
+                                       
                                     </div>
                                     :
                                     <div>
@@ -552,7 +527,8 @@ const PropertySummaryTab = () => {
 
                                 {updateaddress === false ?
                                     <div>
-                                        <h6 className="text-blueGray-700 text-xl font-bold">Address</h6><br />
+                                        <h6 className="text-blueGray-700 text-xl font-bold">Address</h6>
+                                        <br />
                                         {allHotelDetails?.address?.map((item) => {
                                             return (
                                                 <div>
@@ -562,12 +538,9 @@ const PropertySummaryTab = () => {
 
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Street address</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_street_address} readOnly="readonly"
-                                                                />
+                                                                
+                                                                   {item.address_street_address} 
+                                                              
                                                             </div>
                                                         </div>
 
@@ -575,12 +548,8 @@ const PropertySummaryTab = () => {
                                                             <div className="relative w-full mb-3">
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Landmark</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_landmark} readOnly="readonly"
-                                                                />
+                                                             {item.address_landmark} 
+                                                              
 
                                                             </div>
                                                         </div>
@@ -589,12 +558,8 @@ const PropertySummaryTab = () => {
                                                             <div className="relative w-full mb-3">
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">City</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_city} readOnly="readonly"
-                                                                />
+                                                                {item.address_city}
+                                                              
 
                                                             </div>
                                                         </div>
@@ -603,13 +568,8 @@ const PropertySummaryTab = () => {
                                                             <div className="relative w-full mb-3">
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Province</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_province} readOnly="readonly"
-                                                                />
-
+                                                               {item.address_province} 
+                                                              
                                                             </div>
                                                         </div>
 
@@ -617,24 +577,14 @@ const PropertySummaryTab = () => {
                                                             <div className="relative w-full mb-3">
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Country</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 uppercase placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_country} readOnly="readonly"
-                                                                />
-                                                            </div>
+                                                            <p className='uppercase'> {item.address_country}
+                                                            </p>  </div>
                                                         </div>
                                                         <div className="w-full lg:w-6/12 px-4">
                                                             <div className="relative w-full mb-3">
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Precision(in meters)</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_precision} readOnly="readonly"
-                                                                />
+                                                               {item.address_precision} 
                                                             </div>
                                                         </div>
 
@@ -643,12 +593,8 @@ const PropertySummaryTab = () => {
 
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Postal code</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_zipcode} readOnly="readonly"
-                                                                />
+                                                                {item.address_zipcode} 
+                                                            
 
                                                             </div>
                                                         </div>
@@ -658,12 +604,8 @@ const PropertySummaryTab = () => {
 
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Latitude</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_latitude} readOnly="readonly"
-                                                                />
+                                                               {item.address_latitude}
+                                                              
 
 
                                                             </div>
@@ -674,12 +616,8 @@ const PropertySummaryTab = () => {
 
                                                                 <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                                                     htmlFor="grid-password">Longitute</label>
-                                                                <input
-                                                                    type="text"
-
-                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                                    defaultValue={item.address_longitude} readOnly="readonly"
-                                                                />
+                                                               {item.address_longitude} 
+                                                              
 
                                                             </div>
                                                         </div>
