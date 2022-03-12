@@ -83,7 +83,7 @@ function Userlanding() {
                                                             </div>
                                                         </td>
                                                         <td class="p-6 whitespace-nowrap space-x-2">
-                                                            <Link to="/basicdetails">
+                                                            <Link to="/property-summary">
                                                                 <button type="button" class="text-white bg-cyan-600
                                              hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg
                                             text-sm inline-flex items-center px-2 py-1.5 text-center">

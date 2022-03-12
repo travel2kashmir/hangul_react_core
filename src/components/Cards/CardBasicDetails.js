@@ -83,7 +83,6 @@ useEffect(() => {
 
 }, [])
 
-
   return (
     <div >
       {/* Navbar */}
