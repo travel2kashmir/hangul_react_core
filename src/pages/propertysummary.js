@@ -75,7 +75,7 @@ function Propertysummary() {
                  Property Summary
                 </h6>
                 {/* Body */}
-                <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                <div class="mt-4 w-full grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-3">
                     {/* Basic Details */}
                     <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                         <div class="flex items-center justify-between mb-4">
@@ -112,7 +112,7 @@ function Propertysummary() {
                         {allHotelDetails?.address?.map((item) => {
                             return (
                                 <div className="flex flex-wrap">
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 lg:px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -126,7 +126,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -142,7 +142,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -158,7 +158,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -174,7 +174,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -190,7 +190,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -206,7 +206,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -222,7 +222,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -238,7 +238,7 @@ function Propertysummary() {
                                             </label>
                                         </div>
                                     </div>
-                                    <div className="w-full lg:w-6/12 px-2">
+                                    <div className="w-full lg:w-6/12 sm:w-6/12 sm:px-4 px-2">
                                         <div className="relative w-full mb-2">
                                             <label
                                                 className="text-xs font-semibold text-gray-500 block mb-1"
@@ -293,49 +293,51 @@ function Propertysummary() {
 
                     </div>
                 </div>
-                <div class="mt-4 grid grid-flow-row-dense grid-cols-3 gap-3">
+                <div class="mt-4 grid grid-flow-row-dense lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-3">
                     {/* Services */}
                     <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" >
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex-shrink-0">
                                 <h3 class="text-base font-bold text-gray-900 mb-4">Services</h3>
                             </div>
-                            <div class="flex items-center justify-end flex-1">
+                            <div class="flex items-center justify-end">
                                 <Link to="/services" class="text-sm font-sans underline decoration-cyan-600
                              font-semibold text-cyan-600
                               rounded-lg p-2">See More..</Link>
                             </div>
                         </div>
+                        <div class="flex flex-wrap">
                         <tr>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1 ">Air Conditioned</span>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Swimming Pool</span>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2 ">Air Conditioned</button>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Swimming Pool</button>
                         </tr><br />
                         <tr>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Child Friendly</span>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Pets Allowed</span>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Child Friendly</button>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Pets Allowed</button>
                         </tr><br />
                         <tr>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1 ">Laundary Service</span>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Wifi</span>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Laundary Service</button>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Wifi</button>
                         </tr><br />
                         <tr>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Smoke Free Property</span>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Spa</span>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Smoke Free Property</button>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Spa</button>
                         </tr><br/>
                         <tr>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Bussiness Center</span>
-                            <span class="text-sm font-bold text-cyan-700 
-                            bg-gray-200 rounded-lg p-2 mx-1">Kitchen Available</span>
-                        </tr>         
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Bussiness Center</button>
+                            <button class="text-sm  font-semibold  text-cyan-700 
+                            bg-gray-200 rounded-lg p-2 mx-1  mb-2">Kitchen Available</button>
+                        </tr>
+                        </div>         
                     </div>
                     {/* Gallery */}
                     <div class="col-span-2 bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
@@ -349,7 +351,7 @@ function Propertysummary() {
                               rounded-lg p-2">See More..</Link>
                             </div>
                         </div>
-                        <div className=" flex-wrap container grid grid-cols-3 gap-3">
+                        <div className=" flex-wrap container grid md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             {allHotelDetails?.images?.map((item) => {
                                 return (
                                     <div className="block text-blueGray-600 text-xs font-bold ">
@@ -363,7 +365,7 @@ function Propertysummary() {
                     </div>
                 </div>
                 {/* Reviews */}
-                <div class="mt-4 grid grid-flow-row-dense grid-cols-3 gap-3">
+                <div class="mt-4 grid grid-flow-row-dense md:grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-3">
                 <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8" >
                         <div class="flex items-center justify-between ">
                             <div class="flex-shrink-0">

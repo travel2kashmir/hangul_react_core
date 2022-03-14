@@ -97,7 +97,7 @@ function CardGallery() {
             </div>
             
            {/* Gallery Form */}
-            <div className="flex-wrap container grid grid-cols-3 gap-1">
+            <div className="flex-wrap container grid sm:grid-cols-2 lg:grid-cols-3 gap-1">
                 {allHotelDetails?.images?.map((item) => {
                     return (
                         <div className="block text-blueGray-600 text-xs font-bold " style={{ margin: "10px", marginLeft: "46px" }}>
