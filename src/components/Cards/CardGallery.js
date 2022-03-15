@@ -1,33 +1,193 @@
-import React, { useEffect, useContext, useState }  from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function CardGallery() {
     const [allHotelDetails, setAllHotelDetails] = useState({})
-   
+    const [image, setImage] = useState({})
+    const [editImage, setEditImage] = useState(0)
+    const [deleteImage, setdeleteImage] = useState(0)
+    const [actionImage, setActionImage] = useState({})
+    const [addImage, setAddImage] = useState(0)
+
+
+
     useEffect(() => {
         const fetchPropertyDetails = async () => {
-          try {
-            // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
-            const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
-            console.log("URL " + url)
-            const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
-            console.log(response.data)
-            setAllHotelDetails(response.data)
-          }
-          catch (error) {
-            if (error.response) {
-              console.log("data" + error.response);
-              console.log("status" + error.response.status);
-              console.log("header" + error.response.headers);
-            } else {
-              console.log("error" + error.message);
+            try {
+                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
+                const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
+                console.log("URL " + url)
+                const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
+                console.log(response.data)
+                setAllHotelDetails(response.data)
             }
-          }
+            catch (error) {
+                if (error.response) {
+                    console.log("data" + error.response);
+                    console.log("status" + error.response.status);
+                    console.log("header" + error.response.headers);
+                } else {
+                    console.log("error" + error.message);
+                }
+            }
         }
         fetchPropertyDetails();
-      }, [])
-    
+    }, [])
+
+    const onChangePhoto = (e, i) => {
+        setImage({ ...image, imageFile: e.target.files[0] })
+    }
+
+    const uploadImage = () => {
+        const imageDetails = image.imageFile
+        const formData = new FormData();
+        formData.append("file", imageDetails);
+        formData.append("upload_preset", "Travel2Kashmir")
+
+        axios.post("https://api.cloudinary.com/v1_1/dvczoayyw/image/upload", formData)
+            .then(response => {
+                console.log(response?.data?.secure_url, 'res')
+                setImage({ ...image, image_link: response?.data?.secure_url })
+            })
+            .catch(error => {
+                toast.error("Some thing went wrong in uploading photo\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                console.error('There was an error!', error);
+
+            });
+
+    }
+    const handleSubmit = () => {
+        console.log("before sort" + JSON.stringify(actionImage))
+        const imagedata = [{
+            property_id: 't2k001',//to be fetched from context
+            image_link: image.image_link,
+            image_title: actionImage.image_title,
+            image_descripiton: actionImage.image_description,
+            image_category: actionImage.image_category
+        }]
+
+        const finalImage = { "images": imagedata }
+        console.log(JSON.stringify(finalImage))
+        axios.post(`/gallery`, finalImage).then(response => {
+            console.log(response)
+            toast.success(JSON.stringify(response.data.message), {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+
+        }).catch(error => {
+            console.log("there is error" + error)
+            toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        });
+
+    }
+
+
+
+    const updateImageDetails = () => {
+        const final_data = {
+            "image_id": actionImage?.image_id,
+            "image_title": allHotelDetails.image_title,
+            "image_description": allHotelDetails.image_description,
+            "image_type": allHotelDetails.image_type
+        }
+        console.log("the new information " + JSON.stringify(final_data))
+        const url = '/images'
+
+        axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+            ((response) => {
+
+                setEditImage(0);
+                console.log(response.data);
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log(error);
+                toast.error("Some thing went wrong in Edit\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+
+            })
+    }
+    const submitDelete = () => {
+
+        const url = `/${actionImage.image_id}`
+        axios.delete(url).then
+            ((response) => {
+                console.log(response.data);
+                setdeleteImage(0)
+                toast.success("Image deleted successfully", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log(error);
+                toast.error("Some thing went wrong in Delete\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+
+            })
+    }
+
+
+
+
+
     return (
         <div>
             {/* Navbar */}
@@ -56,9 +216,9 @@ function CardGallery() {
 
             {/* Header */}
             <div className="mx-4 mb-4">
-            <h6 className="text-xl mb-2 flex leading-none pl-4 pt-2 font-bold text-gray-900 ">
-       Gallery
-      </h6>
+                <h6 className="text-xl mb-2 flex leading-none pl-4 pt-2 font-bold text-gray-900 ">
+                    Gallery
+                </h6>
                 <div className="sm:flex">
                     <div className="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 ml-5 sm:mb-0">
                         <form className="lg:pr-3" action="#" method="GET">
@@ -84,7 +244,9 @@ function CardGallery() {
                         </div>
                     </div>
                     <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                        <button type="button" data-modal-toggle="add-user-modal" className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                        <button type="button"
+                            onClick={() => setAddImage(1)}
+                            data-modal-toggle="add-user-modal" className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
                             <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                             Add image
                         </button>
@@ -95,8 +257,8 @@ function CardGallery() {
                     </div>
                 </div>
             </div>
-            
-           {/* Gallery Form */}
+
+            {/* Gallery Form */}
             <div className="flex-wrap container grid sm:grid-cols-2 lg:grid-cols-3 gap-1">
                 {allHotelDetails?.images?.map((item) => {
                     return (
@@ -108,15 +270,18 @@ function CardGallery() {
                                         <span className="pl-1 pt-2 text-sm">{item.image_title}</span>
                                     </td>
                                     <td className="flex justify-end">
-                                        <Link to="" className="text-gray-500  mt-1 hover:text-gray-900 
+                                        <button
+                                            onClick={() => { setEditImage(1); setActionImage(item) }}
+                                            className="text-gray-500  mt-1 hover:text-gray-900 
                                          cursor-pointer p-1 hover:bg-gray-100 rounded ">
-                                            <svg className=" h-5 mb-2 w-5 font-semibold " 
-                                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
-                                        </Link>
-                                        <Link to="" className="text-gray-500 mt-1 hover:text-gray-900
+                                            <svg className=" h-5 mb-2 w-5 font-semibold "
+                                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                                        </button>
+                                        <button
+                                            onClick={() => { setdeleteImage(1); setActionImage(item) }} className="text-gray-500 mt-1 hover:text-gray-900
                                          cursor-pointer p-1 hover:bg-gray-100 rounded">
                                             <svg className="  w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                        </Link>
+                                        </button>
                                     </td>
                                 </tr>
                             </table>
@@ -128,43 +293,214 @@ function CardGallery() {
                 }
 
             </div>
-             
-            {/* Modal Add */}
-            <div className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-user-modal">
-                <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
+            {/* Modal edit */}
+            <div className={editImage === 1 ? 'block' : 'hidden'}>
+                <div class="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+                        <div class="bg-white rounded-lg shadow relative">
+                            <div class="flex items-start justify-between p-5 border-b rounded-t">
+                                <h3 class="text-xl font-semibold">
+                                    Edit image
+                                </h3>
+                                <button type="button"
+                                    onClick={() => setEditImage(0)}
+                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="user-modal">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                </button>
+                            </div>
+                            <div class="p-6 space-y-6">
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <img src={actionImage?.image_link} alt='pic_room' style={{ height: "200px", width: "400px" }} />
+                                    </div> <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            className="text-sm font-medium text-gray-900 block mb-2"
+                                            htmlFor="grid-password"
+                                        >
+                                            Image description
+                                        </label>
+                                        <textarea rows="6" columns="60"
 
-                    <div className="bg-white rounded-lg shadow relative">
+                                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                            onChange={
+                                                (e) => (
+                                                    setAllHotelDetails({
+                                                        ...allHotelDetails,
+                                                        image_description: e.target.value
+                                                    })
+                                                )
+                                            }
+                                            defaultValue={actionImage?.image_description}
+                                        />
+                                    </div> <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            className="text-sm font-medium text-gray-900 block mb-2"
+                                            htmlFor="grid-password"
+                                        >
+                                            Image title
+                                        </label>
+                                        <input
+                                            type="text"
+                                            defaultValue={actionImage?.image_title}
+                                            onChange={
+                                                (e) => (
+                                                    setAllHotelDetails({
+                                                        ...allHotelDetails,
+                                                        image_title: e.target.value
+                                                    })
+                                                )
+                                            }
+                                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                            placeholder="Image Title" />
+                                    </div>
 
-                        <div className="flex items-start justify-between p-5 border-b rounded-t">
-                            <h3 className="text-xl font-semibold">
-                                Add new service
-                            </h3>
-                            <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-user-modal">
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </button>
-                        </div>
-
-                        <div className="p-6 space-y-6">
-                            <div className="grid grid-cols-6 gap-6">
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label for="first-name" className="text-sm font-medium text-gray-900 block mb-2">Service Name</label>
-                                    <input type="text" name="first-name" id="first-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
-                                </div>
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Service Description</label>
-                                    <textarea rows="2" columns="50" name="last-name" id="last-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
                                 </div>
                             </div>
+                            <div class="items-center p-6 border-t border-gray-200 rounded-b">
+                                <button
+                                    onClick={() => updateImageDetails()}
+                                    class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                    type="submit">Edit image</button>
+                            </div>
                         </div>
-
-                        <div className="items-center p-6 border-t border-gray-200 rounded-b">
-                            <button className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add service</button>
-                        </div>
-
                     </div>
                 </div>
             </div>
 
+            {/* Modal Add */}
+            <div className={addImage === 1 ? 'block' : 'hidden'}>
+                <div class="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+                        <div class="bg-white rounded-lg shadow relative">
+                            <div class="flex items-start justify-between p-5 border-b rounded-t">
+                                <h3 class="text-xl font-semibold">
+                                    Add new image
+                                </h3>
+                                <button type="button"
+                                    onClick={() => setAddImage(0)}
+                                    class="text-gray-400 bg-transparent
+                                 hover:bg-gray-200 
+                                 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                                >
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                </button>
+                            </div>
+
+                            <div class="p-6 space-y-6">
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            className="text-sm font-medium text-gray-900 block mb-2"
+                                            htmlFor="grid-password"
+                                        >
+                                            Image Upload
+                                        </label>
+                                        <input
+                                            type="file"
+                                            onChange={e => {
+                                                onChangePhoto(e, 'imageFile');
+                                                setTimeout(() => { uploadImage(); }, 3000);
+                                                
+                                            }}
+                                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                            defaultValue="" />
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            htmlFor="grid-password"
+                                        >
+                                            Image title
+                                        </label>
+                                        <input
+                                            type="text"
+                                            onChange={(e) => (setActionImage({ ...actionImage, image_title: e.target.value }))}
+                                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                            placeholder="Image Title" />
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            className="text-sm font-medium text-gray-900 block mb-2"
+                                            htmlFor="grid-password"
+                                        >
+                                            Image Description
+                                        </label>
+                                        <textarea rows="2" columns="60"
+                                            onChange={(e) => (setActionImage({ ...actionImage, image_description: e.target.value }))}
+                                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                            defaultValue="" />
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            className="text-sm font-medium text-gray-900 block mb-2"
+                                            htmlFor="grid-password"
+                                        >
+                                            Image Category
+                                        </label>
+                                        <select className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                            onChange={(e) => (setActionImage({ ...actionImage, image_category: e.target.value }))}>
+                                            <option selected>Select image Category</option>
+                                            <option value='room'>Room</option>
+                                            <option value='outside'>Outside</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="items-center p-6 border-t border-gray-200 rounded-b">
+
+                                <button
+                                    onClick={handleSubmit}
+                                    class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                    type="submit">Add image</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Modal Delete */}
+            <div className={deleteImage === 1 ? 'block' : 'hidden'}>
+                <div class="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div class="relative w-full max-w-md px-4 h-full md:h-auto">
+                        <div class="bg-white rounded-lg shadow relative">
+                            <div class="flex justify-end p-2">
+                                <button
+                                    onClick={() => setdeleteImage(0)}
+                                    type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="delete-user-modal">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                </button>
+                            </div>
+
+                            <div class="p-6 pt-0 text-center">
+                                <svg class="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">
+                                    Are you sure you want to delete {actionImage?.image_title} image?
+                                </h3>
+                                <button onClick={() => submitDelete()} class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
+                                    Yes, I'm sure
+                                </button>
+                                <button
+                                    onClick={() => setdeleteImage(0)}
+                                    class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-user-modal">
+                                    No, cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ToastContainer position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover />
         </div>
     )
 }

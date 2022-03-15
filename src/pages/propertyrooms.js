@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
-import { Context } from "../context/provider"
+//import { Context } from "../context/provider"
 import Sidebar from '../components/sidebar'
 import Navbar from '../components/navbar'
 import CardRooms from '../components/Cards/CardRooms'
 import Footer from '../components/footer'
 
 function Propertyrooms() {
-    const [data] = useContext(Context)
+    //const [data] = useContext(Context)
     const [allrooms, setAllRooms] = useState([])
 
     useEffect(() => {
@@ -45,9 +45,9 @@ function Propertyrooms() {
              {/* Sidebar */}
             <Sidebar />
             {/* Body */}
-            <div id="main-content" class="  bg-gray-50 pt-24 relative overflow-y-auto lg:ml-64">
+            <div id="main-content" class="pt-24 relative overflow-y-auto lg:ml-64">
                 <CardRooms  item={allrooms}/>
-            </div>
+                </div>
             {/* Footer */}
             <div id="main-content" class="px-8  bg-gray-50 relative overflow-y-auto lg:ml-64">
                 <Footer />

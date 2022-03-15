@@ -18,6 +18,8 @@ import PropertySummary from './pages/propertysummary'
 import PropertyXML from './pages/propertyxml'
 import PropertyRooms from './pages/propertyrooms'
 import PropertyRoom from './pages/propertyroom'
+import PropertyRoomXML from './pages/propertyroomxml'
+import PropertyRoomsXML from './pages/propertyroomsxml'
 import 'flowbite';
 import { Provider } from 'react-redux';
 import { store } from './states/Store';
@@ -42,6 +44,8 @@ ReactDOM.render(
  <Route exact path="/property-xml" component={PropertyXML}/>
  <Route exact path="/property-rooms" component={PropertyRooms}/>
  <Route exact path="/property-room" component={PropertyRoom}/>
+ <Route exact path="/property-roomsxml" component={PropertyRoomsXML}/>
+ <Route exact path="/property-roomxml" component={PropertyRoomXML}/>
  <Redirect from="*" to="/" />
  <Redirect from="/signup" to="/sign-up" />
  </Switch>
