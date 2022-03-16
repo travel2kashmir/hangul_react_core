@@ -18,6 +18,7 @@ import PropertySummary from './pages/propertysummary'
 import PropertyXML from './pages/propertyxml'
 import PropertyRooms from './pages/propertyrooms'
 import PropertyRoom from './pages/propertyroom'
+import NewRoom from './pages/propertyaddroom'
 import PropertyRoomXML from './pages/propertyroomxml'
 import PropertyRoomsXML from './pages/propertyroomsxml'
 import 'flowbite';
@@ -44,6 +45,7 @@ ReactDOM.render(
  <Route exact path="/property-xml" component={PropertyXML}/>
  <Route exact path="/property-rooms" component={PropertyRooms}/>
  <Route exact path="/property-room" component={PropertyRoom}/>
+ <Route exact path="/new-room" component={NewRoom}/>
  <Route exact path="/property-roomsxml" component={PropertyRoomsXML}/>
  <Route exact path="/property-roomxml" component={PropertyRoomXML}/>
  <Redirect from="*" to="/" />

@@ -402,20 +402,20 @@ function CardGallery() {
                                                 setTimeout(() => { uploadImage(); }, 3000);
                                                 
                                             }}
-                                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full px-2.5"
                                             defaultValue="" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label
-                                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            className="text-sm font-medium text-gray-900 block mb-2"
                                             htmlFor="grid-password"
                                         >
-                                            Image title
+                                            Image Title
                                         </label>
                                         <input
                                             type="text"
                                             onChange={(e) => (setActionImage({ ...actionImage, image_title: e.target.value }))}
-                                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full px-2.5"
                                             placeholder="Image Title" />
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
