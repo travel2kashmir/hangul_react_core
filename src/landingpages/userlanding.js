@@ -42,7 +42,7 @@ function Userlanding() {
                 <div className="bg-white shadow rounded-lg md:mt-0 w-full sm:max-w-screen-sm xl:p-0">
                     <div className="p-4 sm:p-8 lg:p-space-y-2">
                         <div >
-                            <Link to="/" class=" float-right ml-5 text-white bg-cyan-600 
+                            <Link to="/" className=" float-right ml-5 text-white bg-cyan-600 
               hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold 
               rounded-lg text-sm px-4 py-2 text-center  mr-2">
                                 <button onClick={() => { signout('') }}
@@ -57,41 +57,41 @@ function Userlanding() {
                         </div>
                         <p className="font-semibold text-lg text-gray-500">List of properties</p>
                         <form className=" space-y-1" action="#">
-                            <div class="flex flex-col">
-                                <div class="overflow-x-auto">
-                                    <div class="align-middle inline-block min-w-full">
-                                        <div class="shadow overflow-hidden">
-                                            <table class="table-fixed min-w-full divide-y divide-gray-200">
-                                                <thead class="bg-gray-100">
+                            <div className="flex flex-col">
+                                <div className="overflow-x-auto">
+                                    <div className="align-middle inline-block min-w-full">
+                                        <div className="shadow overflow-hidden">
+                                            <table className="table-fixed min-w-full divide-y divide-gray-200">
+                                                <thead className="bg-gray-100">
                                                     <tr>
 
-                                                        <th scope="col" class="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
+                                                        <th scope="col" className="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
                                                             Property Name
                                                         </th>
-                                                        <th scope="col" class="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
+                                                        <th scope="col" className="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
                                                             Property Type
                                                         </th>
-                                                        <th scope="col" class="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
+                                                        <th scope="col" className="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
                                                             Status
                                                         </th>
-                                                        <th scope="col" class="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
+                                                        <th scope="col" className="p-1 text-left text-sm font-semibold text-gray-500 uppercase">
                                                             Action
                                                         </th>
 
                                                     </tr>
                                                 </thead>
-                                                <tbody class="bg-white divide-y divide-gray-200">
-                                                    <tr class="hover:bg-gray-100">
-                                                        <td class="p-1 whitespace-nowrap text-base font-medium text-gray-900 capitalize">{ownerdata.property_name}</td>
-                                                        <td class="p-1 whitespace-nowrap text-base font-medium text-gray-900 capitalize">{ownerdata.property_category}</td>
-                                                        <td class="p-1 whitespace-nowrap text-base font-normal text-gray-900">
-                                                            <div class="flex items-center">
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>Active
+                                                <tbody className="bg-white divide-y divide-gray-200">
+                                                    <tr className="hover:bg-gray-100">
+                                                        <td className="p-1 whitespace-nowrap text-base font-medium text-gray-900 capitalize">{ownerdata.property_name}</td>
+                                                        <td className="p-1 whitespace-nowrap text-base font-medium text-gray-900 capitalize">{ownerdata.property_category}</td>
+                                                        <td className="p-1 whitespace-nowrap text-base font-normal text-gray-900">
+                                                            <div className="flex items-center">
+                                                                <div className="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>Active
                                                             </div>
                                                         </td>
-                                                        <td class="p-2 whitespace-nowrap space-x-1">
+                                                        <td className="p-2 whitespace-nowrap space-x-1">
                                                             <Link to="/property-summary">
-                                                                <button type="button" class="text-white bg-cyan-600
+                                                                <button type="button" className="text-white bg-cyan-600
                                              hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg
                                             text-sm inline-flex items-center px-2 py-1.5 text-center">
                                                                     View

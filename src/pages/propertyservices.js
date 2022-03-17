@@ -9,10 +9,10 @@ function propertyservices() {
     <div>
     <Navbar/>
     <Sidebar/> 
-    <div id="main-content" class="pt-24 relative overflow-y-auto lg:ml-64">
+    <div id="main-content" className="pt-24 relative overflow-y-auto lg:ml-64">
     <CardServices/>    
 </div>
-<div id="main-content" class="px-8  bg-gray-50 relative overflow-y-auto lg:ml-64"> 
+<div id="main-content" className="px-8  bg-gray-50 relative overflow-y-auto lg:ml-64"> 
 <Footer/>
 </div>
 </div>

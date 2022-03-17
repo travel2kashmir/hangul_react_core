@@ -140,7 +140,7 @@ function Signin() {
                   Sign in As:
                 </label>
                 <div className="flex">
-                  <div class="form-check form-check-inline">
+                  <div className="form-check form-check-inline">
                     <input type="radio"
                       className="form-check-input form-check-input 
                     appearance-none rounded-full h-4 w-4 border 

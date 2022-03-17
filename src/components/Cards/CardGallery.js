@@ -13,8 +13,6 @@ function CardGallery() {
     const [actionImage, setActionImage] = useState({})
     const [addImage, setAddImage] = useState(0)
 
-
-
     useEffect(() => {
         const fetchPropertyDetails = async () => {
             try {
@@ -107,8 +105,6 @@ function CardGallery() {
 
     }
 
-
-
     const updateImageDetails = () => {
         const final_data = {
             "image_id": actionImage?.image_id,
@@ -184,17 +180,13 @@ function CardGallery() {
             })
     }
 
-
-
-
-
     return (
         <div>
             {/* Navbar */}
             <nav className="flex mb-5 ml-4" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2">
                     <li className="inline-flex items-center">
-                        <Link to="" className="text-gray-700 text-base font-medium hover:text-gray-900 inline-flex items-center">
+                        <Link to="/userlanding" className="text-gray-700 text-base font-medium hover:text-gray-900 inline-flex items-center">
                             <svg className="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
                             Home
                         </Link>
@@ -202,7 +194,7 @@ function CardGallery() {
                     <li>
                         <div className="flex items-center">
                             <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                            <Link to="" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Taj Vivanta</Link>
+                            <Link to="/property-summary" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Taj Vivanta</Link>
                         </div>
                     </li>
                     <li>
@@ -295,24 +287,24 @@ function CardGallery() {
             </div>
             {/* Modal edit */}
             <div className={editImage === 1 ? 'block' : 'hidden'}>
-                <div class="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
-                    <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
-                        <div class="bg-white rounded-lg shadow relative">
-                            <div class="flex items-start justify-between p-5 border-b rounded-t">
-                                <h3 class="text-xl font-semibold">
+                <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
+                        <div className="bg-white rounded-lg shadow relative">
+                            <div className="flex items-start justify-between p-5 border-b rounded-t">
+                                <h3 className="text-xl font-semibold">
                                     Edit image
                                 </h3>
                                 <button type="button"
                                     onClick={() => setEditImage(0)}
-                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="user-modal">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="user-modal">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 </button>
                             </div>
-                            <div class="p-6 space-y-6">
-                                <div class="grid grid-cols-6 gap-6">
-                                    <div class="col-span-6 sm:col-span-3">
+                            <div className="p-6 space-y-6">
+                                <div className="grid grid-cols-6 gap-6">
+                                    <div className="col-span-6 sm:col-span-3">
                                         <img src={actionImage?.image_link} alt='pic_room' style={{ height: "200px", width: "400px" }} />
-                                    </div> <div class="col-span-6 sm:col-span-3">
+                                    </div> <div className="col-span-6 sm:col-span-3">
                                         <label
                                             className="text-sm font-medium text-gray-900 block mb-2"
                                             htmlFor="grid-password"
@@ -332,7 +324,7 @@ function CardGallery() {
                                             }
                                             defaultValue={actionImage?.image_description}
                                         />
-                                    </div> <div class="col-span-6 sm:col-span-3">
+                                    </div> <div className="col-span-6 sm:col-span-3">
                                         <label
                                             className="text-sm font-medium text-gray-900 block mb-2"
                                             htmlFor="grid-password"
@@ -356,10 +348,10 @@ function CardGallery() {
 
                                 </div>
                             </div>
-                            <div class="items-center p-6 border-t border-gray-200 rounded-b">
+                            <div className="items-center p-6 border-t border-gray-200 rounded-b">
                                 <button
                                     onClick={() => updateImageDetails()}
-                                    class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                    className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                     type="submit">Edit image</button>
                             </div>
                         </div>
@@ -369,26 +361,26 @@ function CardGallery() {
 
             {/* Modal Add */}
             <div className={addImage === 1 ? 'block' : 'hidden'}>
-                <div class="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
-                    <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
-                        <div class="bg-white rounded-lg shadow relative">
-                            <div class="flex items-start justify-between p-5 border-b rounded-t">
-                                <h3 class="text-xl font-semibold">
+                <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
+                        <div className="bg-white rounded-lg shadow relative">
+                            <div className="flex items-start justify-between p-5 border-b rounded-t">
+                                <h3 className="text-xl font-semibold">
                                     Add new image
                                 </h3>
                                 <button type="button"
                                     onClick={() => setAddImage(0)}
-                                    class="text-gray-400 bg-transparent
+                                    className="text-gray-400 bg-transparent
                                  hover:bg-gray-200 
                                  hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                                 >
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 </button>
                             </div>
 
-                            <div class="p-6 space-y-6">
-                                <div class="grid grid-cols-6 gap-6">
-                                    <div class="col-span-6 sm:col-span-3">
+                            <div className="p-6 space-y-6">
+                                <div className="grid grid-cols-6 gap-6">
+                                    <div className="col-span-6 sm:col-span-3">
                                         <label
                                             className="text-sm font-medium text-gray-900 block mb-2"
                                             htmlFor="grid-password"
@@ -405,7 +397,7 @@ function CardGallery() {
                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full px-2.5"
                                             defaultValue="" />
                                     </div>
-                                    <div class="col-span-6 sm:col-span-3">
+                                    <div className="col-span-6 sm:col-span-3">
                                         <label
                                             className="text-sm font-medium text-gray-900 block mb-2"
                                             htmlFor="grid-password"
@@ -418,7 +410,7 @@ function CardGallery() {
                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full px-2.5"
                                             placeholder="Image Title" />
                                     </div>
-                                    <div class="col-span-6 sm:col-span-3">
+                                    <div className="col-span-6 sm:col-span-3">
                                         <label
                                             className="text-sm font-medium text-gray-900 block mb-2"
                                             htmlFor="grid-password"
@@ -430,7 +422,7 @@ function CardGallery() {
                                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                             defaultValue="" />
                                     </div>
-                                    <div class="col-span-6 sm:col-span-3">
+                                    <div className="col-span-6 sm:col-span-3">
                                         <label
                                             className="text-sm font-medium text-gray-900 block mb-2"
                                             htmlFor="grid-password"
@@ -447,13 +439,10 @@ function CardGallery() {
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="items-center p-6 border-t border-gray-200 rounded-b">
-
-                                <button
+<div className="items-center p-6 border-t border-gray-200 rounded-b">
+ <button
                                     onClick={handleSubmit}
-                                    class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                    className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                     type="submit">Add image</button>
                             </div>
                         </div>
@@ -463,28 +452,28 @@ function CardGallery() {
 
             {/* Modal Delete */}
             <div className={deleteImage === 1 ? 'block' : 'hidden'}>
-                <div class="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
-                    <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-                        <div class="bg-white rounded-lg shadow relative">
-                            <div class="flex justify-end p-2">
+                <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div className="relative w-full max-w-md px-4 h-full md:h-auto">
+                        <div className="bg-white rounded-lg shadow relative">
+                            <div className="flex justify-end p-2">
                                 <button
                                     onClick={() => setdeleteImage(0)}
-                                    type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="delete-user-modal">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                    type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="delete-user-modal">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 </button>
                             </div>
 
-                            <div class="p-6 pt-0 text-center">
-                                <svg class="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">
+                            <div className="p-6 pt-0 text-center">
+                                <svg className="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
                                     Are you sure you want to delete {actionImage?.image_title} image?
                                 </h3>
-                                <button onClick={() => submitDelete()} class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
+                                <button onClick={() => submitDelete()} className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
                                     Yes, I'm sure
                                 </button>
                                 <button
                                     onClick={() => setdeleteImage(0)}
-                                    class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-user-modal">
+                                    className="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-user-modal">
                                     No, cancel
                                 </button>
                             </div>
