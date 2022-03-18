@@ -1,8 +1,42 @@
-import { Redirect, Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import {Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 
 function CardRooms({ item }) {
+    const [deleteRoom, setDeleteRoom] = useState(0)
+    const [actionRoom,setActionRoom]=useState({});
+
+    /* Delete Room Function*/
+    const deleteRooms = () =>{
+        const url=`/${actionRoom?.room_id}`
+        console.log("url is "+url)
+        axios.delete(url).then((response)=>{
+          console.log("reply is "+JSON.stringify(response))
+         toast.success(("Room Deleted Successfully!"), {
+           position: "top-center",
+           autoClose: 5000,
+           hideProgressBar: false,
+           closeOnClick: true,
+           pauseOnHover: true,
+           draggable: true,
+           progress: undefined,
+         });
+          console.log((response.data))})
+          .catch((error)=>{ 
+           toast.error(("Room Delete Error!"), {
+             position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             });
+          })
+         }
+         
     return (
         <div>
             {/* Navbar */}
@@ -67,7 +101,7 @@ function CardRooms({ item }) {
                     </div>
                 </div>
             </div>
-            {/* Contact Table */}
+            {/* Rooms Table */}
             <div className="flex flex-col my-4">
                 <div className="overflow-x-auto">
                     <div className="align-middle inline-block min-w-full">
@@ -114,7 +148,10 @@ function CardRooms({ item }) {
                                                         <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                                         Edit room
                                                     </button></Link>
-                                                <button type="button" data-modal-toggle="delete-user-modal" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font- font-semibold rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                                <button type="button" onClick={()=>{
+                                                        setDeleteRoom(1);
+                                                        setActionRoom(item);
+                                                        }} data-modal-toggle="delete-user-modal" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font- font-semibold rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                                                     <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                                                     Delete room
                                                 </button>
@@ -128,6 +165,46 @@ function CardRooms({ item }) {
                     </div>
                 </div>
             </div>
+            {/* Modal Delete */}
+            <div className={deleteRoom===1?"block":"hidden"}>
+            <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full" >
+                <div className="relative w-full max-w-md px-4 h-full md:h-auto">
+                    <div className="bg-white rounded-lg shadow relative">
+                        <div className="flex justify-end p-2">
+                            <button type="button" onClick={()=>setDeleteRoom(0)} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
+
+                        <div className="p-6 pt-0 text-center">
+                            <svg className="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
+                                Are you sure you want to delete this room?</h3>
+                            <button 
+                            onClick={()=>{deleteRooms();setDeleteRoom(0)}}
+                             className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
+                                Yes, I'm sure
+                            </button>
+                            <button 
+                            onClick={()=>setDeleteRoom(0)} className="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-user-modal">
+                                No, cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            {/* Toast Container */}
+            <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
         </div>
     )
 }

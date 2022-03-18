@@ -4,11 +4,18 @@ import { Context } from '../../context/provider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+
 function CardServices() {
     const [allHotelDetails, setAllHotelDetails] = useState({})
+    const [additionalServices, setAdditionalServices] = useState({})
     const [edit, setEdit] = useState(0)
     const [actionService, setActionService] = useState({})
     const [modified, setModified] = useState({})
+    const [addEdit, setAddEdit] = useState(0)
+    const [addDel, setAddDel] = useState(0)
+    const [add, setAdd] = useState(0)
+
+    /* Function to fetch All Services*/
     useEffect(() => {
         const fetchServices = async () => {
             try {
@@ -29,47 +36,178 @@ function CardServices() {
                 }
             }
         }
-        fetchServices();
-    }, [])
- const updateServices = () =>
- {
-     const final_data={
-         "service_id":actionService.service_id,
-         "property_id":'t2k001',
-         "service_value":modified.service_value,
-         "service_comment":modified.service_comment,
-         "status":modified.status
+
+        const fetchAdditionalServices = async () => {
+            try {
+                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
+                const url = `http://103.136.36.27:7860/additional_services/t2k001`
+                console.log("URL " + url)
+                const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
+                console.log("additional services" + JSON.stringify(response.data))
+
+                setAdditionalServices(response.data)
+            }
+            catch (error) {
+                if (error.response) {
+                    console.log("data" + error.response);
+                    console.log("status" + error.response.status);
+                    console.log("header" + error.response.headers);
+                } else {
+                    console.log("error" + error.message);
                 }
-                console.log("final data is"+JSON.stringify(final_data))
-                const url = '/services'
-                axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
-                    ((response) => {
-                        console.log(response.data);
-                        toast.success(JSON.stringify(response.data.message), {
-                            position: "top-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                          });
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                        toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
-                            position: "top-center",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                          });
-                    })
- }
+            }
+        }
+        fetchServices();
+        fetchAdditionalServices();
+    }, [])
 
+    /*Function to edit additional services*/
+    const editAdditionalServices = () => {
+        const final_data = {
+            "add_service_id": actionService.add_service_id,
+            "property_id": 't2k001',
+            "service_value": modified.service_value,
+            "service_comment": modified.service_comment,
+            "status": modified.status
+        }
+        console.log("final data is" + JSON.stringify(final_data))
+        const url = '/additional_services'
+        axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+            ((response) => {
+                console.log(response.data);
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
 
+    }
+
+    /* Function to edit services*/
+    const updateServices = () => {
+        const final_data = {
+            "service_id": actionService.service_id,
+            "property_id": 't2k001',
+            "service_value": modified.service_value,
+            "service_comment": modified.service_comment,
+            "status": modified.status
+        }
+        console.log("final data is" + JSON.stringify(final_data))
+        const url = '/services'
+        axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+            ((response) => {
+                console.log(response.data);
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+    }
+
+    /* function to delete additional service */
+    const deleteAdditionalService = () => {
+        const url = `additional_service/${actionService?.add_service_id}`
+        console.log("url is " + url)
+        axios.delete(url).then((response) => {
+            console.log("reply is " + JSON.stringify(response))
+            toast.success(("Additional Service Deleted Successfully!"), {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            console.log((response.data))
+        })
+            .catch((error) => {
+                toast.error(("Room Delete Error!"), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+    }
+
+    /*Function to add additional service*/
+    const newAdditionalService = ()=>
+    {
+        const final_data ={
+            "additional_service": [ {
+            
+            "property_id": 't2k001',
+            "add_service_name": modified.add_service_name,
+            "add_service_comment": modified.add_service_comment,
+            "status": true
+        }]}
+        console.log("final data is" + JSON.stringify(final_data))
+        const url = '/additional_services'
+        axios.post(url, final_data, { header: { "content-type": "application/json" } }).then
+            ((response) => {
+                console.log(response.data);
+                toast.success(JSON.stringify(response.data.message), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+        
+    }
     return (
         <div>
             {/* Navbar */}
@@ -123,7 +261,7 @@ function CardServices() {
                         </div>
                     </div>
                     <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                        <button type="button" data-modal-toggle="add-user-modal" className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                        <button type="button" onClick={() => setAdd(1)} className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
                             <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                             Add service
                         </button>
@@ -135,7 +273,7 @@ function CardServices() {
                 </div>
             </div>
 
-            {/* Contact Table */}
+            {/* Services Table */}
             <div className="flex flex-col my-4">
                 <div className="overflow-x-auto">
                     <div className="align-middle inline-block min-w-full">
@@ -165,7 +303,7 @@ function CardServices() {
                                         <tr className="hover:bg-gray-100">
                                             <td className="py-4 px-3 capitalize whitespace-nowrap text-sm font-medium text-gray-900">
                                                 {item?.local_service_name}</td>
-                                            <td className="py-4 px-2.5 capitalize whitespace-nowrap text-xs font-medium text-gray-900">
+                                            <td className="py-4 px-2.5 capitalize whitespace-wrap text-xs font-medium text-gray-900">
                                                 {item?.service_comment}</td>
                                             <td className="py-4 px-2.5 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 {item?.service_value} </td>
@@ -177,7 +315,6 @@ function CardServices() {
                                                     <div className="h-2.5 w-2.5 rounded-full bg-red-600 mr-2"></div>
                                                     Inactive
                                                 </div>}
-
                                             </td>
                                             <td className="py-4 px-2.5 whitespace-nowrap">
                                                 <button
@@ -187,7 +324,6 @@ function CardServices() {
                                                     <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                                                     Edit service
                                                 </button>
-
                                             </td>
                                         </tr>
                                     ))}
@@ -199,8 +335,80 @@ function CardServices() {
                 </div>
             </div>
 
+            {/* Additional Services Table */}
+            {additionalServices === '' ? <></> : <>
+                <div className="mx-4 my-2">
+                    <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Additional Services</h1></div>
+                <div className="flex flex-col my-4">
+                    <div className="overflow-x-auto">
+                        <div className="align-middle inline-block min-w-full">
+                            <div className="shadow overflow-hidden">
+                                <table className="table-fixed min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                                                Service Name
+                                            </th>
+                                            <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                                                Service Description
+                                            </th>
+                                            <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                                                Status
+                                            </th>
+                                            <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {additionalServices.length === undefined ? <p>Loading </p> :
+                                            <>
+                                                {additionalServices.map((i) => (
+                                                    <tr className="hover:bg-gray-100">
+                                                        <td className="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
+                                                            <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900">{i.add_service_name}</td>
+                                                        </td>
+                                                        <td className="p-4 capitalize whitespace-wrap text-xs font-medium text-gray-900">
+                                                            {i.add_service_comment}
+                                                        </td>
+                                                        <td className="p-4 whitespace-nowrap text-base font-normal text-gray-900">
+                                                            {i.status === true ?
+                                                                <div className="flex items-center">
+                                                                    <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
+                                                                    Active
+                                                                </div> :
+                                                                <div className="flex items-center">
+                                                                    <div className="h-2.5 w-2.5 rounded-full bg-red-600 mr-2"></div>
+                                                                    Inactive
+                                                                </div>}
+                                                        </td>
+                                                        <td className="p-4 whitespace-nowrap space-x-2">
+                                                            <button type="button"
+                                                                onClick={() => { setAddEdit(1); setActionService(i) }}
+                                                                className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font- font-semibold rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                                                <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                                                                Edit service
+                                                            </button>
+                                                            <button type="button"
+                                                                onClick={() => { setAddDel(1); setActionService(i) }}
+                                                                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font- font-semibold rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
+                                                                <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                                                Delete service
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>}
 
-
+            {/* Modals for Add, Edit and Delete*/}
             <div className={edit === 1 ? 'block' : 'hidden'}>
                 {actionService.service_value === 'yes' || actionService.service_value === 'no' ? <div>
                     {/* Modal Edit Radio */}
@@ -225,7 +433,7 @@ function CardServices() {
                                             <div className="flex">
                                                 <div className="form-check form-check-inline">
                                                     <input type="radio"
-                                                         onChange={(e)=>(setModified({...modified,service_value:e.target.value}))}
+                                                        onChange={(e) => (setModified({ ...modified, service_value: e.target.value }))}
                                                         className="form-check-input form-check-input 
                                                          appearance-none rounded-full h-4 w-4 border 
                                                          border-gray-300 
@@ -234,11 +442,11 @@ function CardServices() {
                                                           transition duration-200 mt-2  align-top
                                                            bg-no-repeat bg-center bg-contain float-left
                                                             mr-2 cursor-pointer"
-                                                       
+
                                                         value="yes"
                                                         name="who" id='ip1' />
                                                     <label
-                                                    className="form-check-label inline-block 
+                                                        className="form-check-label inline-block 
                                                       text-gray-700 text-base pr-2 "
                                                         htmlFor="ip1">
                                                         Yes
@@ -246,7 +454,7 @@ function CardServices() {
                                                 </div>
                                                 <div className="form-check form-check-inline">
                                                     <input type="radio" id='ip2' value="no"
-                                                    onChange={(e)=>(setModified({...modified,service_value:e.target.value}))}
+                                                        onChange={(e) => (setModified({ ...modified, service_value: e.target.value }))}
                                                         className="form-check-input form-check-input appearance-none 
                                                          rounded-full h-4 w-4 border border-gray-300
                                                           bg-white checked:bg-blue-600 checked:border-blue-600
@@ -257,7 +465,7 @@ function CardServices() {
                                                     <label
                                                         className="form-check-label inline-block 
                                                         text-gray-700 text-base  "
-                                                        htmlFor="ip2" 
+                                                        htmlFor="ip2"
                                                     >
                                                         No</label>
                                                 </div>
@@ -268,7 +476,7 @@ function CardServices() {
                                             <div className="flex">
                                                 <div className="form-check form-check-inline">
                                                     <input type="radio"
-                                                    onChange={(e)=>(setModified({...modified,status: true}))}
+                                                        onChange={(e) => (setModified({ ...modified, status: true }))}
                                                         className="form-check-input form-check-input 
                                                          appearance-none rounded-full h-4 w-4 border 
                                                          border-gray-300 
@@ -276,11 +484,11 @@ function CardServices() {
                                                          checked:border-blue-600 focus:outline-none
                                                           transition duration-200 mt-2  align-top
                                                            bg-no-repeat bg-center bg-contain float-left
-                                                            mr-2 cursor-pointer" 
+                                                            mr-2 cursor-pointer"
                                                         value="Active"
                                                         name="status" id='st' />
                                                     <label
-                                                     className="form-check-label inline-block 
+                                                        className="form-check-label inline-block 
                                                          text-gray-700 text-base pr-2 "
                                                         htmlFor="st">
                                                         Active
@@ -288,7 +496,7 @@ function CardServices() {
                                                 </div>
                                                 <div className="form-check form-check-inline">
                                                     <input type="radio" id='st2' value="Inactive"
-                                                    onChange={(e)=>(setModified({...modified,status: false}))}
+                                                        onChange={(e) => (setModified({ ...modified, status: false }))}
                                                         className="form-check-input form-check-input appearance-none 
                                                    rounded-full h-4 w-4 border border-gray-300
                                                     bg-white checked:bg-blue-600 checked:border-blue-600
@@ -297,7 +505,7 @@ function CardServices() {
                                                        mr-1 ml-2 cursor-pointer" name="status" />
                                                     <label
                                                         className="form-check-label inline-block text-gray-700 text-base  "
-                                                        htmlFor="st2" 
+                                                        htmlFor="st2"
                                                     >
                                                         Inactive</label>
                                                 </div>
@@ -306,22 +514,22 @@ function CardServices() {
                                         <div className="col-span-6 sm:col-span-3">
                                             <label for="service_comment" className="text-sm font-medium text-gray-900 block mb-2">
                                                 Service Description</label>
-                                            <textarea rows="2" columns="50" 
-                                            id="service_comment" onChange={(e)=>(setModified({...modified,service_comment:e.target.value}))} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
+                                            <textarea rows="2" columns="50"
+                                                id="service_comment" onChange={(e) => (setModified({ ...modified, service_comment: e.target.value }))} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
                                         </div>
 
                                     </div>
                                 </div>
                                 <div className="items-center p-6 border-t border-gray-200 rounded-b">
-                                    <button onClick={()=>{updateServices(); setEdit(0)}} 
-                                    className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200
+                                    <button onClick={() => { updateServices(); setEdit(0) }}
+                                        className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200
                                      font-semibold rounded-lg text-sm px-5 py-2.5 text-center"
-                                      type="submit">Update</button>
+                                        type="submit">Update</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> :<div>
+                </div> : <div>
                     {/* Modal Edit Dropdown */}
                     <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
                         <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
@@ -335,52 +543,51 @@ function CardServices() {
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                     </button>
                                 </div>
-                                
+
                                 <div className="p-6 space-y-6">
                                     <div className="grid grid-cols-6 gap-6">
-                                            <div className="col-span-6 sm:col-span-3">
-                                                <label for="first-name" className="text-sm capitalize font-medium text-gray-900 block mb-2">{actionService?.local_service_name}</label>
-                                                {(() => {
-                                             switch(actionService?.service_id)
-                                             {
-                                            case 'ser0016':return(<div>
-                                                {/*Kitchen Availability*/}
-                                                <select onClick={(e)=>setModified({...modified,service_value:e.target.value})} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
-                                                    <option value="Available in all rooms">Available in all rooms</option>
-                                                    <option value="Available in some rooms">Available in some rooms</option>
-                                                    <option value="Not available">Not available</option>
-                                                </select> 
-                                            </div>)
-                                            case 'ser0017':return(<div>
-                                                 {/*Parking Type*/}
-                                                 <select onClick={(e)=>setModified({...modified,service_value:e.target.value})} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
-                                                    <option value="No payment required">No Payment Required</option>
-                                                    <option value="Paid">Paid</option>
-                                                    <option value="Not available">Not available</option>
-                                                </select>
-                                            </div>)
-                                            case 'ser0020':return(<div>
-                                                 {/*Swimming Pool*/}
-                                                 <select onClick={(e)=>setModified({...modified,service_value:e.target.value})} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
-                                                    <option value="Indoors">Indoors</option>
-                                                    <option value="Outdoors">Outdoors</option>
-                                                    <option value="Indoors and outdoors">Indoors and Outdoors</option>
-                                                    <option value="Not available">Not available</option>
-                                                </select>
-                                            </div>)
-                                            case 'ser0022':return(<div>
-                                                 {/*Wifi Type*/}
-                                                 <select onClick={(e)=>setModified({...modified,service_value:e.target.value})}className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
-                                                    <option value="No payment required">No Payment Required</option>
-                                                    <option value="Paid">Paid</option>
-                                                    <option value="Not available">Not available</option>
-                                                    <option value="Not available">Not available</option>
-                                                </select>
-                                            </div>)
-                                            default: return(<div></div>)
-                                        }
+                                        <div className="col-span-6 sm:col-span-3">
+                                            <label for="first-name" className="text-sm capitalize font-medium text-gray-900 block mb-2">{actionService?.local_service_name}</label>
+                                            {(() => {
+                                                switch (actionService?.service_id) {
+                                                    case 'ser0016': return (<div>
+                                                        {/*Kitchen Availability*/}
+                                                        <select onClick={(e) => setModified({ ...modified, service_value: e.target.value })} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
+                                                            <option value="Available in all rooms">Available in all rooms</option>
+                                                            <option value="Available in some rooms">Available in some rooms</option>
+                                                            <option value="Not available">Not available</option>
+                                                        </select>
+                                                    </div>)
+                                                    case 'ser0017': return (<div>
+                                                        {/*Parking Type*/}
+                                                        <select onClick={(e) => setModified({ ...modified, service_value: e.target.value })} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
+                                                            <option value="No payment required">No Payment Required</option>
+                                                            <option value="Paid">Paid</option>
+                                                            <option value="Not available">Not available</option>
+                                                        </select>
+                                                    </div>)
+                                                    case 'ser0020': return (<div>
+                                                        {/*Swimming Pool*/}
+                                                        <select onClick={(e) => setModified({ ...modified, service_value: e.target.value })} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
+                                                            <option value="Indoors">Indoors</option>
+                                                            <option value="Outdoors">Outdoors</option>
+                                                            <option value="Indoors and outdoors">Indoors and Outdoors</option>
+                                                            <option value="Not available">Not available</option>
+                                                        </select>
+                                                    </div>)
+                                                    case 'ser0022': return (<div>
+                                                        {/*Wifi Type*/}
+                                                        <select onClick={(e) => setModified({ ...modified, service_value: e.target.value })} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" >
+                                                            <option value="No payment required">No Payment Required</option>
+                                                            <option value="Paid">Paid</option>
+                                                            <option value="Not available">Not available</option>
+                                                            <option value="Not available">Not available</option>
+                                                        </select>
+                                                    </div>)
+                                                    default: return (<div></div>)
+                                                }
                                             })()}
-                                            </div>
+                                        </div>
                                         <div className="col-span-6 sm:col-span-3">
                                             <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Service Description</label>
                                             <textarea rows="2" columns="50" id="last-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
@@ -390,7 +597,7 @@ function CardServices() {
                                             <div className="flex">
                                                 <div className="form-check form-check-inline">
                                                     <input type="radio"
-                                                    onChange={(e)=>(setModified({...modified,status: true}))}
+                                                        onChange={(e) => (setModified({ ...modified, status: true }))}
                                                         className="form-check-input form-check-input 
                                                          appearance-none rounded-full h-4 w-4 border 
                                                          border-gray-300 
@@ -398,11 +605,11 @@ function CardServices() {
                                                          checked:border-blue-600 focus:outline-none
                                                           transition duration-200 mt-2  align-top
                                                            bg-no-repeat bg-center bg-contain float-left
-                                                            mr-2 cursor-pointer" 
+                                                            mr-2 cursor-pointer"
                                                         value="Active"
                                                         name="status" id='st' />
                                                     <label
-                                                     className="form-check-label inline-block 
+                                                        className="form-check-label inline-block 
                                                          text-gray-700 text-base pr-2 "
                                                         htmlFor="st">
                                                         Active
@@ -410,7 +617,7 @@ function CardServices() {
                                                 </div>
                                                 <div className="form-check form-check-inline">
                                                     <input type="radio" id='st2' value="Inactive"
-                                                    onChange={(e)=>(setModified({...modified,status: false}))}
+                                                        onChange={(e) => (setModified({ ...modified, status: false }))}
                                                         className="form-check-input form-check-input appearance-none 
                                                    rounded-full h-4 w-4 border border-gray-300
                                                     bg-white checked:bg-blue-600 checked:border-blue-600
@@ -419,7 +626,7 @@ function CardServices() {
                                                        mr-1 ml-2 cursor-pointer" name="status" />
                                                     <label
                                                         className="form-check-label inline-block text-gray-700 text-base  "
-                                                        htmlFor="st2" 
+                                                        htmlFor="st2"
                                                     >
                                                         Inactive</label>
                                                 </div>
@@ -428,7 +635,7 @@ function CardServices() {
                                     </div>
                                 </div>
                                 <div className="items-center p-6 border-t border-gray-200 rounded-b">
-                                    <button onClick={()=>{updateServices(); setEdit(0)}} className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Update</button>
+                                    <button onClick={() => { updateServices(); setEdit(0) }} className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -436,67 +643,157 @@ function CardServices() {
                 </div>}
             </div>
 
+            {/* Modal Edit Additional Services */}
+            <div className={addEdit === 1 ? 'block' : 'hidden'}>
+                <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
+                        <div className="bg-white rounded-lg shadow relative">
+                            <div className="flex items-start justify-between p-5 border-b rounded-t">
+                                <h3 className="text-xl font-semibold">
+                                    Edit Service
+                                </h3>
+                                <button type="button" onClick={() => setAddEdit(0)} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-user-modal">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                </button>
+                            </div>
+                            <div className="p-6 space-y-6">
+                                <div className="grid grid-cols-6 gap-6">
+                                    <div className="col-span-6 sm:col-span-3">
+                                        <label for="first-name" className="text-sm font-medium text-gray-900 block mb-2">Service Name</label>
+                                        <input type="text"
+                                            onChange={(e) => setModified({ ...modified, add_service_name: e.target.value })}
+                                            defaultValue={actionService?.add_service_name}
+                                            name="first-name" id="first-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
+                                    </div>
+                                    <div className="col-span-6 sm:col-span-3">
+                                        <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Service Description</label>
+                                        <textarea rows="2"
+                                            onChange={(e) => setModified({ ...modified, add_service_comment: e.target.value })}
+                                            defaultValue={actionService?.add_service_comment} columns="50" name="last-name" id="last-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
+                                    </div>
+                                    <div className="col-span-6 sm:col-span-3">
+                                        <label for="name" className="text-base pr-2 font-semibold text-gray-900 block mb-2">Status</label>
+                                        <div className="flex">
+                                            <div className="form-check form-check-inline">
+                                                <input type="radio"
+                                                    onChange={(e) => setModified({ ...modified, active: true })}
+                                                    className="form-check-input form-check-input 
+                                                         appearance-none rounded-full h-4 w-4 border 
+                                                         border-gray-300 
+                                                         bg-white checked:bg-blue-600 
+                                                         checked:border-blue-600 focus:outline-none
+                                                          transition duration-200 mt-2  align-top
+                                                           bg-no-repeat bg-center bg-contain float-left
+                                                            mr-2 cursor-pointer"
+                                                    value="Active"
+                                                    name="status" id='st' />
+                                                <label
+                                                    className="form-check-label inline-block 
+                                                         text-gray-700 text-base pr-2 "
+                                                    htmlFor="st">
+                                                    Active
+                                                </label>
+                                            </div>
+                                            <div className="form-check form-check-inline">
+                                                <input type="radio" id='st2' value="Inactive"
+                                                    onChange={(e) => setModified({ ...modified, active: false })}
+                                                    className="form-check-input form-check-input appearance-none 
+                                                   rounded-full h-4 w-4 border border-gray-300
+                                                    bg-white checked:bg-blue-600 checked:border-blue-600
+                                                     focus:outline-none transition duration-200 mt-2 
+                                                      align-top bg-no-repeat bg-center bg-contain float-left mb-2
+                                                       mr-1 ml-2 cursor-pointer" name="status" />
+                                                <label
+                                                    className="form-check-label inline-block text-gray-700 text-base  "
+                                                    htmlFor="st2"
+                                                >
+                                                    Inactive</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="items-center p-6 border-t border-gray-200 rounded-b">
+                                <button
+                                    onClick={
+                                        () => { editAdditionalServices(); setAddEdit(0); }
+                                    } className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Update</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             {/* Modal Add */}
-            <div className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="add-user-modal">
+            <div className={add === 1 ? 'block' : 'hidden'}>
+            <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
                 <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
-
                     <div className="bg-white rounded-lg shadow relative">
-
                         <div className="flex items-start justify-between p-5 border-b rounded-t">
                             <h3 className="text-xl font-semibold">
                                 Add new service
                             </h3>
-                            <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-user-modal">
+                            <button type="button" onClick={()=>setAdd(0)} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="add-user-modal">
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                             </button>
                         </div>
-
                         <div className="p-6 space-y-6">
-
                             <div className="grid grid-cols-6 gap-6">
                                 <div className="col-span-6 sm:col-span-3">
                                     <label for="first-name" className="text-sm font-medium text-gray-900 block mb-2">Service Name</label>
-                                    <input type="text" name="first-name" id="first-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
+                                    <input type="text" name="first-name" 
+                                    onChange={(e)=>{setModified({...modified,add_service_name:e.target.value})}}
+                                    id="first-name" 
+                                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
                                 </div>
                                 <div className="col-span-6 sm:col-span-3">
                                     <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Service Description</label>
-                                    <textarea rows="2" columns="50" name="last-name" id="last-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
+                                    <textarea rows="2" columns="50" name="last-name" 
+                                    onChange={(e)=>{setModified({...modified,add_service_comment:e.target.value})}}
+                                    id="last-name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
                                 </div>
                             </div>
                         </div>
 
                         <div className="items-center p-6 border-t border-gray-200 rounded-b">
-                            <button className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Add service</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            {/* Modal Delete */}
-            <div className="hidden overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center h-modal sm:h-full" id="delete-user-modal">
-                <div className="relative w-full max-w-md px-4 h-full md:h-auto">
-                    <div className="bg-white rounded-lg shadow relative">
-                        <div className="flex justify-end p-2">
-                            <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="delete-user-modal">
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </button>
-                        </div>
-
-                        <div className="p-6 pt-0 text-center">
-                            <svg className="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to delete this service?</h3>
-                            <a href="#" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
-                                Yes, I'm sure
-                            </a>
-                            <a href="#" className="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-user-modal">
-                                No, cancel
-                            </a>
+                            <button 
+                            onClick={()=>{newAdditionalService(); setAdd(0);}}
+                            className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-semibold rounded-lg text-sm px-5 py-2.5 text-center" type="submit">
+                                Add service</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <ToastContainer position="top-center"
+        </div>
+
+     {/* Modal Delete additional services*/ }
+    <div className={addDel === 1 ? 'block' : 'hidden'}>
+        <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+            <div className="relative w-full max-w-md px-4 h-full md:h-auto">
+                <div className="bg-white rounded-lg shadow relative">
+                    <div className="flex justify-end p-2">
+                        <button onClick={() => setAddDel(0)} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="delete-user-modal">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </button>
+                    </div>
+
+                    <div className="p-6 pt-0 text-center">
+                        <svg className="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">Are you sure you want to delete this service?</h3>
+                        <button onClick={() => { deleteAdditionalService(); setAddDel(0) }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
+                            Yes, I'm sure
+                        </button>
+                        <button onClick={() => setAddDel(0)} className="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center" data-modal-toggle="delete-user-modal">
+                            No, cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {/* Toast Container */ }
+    <ToastContainer position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -505,7 +802,7 @@ function CardServices() {
         pauseOnFocusLoss
         draggable
         pauseOnHover />
-        </div>
+        </div >
     )
 }
 

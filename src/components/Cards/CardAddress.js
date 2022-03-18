@@ -5,12 +5,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
-
 function CardAddress() {
   const [data] = useContext(Context)
   const [allHotelDetails, setAllHotelDetails] = useState([])
 
-  //Edit Function
+  /* Edit Address Function */
   const submitAddressEdit = () => {
     console.log(JSON.stringify(data))
     console.log(JSON.stringify(allHotelDetails.address[0].address_id))
@@ -55,21 +54,20 @@ function CardAddress() {
         });
       })
   }
-
+  
+  /* Function to Fetch Address when page loads */
   useEffect(() => {
-    const fetchBasicDetails = async () => {
+    const fetchAddress = async () => {
       try {
         // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
         const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
         console.log("URL " + url)
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log(response.data)
-
         setAllHotelDetails(response.data)
       }
       catch (error) {
         if (error.response) {
-
           console.log("data" + JSON.stringify(error.response));
           console.log("status" + error.response.status);
           console.log("header" + error.response.headers);
@@ -77,18 +75,12 @@ function CardAddress() {
           console.log("error" + error.message);
         }
       }
-
     }
-
-
-    fetchBasicDetails();
-
-
+    fetchAddress();
   }, [])
 
   return (
     <div >
-
       {/* Navbar */}
       <nav className="flex mb-5 ml-4" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2">
@@ -113,7 +105,7 @@ function CardAddress() {
         </ol>
       </nav>
 
-      {/* Address Form */}
+      {/* Update Address Form */}
       <div className="bg-white shadow rounded-lg mx-10 px-12 sm:p-6 xl:p-8  2xl:col-span-2">
         <h6 className="text-xl  flex leading-none pl-6 pt-2 font-bold text-gray-900 ">
           Address

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 function CardGallery() {
     const [allHotelDetails, setAllHotelDetails] = useState({})
     const [image, setImage] = useState({})
@@ -13,6 +12,7 @@ function CardGallery() {
     const [actionImage, setActionImage] = useState({})
     const [addImage, setAddImage] = useState(0)
 
+    /* Function to fetch Gallery images when page loads*/
     useEffect(() => {
         const fetchPropertyDetails = async () => {
             try {
@@ -40,6 +40,7 @@ function CardGallery() {
         setImage({ ...image, imageFile: e.target.files[0] })
     }
 
+    /* Function to upload image*/
     const uploadImage = () => {
         const imageDetails = image.imageFile
         const formData = new FormData();
@@ -66,7 +67,9 @@ function CardGallery() {
             });
 
     }
-    const handleSubmit = () => {
+
+    /* Function to add images*/
+    const submitAddImage = () => {
         console.log("before sort" + JSON.stringify(actionImage))
         const imagedata = [{
             property_id: 't2k001',//to be fetched from context
@@ -104,7 +107,8 @@ function CardGallery() {
         });
 
     }
-
+    
+    /* Function to edit images*/
     const updateImageDetails = () => {
         const final_data = {
             "image_id": actionImage?.image_id,
@@ -146,6 +150,8 @@ function CardGallery() {
 
             })
     }
+    
+    /* Function to delete images*/
     const submitDelete = () => {
 
         const url = `/${actionImage.image_id}`
@@ -441,7 +447,7 @@ function CardGallery() {
                             </div>
 <div className="items-center p-6 border-t border-gray-200 rounded-b">
  <button
-                                    onClick={handleSubmit}
+                                    onClick={submitAddImage}
                                     className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                     type="submit">Add image</button>
                             </div>
@@ -481,6 +487,8 @@ function CardGallery() {
                     </div>
                 </div>
             </div>
+
+             {/* Toast Container */}
             <ToastContainer position="top-center"
                 autoClose={5000}
                 hideProgressBar={false}

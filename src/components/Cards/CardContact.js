@@ -13,6 +13,7 @@ function CardContact() {
     const [deleteContact, setDeleteContact] = useState(0)
     const [editContact,setEditContact]=useState({});
 
+    /* Function to Fetch Contacts when page loads */
     useEffect(() => {
         const fetchBasicDetails = async () => {
             try {
@@ -36,7 +37,30 @@ function CardContact() {
 fetchBasicDetails();
 }, [])
 
-    const submitContactEdit = (props) => {
+    const conTemp = {
+        contact_type: '',
+        contact_data: '',
+        property_id: data.property_id
+      }
+    
+    const [contact, setContact] = useState
+    ([conTemp]?.map((i, id) => { return { ...i, index: id } }))
+
+    const onChange = (e, index, i) => {
+        console.log(index, 'index')
+        alert("target value",e)
+        setContact(contact?.map((item, id) => {
+          if (item.index === index) {
+            item[i] = e.target.value
+          }
+          alert(JSON.stringify(item))
+
+          return item
+        }))
+     }
+    
+     /* Function Edit Contact*/
+     const submitContactEdit = (props) => {
         console.log("props to edit contact i s "+props)
         console.log(JSON.stringify(data))
         const final_data = {
@@ -73,28 +97,8 @@ fetchBasicDetails();
                   });
             })
     }
-
-    const conTemp = {
-        contact_type: '',
-        contact_data: '',
-        property_id: data.property_id
-      }
-    const [contact, setContact] = useState
-    ([conTemp]?.map((i, id) => { return { ...i, index: id } }))
-
-    const onChange = (e, index, i) => {
-        console.log(index, 'index')
-        alert("target value",e)
-        setContact(contact?.map((item, id) => {
-          if (item.index === index) {
-            item[i] = e.target.value
-          }
-          alert(JSON.stringify(item))
-
-          return item
-        }))
-     }
     
+    /* Function Add Contact*/
     function submitContactAdd(e) {
         e.preventDefault()
         console.log({ contact })
@@ -139,15 +143,15 @@ fetchBasicDetails();
     
             });
         }
-    
- 
+
+     /* Function Delete Contact*/
     const submitDelete = (props) => {
         console.log(JSON.stringify(data))
         const url = `/${props}`
         axios.delete(url).then
             ((response) => {
                 console.log(response.data);
-                toast.success(JSON.stringify(response.data.message), {
+                toast.success(("Contact Deleted Successfully!"), {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -311,6 +315,7 @@ fetchBasicDetails();
                 </div>
             </div>
 
+            {/* Modals Popups for Edit, Add and Delete Contact */}
             {/* Modal Edit */}
             <div className={updateContact===1?'block':'hidden'}>
                 <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">

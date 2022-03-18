@@ -109,7 +109,7 @@ function CardRooms({ item }) {
                                                 }}>
                                                     <button type="button" data-modal-toggle="edit-user-modal"
                                                         className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font- font-semibold rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
-                                                       View XML
+                                                       View XML 
                                                     </button></Link>
                                               </td>
                                         </tr>

@@ -9,7 +9,7 @@ function CardBasicDetails() {
   const [data] = useContext(Context)
   const [allHotelDetails, setAllHotelDetails] = useState([])
 
-  //Edit Function 
+  /* Edit Basic Details Function */
   const submitBasicEdit = () => {
     console.log(JSON.stringify(data))
     const final_data = {
@@ -48,11 +48,11 @@ function CardBasicDetails() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-              });
-               
+              });      
         })
 }
 
+/* Function to fetch basic basic details when page loads*/
 useEffect(() => {
   const fetchBasicDetails = async () => {
       try {
@@ -61,12 +61,10 @@ useEffect(() => {
           console.log("URL " + url)
           const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
           console.log(response.data)
-
           setAllHotelDetails(response.data)
       }
       catch (error) {
           if (error.response) {
-
               console.log("data" + JSON.stringify(error.response));
               console.log("status" + error.response.status);
               console.log("header" + error.response.headers);
@@ -74,13 +72,8 @@ useEffect(() => {
               console.log("error" + error.message);
           }
       }
-
   }
-
-
   fetchBasicDetails();
-
-
 }, [])
 
   return (
