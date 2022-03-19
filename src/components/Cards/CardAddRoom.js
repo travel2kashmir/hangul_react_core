@@ -592,200 +592,202 @@ function CardAddRoom() {
             </div>
           </div>
         </div>
-        {/* Room Gallery  {roomId.length===0?<></>: */}
-        <>
-         <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
-          <div className="mx-4">
-            <div className="sm:flex">
-              <h6 className="text-base  flex leading-none  pt-2 font-semibold text-gray-800 ">
-                Room Gallery
-              </h6> <div className="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
+
+        {/* Room Gallery*/}
+        {roomId.length === 0 ? <></> :
+          <>
+            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+              <div className="mx-4">
+                <div className="sm:flex">
+                  <h6 className="text-base  flex leading-none  pt-2 font-semibold text-gray-800 ">
+                    Room Gallery
+                  </h6> <div className="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
+                  </div>
+                  <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
+                    <button type="button" onClick={addPhotos}
+                      className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                      <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                      Add image
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                <button type="button" onClick={addPhotos}
-                  className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
-                  <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                  Add image
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="pt-6">
-            <div className=" md:px-2 mx-auto w-full">
-              <div>
-                {imageData?.map((imageData, index) => (
-                  <div className="flex flex-wrap">
-                    <div className="w-full lg:w-6/12 px-4">
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="text-sm font-medium text-gray-900 block mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Image Upload
-                        </label>
-                        <input
-                          type="file"
-                          onChange={e => {
-                            onChangePhoto(e, 'imageFile');
-                            setTimeout(() => { uploadImage(); }, 3000);
+              <div className="pt-6">
+                <div className=" md:px-2 mx-auto w-full">
+                  <div>
+                    {imageData?.map((imageData, index) => (
+                      <div className="flex flex-wrap">
+                        <div className="w-full lg:w-6/12 px-4">
+                          <div className="relative w-full mb-3">
+                            <label
+                              className="text-sm font-medium text-gray-900 block mb-2"
+                              htmlFor="grid-password"
+                            >
+                              Image Upload
+                            </label>
+                            <input
+                              type="file"
+                              onChange={e => {
+                                onChangePhoto(e, 'imageFile');
+                                setTimeout(() => { uploadImage(); }, 3000);
 
-                          }}
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full px-2.5"
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full lg:w-6/12 px-4">
-                      <div className="relative w-full mb-3">
-                        <label className="text-sm font-medium text-gray-900 block mb-2"
-                          htmlFor="grid-password">
-                          Image Title
-                        </label>
-                        <input type="text" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                          onChange={(e) => (setActionImage({ ...actionImage, image_title: e.target.value }))}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full lg:w-6/12 px-4 pb-4">
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="text-sm font-medium text-gray-900 block mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Image Description
-                        </label>
-                        <textarea rows="2" columns="50"
-                          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                          onChange={(e) => (setActionImage({ ...actionImage, image_description: e.target.value }))}
-                        />
-                      </div>
-                    </div>
+                              }}
+                              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full px-2.5"
+                            />
+                          </div>
+                        </div>
+                        <div className="w-full lg:w-6/12 px-4">
+                          <div className="relative w-full mb-3">
+                            <label className="text-sm font-medium text-gray-900 block mb-2"
+                              htmlFor="grid-password">
+                              Image Title
+                            </label>
+                            <input type="text" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                              onChange={(e) => (setActionImage({ ...actionImage, image_title: e.target.value }))}
+                            />
+                          </div>
+                        </div>
+                        <div className="w-full lg:w-6/12 px-4 pb-4">
+                          <div className="relative w-full mb-3">
+                            <label
+                              className="text-sm font-medium text-gray-900 block mb-2"
+                              htmlFor="grid-password"
+                            >
+                              Image Description
+                            </label>
+                            <textarea rows="2" columns="50"
+                              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                              onChange={(e) => (setActionImage({ ...actionImage, image_description: e.target.value }))}
+                            />
+                          </div>
+                        </div>
 
-                    <div className="w-full lg:w-6/12 px-4 pb-4">
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="text-sm font-medium text-gray-900 block mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Image Category
-                        </label>
-                        <input
-                          type="text" className=" shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                          defaultValue="room" readOnly="readonly"
-                        />
-                      </div>
-                    </div>
+                        <div className="w-full lg:w-6/12 px-4 pb-4">
+                          <div className="relative w-full mb-3">
+                            <label
+                              className="text-sm font-medium text-gray-900 block mb-2"
+                              htmlFor="grid-password"
+                            >
+                              Image Category
+                            </label>
+                            <input
+                              type="text" className=" shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                              defaultValue="room" readOnly="readonly"
+                            />
+                          </div>
+                        </div>
 
-                    <div className="flex items-center justify-end space-x-2 sm:space-x-3 ml-auto">
-                        <button className="sm:inline-flex  text-gray-800 bg-gray-200 hover:bg-gray-400 
+                        <div className="flex items-center justify-end space-x-2 sm:space-x-3 ml-auto">
+                          <button className="sm:inline-flex  text-gray-800 bg-gray-200 hover:bg-gray-400 
                     focus:ring-4 focus:ring-white-200 font-semibold
                      rounded-lg text-sm px-3 py-2 -mt-16  border border-gray-300 text-center 
                      items-center mb-1 ml-16 ease-linear transition-all duration-150"
-                          onClick={() => removeImage(imageData?.index)} type="button" >
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                          Cancel</button>
-                      </div>
-                  </div>))}
-                  <div className="flex items-center justify-end space-x-2 sm:space-x-3 ml-auto">
+                            onClick={() => removeImage(imageData?.index)} type="button" >
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            Cancel</button>
+                        </div>
+                      </div>))}
+                    <div className="flex items-center justify-end space-x-2 sm:space-x-3 ml-auto">
                       <button className="sm:inline-flex  text-white bg-cyan-600 hover:bg-cyan-700 
                     focus:ring-4 focus:ring-cyan-200 font-semibold
                      rounded-lg text-sm px-5 py-2 text-center ml-16
                      items-center mb-1 ease-linear transition-all duration-150"
                         onClick={submitRoomImages} type="button" >
-                        Submit</button>  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Room Services */}
-        <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
-          <div className="mx-0 my-6">
-            <h4 className="text-xl sm:text-2xl font-semibold text-gray-900">
-               Room Services</h4>
-            <div className="sm:flex">
-              <div className="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
-                <form className="lg:pr-3" action="#" method="GET">
-                  <label for="users-search" className="sr-only">Search</label>
-                  <div className="mt-1 relative lg:w-64 xl:w-96">
-                    <input type="text" name="email" id="users-search" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for services">
-                    </input>
+                        Submit</button>
+                    </div>
                   </div>
-                </form>
-              </div>
-              <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                <button type="button"  onClick={() => setAdd(1)} className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
-                  <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                  Add service   
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Room Services Table */}
-          <div className="flex flex-col my-4">
-            <div className="overflow-x-auto">
-              <div className="align-middle inline-block min-w-full">
-                <div className="shadow overflow-hidden">
-                  <table className="table-fixed min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-100">
-                      <tr>
-                      <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">                          
-                        </th>
-                        <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
-                          Service Name
-                        </th>
-                        <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
-                          Service Description
-                        </th>    
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                    {services?.map(i => {
-                return (
-                      <tr className="hover:bg-gray-100">
-                        <td class="p-4 w-4">
-                          <div class="flex items-center">
-                            <input id="checkbox-1" 
-                            onClick={() => {
-                              setServices(services.map((item) => {
-                                if (item.add_service_id === i.add_service_id) {
-                                  item.check = !item.check
-                                }
-                                return item
-                              }))
-                            }}
-                            aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded"/>
-                              <label for="checkbox-1" class="sr-only">checkbox</label>
-                          </div>
-                        </td>
-                        <td className="p-4 flex items-center whitespace-nowrap space-x-6
-                                                     mr-12 lg:mr-0">
-                          <td className="p-4 whitespace-nowrap text-base font-medium
-                          text-gray-900">{i?.add_service_name}</td>
-                        </td>
-                        <td className="p-4 capitalize whitespace-wrap text-xs font-medium text-gray-900">
-                          {i?.add_service_comment}
-                        </td>
-                      </tr>
-                 )
-                })}
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="flex items-center justify-end space-x-2 sm:space-x-3 ml-auto">
-          <button className="sm:inline-flex  text-white bg-cyan-600 hover:bg-cyan-700 
+
+            {/* Room Services */}
+            <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 mt-4">
+              <div className="mx-0 my-6">
+                <h4 className="text-xl sm:text-2xl font-semibold text-gray-900">
+                  Room Services</h4>
+                <div className="sm:flex">
+                  <div className="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                    <form className="lg:pr-3" action="#" method="GET">
+                      <label for="users-search" className="sr-only">Search</label>
+                      <div className="mt-1 relative lg:w-64 xl:w-96">
+                        <input type="text" name="email" id="users-search" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for services">
+                        </input>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
+                    <button type="button" onClick={() => setAdd(1)} className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                      <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                      Add service
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Room Services Table */}
+              <div className="flex flex-col my-4">
+                <div className="overflow-x-auto">
+                  <div className="align-middle inline-block min-w-full">
+                    <div className="shadow overflow-hidden">
+                      <table className="table-fixed min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-100">
+                          <tr>
+                            <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                            </th>
+                            <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                              Service Name
+                            </th>
+                            <th scope="col" className="p-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                              Service Description
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {services?.map(i => {
+                            return (
+                              <tr className="hover:bg-gray-100">
+                                <td class="p-4 w-4">
+                                  <div class="flex items-center">
+                                    <input id="checkbox-1"
+                                      onClick={() => {
+                                        setServices(services.map((item) => {
+                                          if (item.add_service_id === i.add_service_id) {
+                                            item.check = !item.check
+                                          }
+                                          return item
+                                        }))
+                                      }}
+                                      aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded" />
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                  </div>
+                                </td>
+                                <td className="p-4 flex items-center whitespace-nowrap space-x-6
+                                                     mr-12 lg:mr-0">
+                                  <td className="p-4 whitespace-nowrap text-base font-medium
+                          text-gray-900">{i?.add_service_name}</td>
+                                </td>
+                                <td className="p-4 capitalize whitespace-wrap text-xs font-medium text-gray-900">
+                                  {i?.add_service_comment}
+                                </td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-end space-x-2 sm:space-x-3 ml-auto">
+                <button className="sm:inline-flex  text-white bg-cyan-600 hover:bg-cyan-700 
                     focus:ring-4 focus:ring-cyan-200 font-semibold
                      rounded-lg text-sm px-5 py-2 text-center
                      items-center mb-1 ease-linear transition-all duration-150"
-                        onClick={ submitServices} type="button" >
-                        Submit</button>
+                  onClick={submitServices} type="button" >
+                  Submit</button>
               </div>
-        </div>
-        </>
+            </div>
+          </>}
       </div>
 
       {/* Modal Edit Room Service */}
