@@ -22,7 +22,6 @@ function Navbar() {
               </button>
 
               <Link to="/property-summary" className="text-2xl text-cyan-600 font-bold flex items-center lg:ml-2.5">
-                
                 <span className="self-center whitespace-nowrap">hangul</span>
               </Link>
               <form action="#" method="GET" className="hidden lg:block lg:pl-32">
