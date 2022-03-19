@@ -48,13 +48,10 @@ fetchBasicDetails();
 
     const onChange = (e, index, i) => {
         console.log(index, 'index')
-        alert("target value",e)
         setContact(contact?.map((item, id) => {
           if (item.index === index) {
             item[i] = e.target.value
           }
-          alert(JSON.stringify(item))
-
           return item
         }))
      }
