@@ -21,6 +21,14 @@ import PropertyRoom from './pages/propertyroom'
 import NewRoom from './pages/propertyaddroom'
 import PropertyRoomXML from './pages/propertyroomxml'
 import PropertyRoomsXML from './pages/propertyroomsxml'
+import PropertyPackages from './pages/propertypackages'
+import PropertyPackage from './pages/propertypackage'
+import PackageDescription from './pages/Packages/packagedescription'
+import PackageRates from './pages/Packages/packagerates'
+import EliteRewards from './pages/Packages/eliterewards'
+import PropertyCredit from './pages/Packages/propertycredit'
+import PackageMiles from './pages/Packages/packagemiles'
+import PackageServices from './pages/Packages/packageservices'
 import 'flowbite';
 import { Provider } from 'react-redux';
 import { store } from './states/Store';
@@ -48,6 +56,14 @@ ReactDOM.render(
  <Route exact path="/new-room" component={NewRoom}/>
  <Route exact path="/property-roomsxml" component={PropertyRoomsXML}/>
  <Route exact path="/property-roomxml" component={PropertyRoomXML}/>
+ <Route exact path="/property-packages" component={PropertyPackages}/>
+ <Route exact path="/property-package" component={PropertyPackage}/>
+ <Route exact path="/package-description" component={PackageDescription}/>
+ <Route exact path="/package-rates" component={PackageRates}/>
+ <Route exact path="/elite-rewards" component={EliteRewards}/>
+ <Route exact path="/property-credit" component={PropertyCredit}/>
+ <Route exact path="/package-miles" component={PackageMiles}/>
+ <Route exact path="/package-services" component={PackageServices}/>
  <Redirect from="*" to="/" />
  <Redirect from="/signup" to="/sign-up" />
  </Switch>

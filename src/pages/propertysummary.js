@@ -19,7 +19,6 @@ function Propertysummary() {
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log(response.data)
-
                 setAllHotelDetails(response.data)
             }
             catch (error) {
@@ -32,13 +31,8 @@ function Propertysummary() {
                     console.log("error" + error.message);
                 }
             }
-
         }
-
-
         fetchHotelDetails();
-
-
     }, [])
 
     return (
