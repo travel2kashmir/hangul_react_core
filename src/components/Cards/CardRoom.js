@@ -15,6 +15,8 @@ function CardRoom(props) {
   const [editImage, setEditImage] = useState(0)
   const [services, setServices] = useState([])
   const [add, setAdd] = useState(0)
+  const [enlargeImage, setEnlargeImage] = useState(0)
+  const [actionEnlargeImage, setActionEnlargeImage] = useState({})
   
   /* Function for Edit Room Images*/
   const updateImageDetails = () => {
@@ -566,13 +568,14 @@ function CardRoom(props) {
               {allRoomDetails?.room_images?.map((item) => {
                 return (
                   <div className="block text-blueGray-600 text-xs pt-2 px-2 ">
-                    <img src={item.image_link} alt='pic_room' style={{ height: "170px", width: "210px" }} />
+                   <button onClick={()=>{setEnlargeImage(1); setActionEnlargeImage(item)}}><img src={item.image_link} alt='pic_room' style={{ height: "170px", width: "210px" }} />
+                   </button> 
                     <table>
                       <tr>
                         <td className="flex justify-end">
                           <button onClick={() => { setEditImage(1); setActionImage(item) }} className="text-gray-500  mt-1 hover:text-gray-900 
                                            cursor-pointer p-1 hover:bg-gray-100 rounded ">
-                            <svg className=" h-5 mb-2 w-5 font-semibold "
+                            <svg className=" h-5  w-5 font-semibold "
                               fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
                           </button>
                           <button onClick={() => { setdeleteImage(1); setActionImage(item) }} className="text-gray-500 mt-1 hover:text-gray-900
@@ -589,6 +592,27 @@ function CardRoom(props) {
           </div>
         </div>
       </div>
+      
+       {/* Modal Image Enlarge */}
+       <div className={enlargeImage === 1 ? 'block' : 'hidden'}>
+             <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl sm:inset-0 bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+                    <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
+                        <div className="bg-gray-100 rounded-lg shadow relative">
+                            <div className="flex justify-between p-5 border-b rounded-t">
+                            <h3 className="text-xl font-semibold">
+                            {actionEnlargeImage.image_title}     
+                                </h3>
+                              <button type="button"
+                                    onClick={() => setEnlargeImage(0)}
+                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="user-modal">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                </button> </div>
+                                <div> <img src={actionEnlargeImage.image_link} alt='pic_room' style={{ height: "350px", width: "650px" }} />
+                               </div>   
+                          </div>
+                    </div>
+                </div> 
+            </div>
 
       {/* Room Services Table */}
       <div className="bg-white shadow rounded-lg p-4 mx-4 sm:p-6 xl:p-8 my-3">

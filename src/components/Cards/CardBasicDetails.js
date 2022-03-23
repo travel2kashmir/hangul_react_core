@@ -15,7 +15,7 @@ function CardBasicDetails() {
     const final_data = {
         "property_id": data.property_id,
         "property_name": allHotelDetails.property_name,
-        "property_category": allHotelDetails.property_category,
+        "property_category": allHotelDetails.property_category.toLowerCase(),
         "property_brand": allHotelDetails.property_brand,
         "established_year": allHotelDetails.established_year,
         "star_rating": allHotelDetails.star_rating,

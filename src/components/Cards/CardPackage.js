@@ -1,8 +1,35 @@
 import React, { useContext, useEffect, useState } from 'react'
+import axios from "axios";
 import { Link } from 'react-router-dom';
 
-function CardPackage() {
+function CardPackage(props) {
     //const [packageDetails, setPackageDetails] = useState([])
+    const [allPackageDetails, setAllPackageDetails] = useState([])
+
+    useEffect(() => {
+        const fetchDetails = async () => {
+          try {
+            // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
+            const url = `http://103.136.36.27:5555/package/${props.package_id.id}`
+            console.log("URL " + url)
+            const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
+            console.log(response.data)
+            setAllPackageDetails(response.data)
+          }
+          catch (error) {
+            if (error.response) {
+              console.log("data" + error.response);
+              console.log("status" + error.response.status);
+              console.log("header" + error.response.headers);
+            } else {
+              console.log("error" + error.message);
+            }
+          }
+    
+        }
+        fetchDetails();
+    }, [])
+
     return (
         <div id="main-content" className="  bg-gray-50 px-4 pt-24 relative overflow-y-auto lg:ml-64">
             {/* Header */}
@@ -35,7 +62,7 @@ function CardPackage() {
                 </ol>
             </nav>
             <h6 className="text-xl pb-4 flex mr-4 leading-none  pt-2 font-bold text-gray-800 ">
-                Property Summary
+                Package Summary
             </h6>
             {/* Body */}
             <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-3">
@@ -43,39 +70,44 @@ function CardPackage() {
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex-shrink-0">
-                            <span className="text-xl sm:text-xl leading-none font-bold text-gray-800">Honeymoon Package</span>
-                           </div>
+                            <span className="text-xl sm:text-xl leading-none capitalize font-bold text-gray-800">{allPackageDetails?.package_name}</span>
+                        </div>
                         <div className="flex items-center justify-end flex-1">
                             <Link to="/package-description" className="text-sm font-sans underline decoration-cyan-600
              font-semibold text-cyan-600
               rounded-lg p-2">See More..</Link>
                         </div>
                     </div>
-                    <p className="text-base font-semibold text-gray-500 truncate">
-                       Honeymoon Package In India
+                    <p className="text-base font-semibold text-gray-500 capitalize truncate">
+                    {allPackageDetails?.package_name} In Taj Vivanta
                     </p>
                     <p className="text-sm font-medium text-gray-90  line-clamp-10 ">
-                     If you are planning your first romantic vacation then, we have a loads of 
-                     honeymoon packages on offer. No country gives you options often more places and ways to spend
-                     your first few days together, than India.
+                    {allPackageDetails?.package_description}  
                     </p>
-                    <p className="text-sm font-semibold text-gray-500 pt-1 truncate">
-                      Payment Holder- Web
+                    <p className="text-sm capitalize font-semibold text-gray-500 pt-1 truncate">
+                        Payment Holder- {allPackageDetails?.charge_currency}  
                     </p>
                     <p className="text-sm font-semibold text-gray-500 my-1 truncate">
-                     Refundable till, 3 days 01:00:00
+                        Refundable till, {allPackageDetails?.refundable_until_days} days {allPackageDetails?.refundable_until_time}
                     </p>
                     <div className="flex my-1">
-                   <p className="text-sm font-semibold text-gray-500 truncate">
-                     5 Occupants
-                    </p>
-                    <p className="text-sm font-semibold ml-20 text-gray-500 truncate">
-                    4 Adults
-                    </p>  
+                        <p className="text-sm font-semibold text-gray-500 truncate">
+                        {allPackageDetails?.max_number_of_intended_occupants} Occupants
+                        </p>
+                        <p className="text-sm font-semibold ml-20 text-gray-500 truncate">
+                        {allPackageDetails?.max_number_of_adult_guest} Adults
+                        </p>
                     </div>
-                    <p className="text-sm font-semibold  text-gray-500 truncate">
-                   Maximum age of children- 5
-                    </p>
+                    <div className="flex">
+                     <span  className="text-sm font-semibold mr-1 text-gray-500">Child Age-</span>
+                    {allPackageDetails?.max_age_children?.map((item) => {
+                        return (
+                            <span className="  text-sm font-semibold text-gray-500">
+                               {item.max_age_of_child_guest}years 
+                            </span>
+                        )
+                    })}
+                    </div>
                 </div>
 
                 {/* Package Rates */}
@@ -93,25 +125,19 @@ function CardPackage() {
                     <div className="align-middle inline-block min-w-full">
                         <div className="shadow overflow-hidden">
                             <table className="table-fixed min-w-full divide-y divide-gray-200">
+                              
                                 <tbody className="bg-white divide-y divide-gray-200">
+                                {allPackageDetails?.rates?.map((item) => {
+                                            return (
                                     <tr className="hover:bg-gray-100">
                                         <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
                                             <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500"> Base Rate</td>
                                         </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">300USD</td>
+                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">300 USD</td>
                                     </tr>
-                                    <tr className="hover:bg-gray-100">
-                                        <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
-                                            <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500"> Tax Rate</td>
-                                        </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">30USD</td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100">
-                                        <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
-                                            <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500"> Other Charges</td>
-                                        </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">10USD</td>
-                                    </tr>
+                                    
+                                     )
+                                    })}
                                 </tbody>
                             </table>
                         </div>
@@ -146,17 +172,16 @@ function CardPackage() {
                         <tr>
                             <button className="text-sm  font-semibold  text-cyan-700 
                             bg-gray-200 rounded-lg p-2 mx-1  mb-2">Car Rental</button>
-                           
                         </tr><br />
-                 </div>    
-                </div>   
+                    </div>
+                </div>
             </div>
-            
+
             <div className="mt-4 w-full grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-3">
                 {/* Elite Membership Benefits */}
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center justify-between mb-4">
-                    <div className="flex-shrink-0">
+                        <div className="flex-shrink-0">
                             <h3 className="text-base font-bold text-gray-900 mb-4">Elite Membership Rewards</h3>
                         </div>
                         <div className="flex items-center justify-end flex-1">
@@ -165,13 +190,19 @@ function CardPackage() {
               rounded-lg p-2">See More..</Link>
                         </div>
                     </div>
-                    <p className="text-sm font-semibold text-gray-70 truncate">
-                      Special Rewards
-                    </p>
-                    <p className="text-sm font-semibold text-gray-500 my-2">
-                     Platinium
-                    </p>
-                </div>
+                    {allPackageDetails?.membership?.map((item) => {
+                                            return (
+                                                <>
+                                <p className="text-sm font-semibold capitalize text-gray-70 truncate">
+                                   {item?.program_name}
+                                </p>
+                                <p className="text-sm capitalize font-semibold text-gray-500 my-2">
+                                   { item?.program_level}
+                                </p>
+                                </>
+                                 )
+                                })}
+    </div>
 
                 {/* Package Miles */}
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
@@ -189,19 +220,25 @@ function CardPackage() {
                         <div className="shadow overflow-hidden">
                             <table className="table-fixed min-w-full divide-y divide-gray-200">
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    <tr className="hover:bg-gray-100">
-                                        <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
-                                            <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500">Number of miles</td>
-                                        </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">1000</td>
-                                    </tr>
-                                    <tr className="hover:bg-gray-100">
-                                        <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
-                                            <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500">Miles Provider</td>
-                                        </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">United Airlines</td>
-                                    </tr>
-                                    </tbody>
+                                    {allPackageDetails?.package_miles?.map((item) => {
+                                        return (
+                                            <>
+                                                <tr className="hover:bg-gray-100">
+                                                    <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
+                                                        <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500">Number of miles</td>
+                                                    </td>
+                                                    <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">   {item?.number_of_miles}</td>
+                                                </tr>
+                                                <tr className="hover:bg-gray-100">
+                                                    <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
+                                                        <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500">Miles Provider</td>
+                                                    </td>
+                                                    <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">  {item?.provider}</td>
+                                                </tr>
+                                            </>
+                                        )
+                                    })}
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -223,18 +260,25 @@ function CardPackage() {
                         <div className="shadow overflow-hidden">
                             <table className="table-fixed min-w-full divide-y divide-gray-200">
                                 <tbody className="bg-white divide-y divide-gray-200">
+                                {allPackageDetails?.package_property_credit?.map((item) => {
+                                            return (
+                                                <>
                                     <tr className="hover:bg-gray-100">
                                         <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
                                             <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500">Credit Amount</td>
                                         </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">1000 USD</td>
+                                        <td className="p-1 whitespace-wrap text-xs uppercase font-medium text-gray-900">{item.property_credit_amount}
+                                        {''} {item.property_credit_currency}</td>
                                     </tr>
-                                    </tbody>
+                                    </>
+                                 )
+                                })}
+                                </tbody>
                             </table>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-                
+
             </div>
         </div>
     )

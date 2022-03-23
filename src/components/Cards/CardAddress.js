@@ -19,10 +19,10 @@ function CardAddress() {
       "address_longitude": allHotelDetails.address_longitude,
       "address_latitude": allHotelDetails.address_latitude,
       "address_landmark": allHotelDetails.address_landmark,
-      "address_city": allHotelDetails.address_city,
+      "address_city": allHotelDetails.address_city.toLowerCase(),
       "address_precision": allHotelDetails.address_precision,
       "address_zipcode": allHotelDetails.address_zipcode,
-      "address_province": allHotelDetails.address_province,
+      "address_province": allHotelDetails.address_province.toLowerCase(),
       "address_country": allHotelDetails.address_country
     }
     console.log("the new information " + JSON.stringify(final_data))
