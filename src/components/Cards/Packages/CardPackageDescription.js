@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Context } from '../../../context/provider';
 
-function CardPackageDescription() {
+function CardPackageDescription(props) {
   return (
     <div>
        {/* Navbar */}
@@ -48,6 +48,8 @@ function CardPackageDescription() {
        <div className="bg-white shadow rounded-lg mx-10 px-12 sm:p-6 xl:p-8  2xl:col-span-2">
         <h6 className="text-xl flex leading-none pl-6 pt-2 font-bold text-gray-900 mb-2">
          Package Description
+
+        
           <svg className="ml-2 h-6 mb-2 w-6 font-semibold" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
         </h6>
         <div className="pt-6">
@@ -63,24 +65,12 @@ function CardPackageDescription() {
                   </label>
                   <input
                     type="text"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                    className="shadow-sm capitalize bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                   defaultValue={props.package_description.id.package_name}
                />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="text-sm font-medium text-gray-900 block mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Package Title
-                  </label>
-                  <input
-                    type="text"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                 />
-                </div>
-              </div>
+              
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
@@ -91,6 +81,7 @@ function CardPackageDescription() {
                   </label>
                   <textarea rows="2" columns="50"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                    defaultValue={props.package_description.id.package_description}
                     />
                 </div>
               </div>
@@ -137,7 +128,7 @@ function CardPackageDescription() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                   />
+                    defaultValue={props.package_description.id.refundable_until_days}/>
                 </div>
               </div>
 
@@ -152,7 +143,7 @@ function CardPackageDescription() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                   />
+                    defaultValue={props.package_description.id.refundable_until_time}/>
                 </div>
               </div>
 
@@ -167,7 +158,7 @@ function CardPackageDescription() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                    />
+                    defaultValue={props.package_description.id.max_number_of_intended_occupants} />
                 </div>
               </div>
               
@@ -182,7 +173,7 @@ function CardPackageDescription() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                    />
+                    defaultValue={props.package_description.id.max_number_of_adult_guest}/>
                 </div>
               </div>
               
@@ -197,11 +188,7 @@ function CardPackageDescription() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                    />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
+                  defaultValue={props.package_description.id.max_age_children[0].max_age_of_child_guest}  />
                 </div>
               </div>
 
@@ -213,7 +200,7 @@ function CardPackageDescription() {
                    
                     className="sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 
                     focus:ring-4 focus:ring-cyan-200 font-semibold
-                     rounded-lg text-sm px-5 py-2 text-center 
+                     rounded-lg text-sm px-5 py-2 mt-16 text-center 
                      items-center  mr-1 mb-1 ease-linear transition-all duration-150" type="button" >
                   Update</button>
                 </div>

@@ -380,7 +380,8 @@ fetchBasicDetails();
                                 <div className="col-span-6 sm:col-span-3">
                                     <label for="first-name" className="text-sm font-medium text-gray-900 block mb-2">Contact Type</label>
                                     <select 
-                                    onChange={e => onChange(e, contact?.index, 'contact_type')} className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                                    onChange={e => onChange(e, contact?.index, 'contact_type')} 
+                                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                                         <option selected >Select contact type</option>
                                         <option value="phone" >Phone</option>
                                         <option value="email">Email</option>

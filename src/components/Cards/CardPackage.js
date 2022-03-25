@@ -10,7 +10,7 @@ function CardPackage(props) {
         const fetchDetails = async () => {
           try {
             // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
-            const url = `http://103.136.36.27:5555/package/${props.package_id.id}`
+            const url = `http://103.136.36.27:7860/package/${props.package_id.id}`
             console.log("URL " + url)
             const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
             console.log(response.data)
@@ -73,7 +73,13 @@ function CardPackage(props) {
                             <span className="text-xl sm:text-xl leading-none capitalize font-bold text-gray-800">{allPackageDetails?.package_name}</span>
                         </div>
                         <div className="flex items-center justify-end flex-1">
-                            <Link to="/package-description" className="text-sm font-sans underline decoration-cyan-600
+                        <Link to={{
+                                                    pathname: '/package-description',
+                                                    state: {
+                                                        id: allPackageDetails
+                                                    }
+                                                }}
+                             className="text-sm font-sans underline decoration-cyan-600
              font-semibold text-cyan-600
               rounded-lg p-2">See More..</Link>
                         </div>
@@ -185,7 +191,13 @@ function CardPackage(props) {
                             <h3 className="text-base font-bold text-gray-900 mb-4">Elite Membership Rewards</h3>
                         </div>
                         <div className="flex items-center justify-end flex-1">
-                            <Link to="/elite-rewards" className="text-sm font-sans underline decoration-cyan-600
+                            <Link to={{
+                                pathname: '/elite-rewards',
+                                state: {
+                                    id: allPackageDetails
+                                }
+                            }}
+                                className="text-sm font-sans underline decoration-cyan-600
              font-semibold text-cyan-600
               rounded-lg p-2">See More..</Link>
                         </div>
