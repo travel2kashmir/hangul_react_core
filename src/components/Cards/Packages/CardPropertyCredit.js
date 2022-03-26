@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Context } from '../../../context/provider';
 
-function CardPropertyCredit() {
+function CardPropertyCredit(props) {
   return (
    <div>
     {/* Navbar */}
@@ -60,10 +60,15 @@ function CardPropertyCredit() {
               >
             Credit Currency
               </label>
-              <input
-                type="text"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-             />
+              <select  
+                    className="shadow-sm bg-gray-50 border uppercase border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                    <option selected >{ props?.property_credit[0]?.property_credit_currency}</option>
+                    <option value="INR" >INR</option>
+                    <option value="Dollar">Dollar</option>
+                    <option value="Euro" >Euro</option>
+                   
+                  </select>
+            
             </div>
           </div>
           <div className="w-full lg:w-6/12 px-4">
@@ -77,8 +82,8 @@ function CardPropertyCredit() {
               <input
                 type="text"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-             />
-            </div>
+            defaultValue={ props?.property_credit[0]?.property_credit_amount} />
+             </div>
           </div>
          
           <div className="w-full lg:w-6/12 px-4">

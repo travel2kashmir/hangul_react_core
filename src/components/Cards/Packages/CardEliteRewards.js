@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Context } from '../../../context/provider';
 
 function CardEliteRewards(props) {
   const [view, setView] = useState(0)
@@ -25,7 +24,7 @@ function CardEliteRewards(props) {
     setTimeout(()=>console.log(JSON.stringify(final_data)) ,3000) 
      console.log("the new information " + JSON.stringify(final_data))
     const url = '/package/package_membership_master'
-   axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
      ((response) => {
       console.log(response.data);
       toast.success(JSON.stringify(response.data.message), {
@@ -54,66 +53,6 @@ function CardEliteRewards(props) {
       
    }
 
-   const programTemp = {
-    program_name: '',
-    program_level: '',
-    property_id: 't2k001'    }
-   const [eliteProgram, setEliteProgram] = useState
-   ([programTemp]?.map((i, id) => { return { ...i, index: id } }))
-
-  const onChange = (e, index, i) => {
-      console.log(index, 'index')
-      setEliteProgram(eliteProgram?.map((item, id) => {
-        if (item.index === index) {
-          item[i] = e.target.value
-        }
-        return item
-      }))
-   }
-  /* Function Add Program*/
-  function submitProgramAdd(e) {
-    e.preventDefault()
-    console.log({ eliteProgram })
-    const programdata = eliteProgram?.map((i => {
-      return {
-        property_id: 't2k001',
-        program_name: i.program_name,
-        program_level: i.program_level
-      }
-    }))
-      const finalProgram = { programs: programdata }
-      console.log(JSON.stringify(finalProgram) + "sent details")
-      axios.post(`/package_membership_master`, JSON.stringify(program),
-        {
-          headers: { 'content-type': 'application/json' }
-        }).then(response => {
-          console.log(response.data)
-          toast.success(JSON.stringify(response.data.message), {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-
-        })
-        .catch(error => {
-          console.log(error.response)
-          toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-
-        });
-    }
-    
   
   return (
     <div>
@@ -315,7 +254,8 @@ function CardEliteRewards(props) {
       </div>
 
       {/* Modal Add */}
-      <div className={view === 1 ? "block" : "hidden"}><div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
+      <div className={view === 1 ? "block" : "hidden"}>
+        <div className="overflow-x-hidden overflow-y-auto fixed top-4 left-0 right-0 backdrop-blur-xl bg-black/30 md:inset-0 z-50 flex justify-center items-center h-modal sm:h-full">
         <div className="relative w-full max-w-2xl px-4 h-full md:h-auto">
           <div className="bg-white rounded-lg shadow relative">
             <div className="flex items-start justify-between p-5 border-b rounded-t">
@@ -326,18 +266,18 @@ function CardEliteRewards(props) {
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
               </button>
             </div>
-            {program?.map((program, index) =>(
+            
             <div className="p-6 space-y-6">
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                   <label for="first-name" className="text-sm font-medium text-gray-900 block mb-2">Program Name</label>
                   <input type="text" name="last-name" id="last-name"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
-                      onChange={e => onChange(e, eliteProgram?.index, 'program_name')} 
+                     
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Program Level</label>
-                  <select  onChange={e => onChange(e, eliteProgram?.index, 'program_level')} 
+                  <select  
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                     <option selected >{editProgram?.program_level}</option>
                     <option value="gold" >Gold</option>
@@ -350,10 +290,10 @@ function CardEliteRewards(props) {
                 </div>
               </div>
             </div>
-                ))}
+              
             <div className="items-center p-6 border-t border-gray-200 rounded-b">
               <button className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-               onClick={submitProgramAdd}  type="submit">Add program</button>
+                type="submit">Add program</button>
             </div>
           </div>
         </div>

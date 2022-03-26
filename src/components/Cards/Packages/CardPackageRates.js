@@ -5,7 +5,48 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Context } from '../../../context/provider';
 
-function CardPackageRates() {
+function CardPackageRates(props) {
+  //const [data] = useContext(Context)
+  const [allPackageRateDetails, setAllPackageRateDetails] = useState([])
+   /* Edit Basic Details Function */
+   const submitPackageRateEdit = () => {
+    const final_data = {
+        "package_id": props.package_description.id.package_id,
+        "base_rate_currency": allPackageRateDetails.base_rate_currency,
+        "base_rate_amount":allPackageRateDetails.base_rate_amount,
+        "tax_rate_currency":allPackageRateDetails.tax_rate_currency,
+        "tax_rate_amount": allPackageRateDetails.tax_rate_amount,
+        "other_charges_currency": allPackageRateDetails.other_charges_currency,
+        "other_charges_amount": allPackageRateDetails.other_charges_amount
+    }
+    console.log("the new information " + JSON.stringify(final_data))
+    const url = '/basic'
+    axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+        ((response) => {
+            console.log(response.data);
+            toast.success(JSON.stringify(response.data.message), {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Some thing went wrong in Package Rate\n " + JSON.stringify(error.response.data), {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });      
+        })
+}
   return (
     <div>
           {/* Navbar */}
@@ -60,7 +101,12 @@ function CardPackageRates() {
                   >
                     Base Rate Currency
                   </label>
-                  <select className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                  <select className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                   onChange={
+                    (e) => (
+                        setAllPackageRateDetails({ ...allPackageRateDetails,  base_rate_currency: e.target.value })
+                    )
+                }>
                     <option value="USD" >USD</option>
                     <option value="INR">INR</option>
                     <option value="Euro">Euro</option>
@@ -78,6 +124,12 @@ function CardPackageRates() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                    defaultValue={props.package_description.id.base_rate_amount}
+                    onChange={
+                      (e) => (
+                          setAllPackageRateDetails({ ...allPackageRateDetails,  base_rate_amount: e.target.value })
+                      )
+                  }
                  />
                 </div>
               </div>
@@ -90,7 +142,12 @@ function CardPackageRates() {
                   >
                   Tax Rate Currency
                   </label>
-                  <select className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                  <select className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                   onChange={
+                    (e) => (
+                        setAllPackageRateDetails({ ...allPackageRateDetails,  tax_rate_currency: e.target.value })
+                    )
+                }>
                     <option value="USD" >USD</option>
                     <option value="INR">INR</option>
                     <option value="Euro">Euro</option>
@@ -109,7 +166,12 @@ function CardPackageRates() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                   />
+                    defaultValue={props.package_description.id.tax_rate_amount}
+                    onChange={
+                      (e) => (
+                          setAllPackageRateDetails({ ...allPackageRateDetails,  tax_rate_amount: e.target.value })
+                      )
+                  }/>
                 </div>
               </div>
 
@@ -121,7 +183,12 @@ function CardPackageRates() {
                   >
                  Other Charges Currency
                   </label> 
-                  <select className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                  <select className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                   onChange={
+                    (e) => (
+                        setAllPackageRateDetails({ ...allPackageRateDetails, other_charges_currency: e.target.value })
+                    )
+                }>
                     <option value="USD" >USD</option>
                     <option value="INR">INR</option>
                     <option value="Euro">Euro</option>
@@ -139,7 +206,12 @@ function CardPackageRates() {
                   <input
                     type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                   />
+                    defaultValue={props.package_description.id.other_charges_amount} 
+                    onChange={
+                      (e) => (
+                          setAllPackageRateDetails({ ...allPackageRateDetails,  other_charges_amount: e.target.value })
+                      )
+                  }/>
                 </div>
               </div>
               <div className="w-full lg:w-6/12 px-4">
@@ -152,7 +224,7 @@ function CardPackageRates() {
               <div className="w-full lg:w-2/12 px-4">
                 <div className="relative w-full ml-4 mb-4">
                   <button
-                   
+                   onClick={submitPackageRateEdit}
                     className="sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 
                     focus:ring-4 focus:ring-cyan-200 font-semibold
                      rounded-lg text-sm px-5 py-2 text-center 

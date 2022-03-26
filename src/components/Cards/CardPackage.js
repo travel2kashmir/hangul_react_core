@@ -108,8 +108,8 @@ function CardPackage(props) {
                      <span  className="text-sm font-semibold mr-1 text-gray-500">Child Age-</span>
                     {allPackageDetails?.max_age_children?.map((item) => {
                         return (
-                            <span className="  text-sm font-semibold text-gray-500">
-                               {item.max_age_of_child_guest}years 
+                            <span className="text-sm font-semibold text-gray-500">
+                               {item.max_age_of_child_guest}years<span className="ml-1"></span> 
                             </span>
                         )
                     })}
@@ -123,7 +123,13 @@ function CardPackage(props) {
                             <h3 className="text-base font-bold text-gray-900 mb-4"> Package Rates</h3>
                         </div>
                         <div className="flex items-center justify-end flex-1">
-                            <Link to="/package-rates" className="text-sm font-sans underline decoration-cyan-600
+                        <Link to={{
+                                                    pathname: '/package-rates',
+                                                    state: {
+                                                        id: allPackageDetails
+                                                    }
+                                                }}
+                             className="text-sm font-sans underline decoration-cyan-600
              font-semibold text-cyan-600
               rounded-lg p-2">See More..</Link>
                         </div>
@@ -133,17 +139,25 @@ function CardPackage(props) {
                             <table className="table-fixed min-w-full divide-y divide-gray-200">
                               
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                {allPackageDetails?.rates?.map((item) => {
-                                            return (
+                              
                                     <tr className="hover:bg-gray-100">
                                         <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
                                             <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500"> Base Rate</td>
                                         </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">300 USD</td>
+                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">{allPackageDetails?.base_rate_amount}<span className="ml-1 uppercase"> {allPackageDetails?.base_rate_currency}</span></td>
                                     </tr>
-                                    
-                                     )
-                                    })}
+                                    <tr className="hover:bg-gray-100">
+                                        <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
+                                            <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500"> Tax Rate</td>
+                                        </td>
+                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">{allPackageDetails?.tax_rate_amount}<span className="ml-1 uppercase"> {allPackageDetails?.tax_rate_currency}</span></td>
+                                    </tr>
+                                    <tr className="hover:bg-gray-100">
+                                        <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
+                                            <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500"> Other Charges</td>
+                                        </td>
+                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">{allPackageDetails?.other_charges_amount}<span className="ml-1 uppercase"> {allPackageDetails?.other_charges_currency}</span></td>
+                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
@@ -223,7 +237,12 @@ function CardPackage(props) {
                             <h3 className="text-base font-bold text-gray-900 mb-4"> Package Miles</h3>
                         </div>
                         <div className="flex items-center justify-end flex-1">
-                            <Link to="/package-miles" className="text-sm font-sans underline decoration-cyan-600
+                           <Link to={{
+                                pathname: '/package-miles',
+                                state: {
+                                    id: allPackageDetails
+                                }
+                            }}className="text-sm font-sans underline decoration-cyan-600
              font-semibold text-cyan-600
               rounded-lg p-2">See More..</Link>
                         </div>
@@ -263,7 +282,12 @@ function CardPackage(props) {
                             <h3 className="text-base font-bold text-gray-900 mb-4">Property Credit</h3>
                         </div>
                         <div className="flex items-center justify-end flex-1">
-                            <Link to="/property-credit" className="text-sm font-sans underline decoration-cyan-600
+                        <Link to={{
+                                pathname: '/property-credit',
+                                state: {
+                                    id: allPackageDetails
+                                }
+                            }} className="text-sm font-sans underline decoration-cyan-600
              font-semibold text-cyan-600
               rounded-lg p-2">See More..</Link>
                         </div>
@@ -292,6 +316,7 @@ function CardPackage(props) {
                 </div>
 
             </div>
+            
         </div>
     )
 }
