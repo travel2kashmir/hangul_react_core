@@ -10,8 +10,9 @@ function CardEliteRewards(props) {
   const [deleteProgram, setDeleteProgram] = useState(0)
   const [editProgram, setEditProgram] = useState({});
   const [program, setProgram] = useState({});
+  const [modified, setModified] = useState({})
 
-  /* Function Edit Contact*/
+  /* Function Edit Program*/
   const submitProgramEdit = (props) => {
    // console.log("props to edit program is " + props)
     // setProgram({...program,program_id:props})
@@ -50,10 +51,105 @@ function CardEliteRewards(props) {
            progress: undefined,
          });
        })
-      
    }
+   /* Function for Delete Room Images*/
+  const submitDelete = () => {
+    const url = `package/${props?.elite_rewards?.package_id}/${editProgram.program_id}`
+    axios.delete(url).then
+      ((response) => {
+        console.log(response.data);
+        setDeleteProgram(0)
+        toast.success("Program deleted successfully", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
 
-  
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error);
+        toast.error("Some thing went wrong in Delete\n " + JSON.stringify(error.response.data), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+      })
+  }
+  /** Function to submit program add **/
+  const submitProgramAdd = () => {
+    const programdata = [{
+      /* To be fetched from context */
+      program_name: modified.program_name,
+      program_level: modified.program_level
+    }]
+    const finalProgram = { "package_membership_master": programdata }
+    console.log(JSON.stringify(finalProgram))
+    axios.post(`/package/package_membership_master`, finalProgram).then(response => {
+      console.log(response)
+      toast.success(JSON.stringify(response.data.message), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      console.log("Test Response" +JSON.stringify(response.data.program_id))
+      const program_data = { "program_id": response.data.program_id, "package_id":props?.elite_rewards?.package_id }
+      const final = { "package_membership_link": [program_data] }
+      console.log("the package program" + JSON.stringify(final))
+      axios.post('/package/package_membership_link', final, {
+        headers: { 'content-type': 'application/json' }
+      }).then(response => {
+        console.log(response)
+        toast.success(JSON.stringify(response.data.message), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+        .catch(error => {
+          console.log(error.response)
+          toast.error("Some thing went wrong in Elite Program Rewards", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+    }).catch(error => {
+      console.log("there is error" + error)
+      toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    });
+
+  }
+
   return (
     <div>
       {/* Navbar */}
@@ -74,13 +170,13 @@ function CardEliteRewards(props) {
           <li>
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-              <Link to="/property-summary" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Packages</Link>
+              <Link to="" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Packages</Link>
             </div>
           </li>
           <li>
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-              <Link to="/property-summary" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Honeymoon Package</Link>
+              <Link to="" className="text-gray-700 text-sm capitalize   font-medium hover:text-gray-900 ml-1 md:ml-2">{props?.elite_rewards?.package_name}</Link>
             </div>
           </li>
           <li>
@@ -94,7 +190,8 @@ function CardEliteRewards(props) {
 
       {/* Header */}
       <div className="mx-4">
-        <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Elite Rewards </h1>
+        <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Elite Rewards
+       </h1>
         <div className="sm:flex">
           <div className="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
             <form className="lg:pr-3" action="#" method="GET">
@@ -156,7 +253,7 @@ function CardEliteRewards(props) {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {
-                    props?.elite_rewards?.map((item) => {
+                    props?.elite_rewards?.membership?.map((item) => {
                       return (
 
                         <tr className="hover:bg-gray-100">
@@ -230,9 +327,9 @@ function CardEliteRewards(props) {
                       className="shadow-sm capitalize bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
                   </div>
                   <div className="col-span-6 sm:col-span-3">
-                    <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Program Value</label>
+                    <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Program Level</label>
                     <select onChange={(e) => (setProgram({ ...program, program_level: e.target.value }))}
-                      className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+                      className="shadow-sm capitalizew bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
                       <option selected >{editProgram?.program_level}</option>
                       <option value="gold" >Gold</option>
                       <option value="silver">Silver</option>
@@ -272,14 +369,18 @@ function CardEliteRewards(props) {
                 <div className="col-span-6 sm:col-span-3">
                   <label for="first-name" className="text-sm font-medium text-gray-900 block mb-2">Program Name</label>
                   <input type="text" name="last-name" id="last-name"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required />
-                     
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900
+                     sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block
+                      w-full p-2.5"  onChange={(e)=>{setModified({...modified,program_name:e.target.value})}}required />   
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label for="last-name" className="text-sm font-medium text-gray-900 block mb-2">Program Level</label>
                   <select  
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                    <option selected >{editProgram?.program_level}</option>
+                    className="shadow-sm bg-gray-50 border capitalize border-gray-300
+                     text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600
+                      focus:border-cyan-600 block w-full p-2.5"
+                      onChange={(e)=>{setModified({...modified,program_level:e.target.value})}}>
+                    <option selected >Select program</option>
                     <option value="gold" >Gold</option>
                     <option value="silver">Silver</option>
                     <option value="platinium" >Platinium</option>
@@ -293,7 +394,7 @@ function CardEliteRewards(props) {
               
             <div className="items-center p-6 border-t border-gray-200 rounded-b">
               <button className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                type="submit">Add program</button>
+                type="submit" onClick={ submitProgramAdd }>Add program</button>
             </div>
           </div>
         </div>
@@ -310,12 +411,11 @@ function CardEliteRewards(props) {
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
               </div>
-
               <div className="p-6 pt-0 text-center">
                 <svg className="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
-                  Are you sure you want to delete {editProgram?.Program_type} {editProgram?.Program_data}?</h3>
-                <button className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
+                  Are you sure you want to delete {editProgram?.program_name} {editProgram?.program_level}?</h3>
+                <button onClick={() => submitDelete()} className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">
                   Yes, I'm sure
                 </button>
                 <button

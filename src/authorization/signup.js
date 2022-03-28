@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import bcrypt from 'bcryptjs'
 
 function Signup() {
 
@@ -31,8 +32,8 @@ function Signup() {
     }
 
     function CheckPassword(inputtxt) {
-        var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-        console.log("pswd" + inputtxt)
+        var passw = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{6,20}$/;
+        console.log("pswd is" + inputtxt)
         if (inputtxt.match(passw)) {
             return true;
         }
@@ -41,11 +42,22 @@ function Signup() {
         }
     }
 
-    const registerUser = (e) => {
+    const registerUser = async(e) => {
         console.log("user details" + JSON.stringify(user))
         const result = validateUserData({ user })
         if (result === true) {
-            Axios.post('/signup/user', JSON.stringify(user),
+
+            const salt=await bcrypt.genSalt(10)
+            const EncryptedPass = await bcrypt.hash(user.user_password,salt)
+            const data = {
+                "user_name": user.user_name,
+                "user_email": user.user_email,
+                "user_password": EncryptedPass,
+                "user_salt": salt
+
+            }
+            console.log(JSON.stringify(data))
+            Axios.post('/signup/user', data ,
                 {
                     headers: { 'content-type': 'application/json' }
                 }).then(response => {
@@ -90,14 +102,25 @@ function Signup() {
         }
     }
 
-    const registerAdmin = (e) => {
+    const registerAdmin = async(e) => {
         e.preventDefault()
         console.log("Admin details" + JSON.stringify(admin))
     
         const result = validateAdminData({ admin })
     
         if (result === true) {
-          Axios.post('/signup/admin', JSON.stringify(admin),
+
+            const salt=await bcrypt.genSalt(10)
+            const EncryptedPass = await bcrypt.hash(admin.admin_password,salt)
+            const data = {
+                "admin_name": admin.admin_name,
+                "admin_email": admin.admin_email,
+                "admin_password": EncryptedPass,
+                "admin_salt": salt
+
+            }
+            console.log(JSON.stringify(data))
+          Axios.post('/signup/admin', JSON.stringify(data),
             {
               headers: { 'content-type': 'application/json' }
             }).then(response => {
@@ -182,7 +205,9 @@ function Signup() {
                                             onChange={(e) => { setUser({ ...user, user_name: e.target.value }) }}
                                         />
                                         <label for="email" className="text-base font-semibold text-gray-700 block mb-2">User email</label>
-                                        <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        <input type="email" name="email" id="email" 
+                                        onChange={(e) => { setUser({ ...user, user_email: e.target.value }) }}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                             placeholder="" required>
                                         </input>
                                         <div>
@@ -190,7 +215,7 @@ function Signup() {
                                             <input type="password" name="password" id="password" placeholder=""
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 
                                              sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600
-                                              block w-full p-2.5"  onChange={(e) => { setUser({ ...user, user_email: e.target.value }) }} required>
+                                              block w-full p-2.5"  onChange={(e) => { setUser({ ...user, user_password: e.target.value }) }} required>
                                             </input>
                                         </div>
                                         {user?.user_password === '' ? <></> : user?.user_password.length < 6 ? <p>Password must be 6 to 20 character long with atleast 1 upper case character , 1 lower case character and 1 number</p> : <></>}

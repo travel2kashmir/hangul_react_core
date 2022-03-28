@@ -14,7 +14,7 @@ function Packagedescription() {
         <Navbar/>
         <Sidebar/> 
         <div id="main-content" className="  bg-gray-50 pt-24 relative overflow-y-auto lg:ml-64">
-        <CardPackageMiles package_miles={package_miles.id.package_miles}/>    
+        <CardPackageMiles package_miles={package_miles.id}/>    
   </div> 
   <div id="main-content" className="px-8  bg-gray-50 relative overflow-y-auto lg:ml-64"> 
   <Footer/>

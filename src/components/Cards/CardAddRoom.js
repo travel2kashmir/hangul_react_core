@@ -208,7 +208,6 @@ function CardAddRoom() {
       image_descripiton: actionImage.image_description,
       image_category: actionImage.image_category
     }]
-
     const finalImage = { "images": imagedata }
     console.log(JSON.stringify(finalImage))
     axios.post(`/gallery`, finalImage).then(response => {
@@ -895,7 +894,6 @@ function CardAddRoom() {
                                 </div>
                             </div>
                         </div>
-
                         <div className="items-center p-6 border-t border-gray-200 rounded-b">
                             <button 
                             onClick={()=>{newAdditionalService(); setAdd(0);}}

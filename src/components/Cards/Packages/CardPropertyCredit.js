@@ -6,6 +6,50 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Context } from '../../../context/provider';
 
 function CardPropertyCredit(props) {
+  const [propertycredit, setPropertyCredit] = useState({});
+
+  /* Function Edit Property Credit*/
+  const submitPropertyCreditEdit = () => {
+    // console.log("props to edit program is " + props)
+     // setProgram({...program,program_id:props})
+     const final_data = { 
+       "property_credit_id":props?.package_property_credit?.package_property_credit[0]?.property_credit_id,
+       "property_credit_currency": propertycredit.property_credit_currency,
+       "property_credit_amount": propertycredit.property_credit_amount
+   }
+     console.log(JSON.stringify(final_data));
+     setTimeout(()=>console.log(JSON.stringify(final_data)) ,3000) 
+      console.log("the new information " + JSON.stringify(final_data))
+     const url = '/package/package_property_credit'
+      axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
+      ((response) => {
+       console.log(response.data);
+       toast.success(JSON.stringify(response.data.message), {
+       position: "top-center",
+     autoClose: 5000,
+     hideProgressBar: false,
+            closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+            progress: undefined,
+        });
+      })
+       .catch((error) => {
+         console.log(error);
+       console.log(error);
+          toast.error("Some thing went wrong in property credit\n " + JSON.stringify(error.response.data), {
+           position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+          closeOnClick: true,
+            pauseOnHover: true,
+          draggable: true,
+            progress: undefined,
+          });
+        })
+       
+    }  
+    
   return (
    <div>
     {/* Navbar */}
@@ -32,7 +76,7 @@ function CardPropertyCredit(props) {
       <li>
         <div className="flex items-center">
           <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-          <Link to="/property-summary" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Honeymoon Package</Link>
+          <Link to="/property-summary" className="text-gray-700 text-sm   font-medium capitalize hover:text-gray-900 ml-1 md:ml-2">{props?.property_credit?.package_name}</Link>
         </div>
       </li>
       <li>
@@ -43,7 +87,7 @@ function CardPropertyCredit(props) {
       </li>
     </ol>
   </nav>
-   {/* Basic Details Form */}
+   {/* Property Credit Form */}
    <div className="bg-white shadow rounded-lg mx-10 px-12 sm:p-6 xl:p-8  2xl:col-span-2">
     <h6 className="text-xl flex leading-none pl-6 pt-2 font-bold text-gray-900 mb-2">
     Property Credit
@@ -61,8 +105,11 @@ function CardPropertyCredit(props) {
             Credit Currency
               </label>
               <select  
-                    className="shadow-sm bg-gray-50 border uppercase border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
-                    <option selected >{ props?.property_credit[0]?.property_credit_currency}</option>
+                    className="shadow-sm bg-gray-50 border  border-gray-
+                     text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600
+                      focus:border-cyan-600 block w-full p-2.5"
+                      onChange={(e) => (setPropertyCredit({ ...propertycredit,property_credit_currency: e.target.value }))}>
+                    <option selected >{ props?.package_property_credit?.package_property_credit[0]?.property_credit_currency}</option>
                     <option value="INR" >INR</option>
                     <option value="Dollar">Dollar</option>
                     <option value="Euro" >Euro</option>
@@ -81,8 +128,11 @@ function CardPropertyCredit(props) {
               </label>
               <input
                 type="text"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-            defaultValue={ props?.property_credit[0]?.property_credit_amount} />
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900
+                 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600
+                  block w-full p-2.5"
+            defaultValue={ props?.package_property_credit?.package_property_credit[0]?.property_credit_amount}
+            onChange={(e) => (setPropertyCredit({ ...propertycredit,property_credit_amount: e.target.value }))} />
              </div>
           </div>
          
@@ -100,7 +150,8 @@ function CardPropertyCredit(props) {
                 className="sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 
                 focus:ring-4 focus:ring-cyan-200 font-semibold
                  rounded-lg text-sm px-5 py-2 text-center 
-                 items-center  mr-1 mb-1 ease-linear transition-all duration-150" type="button" >
+                 items-center  mr-1 mb-1 ease-linear transition-all duration-150"
+                 onClick={submitPropertyCreditEdit} type="button" >
               Update</button>
             </div>
           </div>
@@ -109,6 +160,17 @@ function CardPropertyCredit(props) {
       </div>
     </div>
   </div>
+   {/* Toast Container */}
+   <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover />
+
 </div>
  )
 }

@@ -105,7 +105,7 @@ function CardPackageDescription(props) {
                     className="text-sm font-medium text-gray-900 block mb-2"
                     htmlFor="grid-password"
                   >
-                    Package Name{props.package_description.id.package_id}
+                    Package Name
                   </label>
                   <input
                     type="text"
