@@ -29,6 +29,7 @@ import EliteRewards from './pages/Packages/eliterewards'
 import PropertyCredit from './pages/Packages/propertycredit'
 import PackageMiles from './pages/Packages/packagemiles'
 import PackageServices from './pages/Packages/packageservices'
+import PackageRoomBundle from './pages/Packages/packageroombundle'
 import 'flowbite';
 import { Provider } from 'react-redux';
 import { store } from './states/Store';
@@ -64,6 +65,7 @@ ReactDOM.render(
  <Route exact path="/property-credit" component={PropertyCredit}/>
  <Route exact path="/package-miles" component={PackageMiles}/>
  <Route exact path="/package-services" component={PackageServices}/>
+ <Route exact path="/package-room-bundle" component={PackageRoomBundle}/>
  <Redirect from="*" to="/" />
  <Redirect from="/signup" to="/sign-up" />
  </Switch>

@@ -159,9 +159,7 @@ function CardPackage(props) {
                     <div className="align-middle inline-block min-w-full">
                         <div className="shadow overflow-hidden">
                             <table className="table-fixed min-w-full divide-y divide-gray-200">
-
                                 <tbody className="bg-white divide-y divide-gray-200">
-
                                     <tr className="hover:bg-gray-100">
                                         <td className="p-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
                                             <td className="p-1 whitespace-wrap text-xs font-semibold text-gray-500"> Base Rate</td>
@@ -186,29 +184,33 @@ function CardPackage(props) {
                     </div>
                 </div>
 
-                {/* Package Services */}
+                {/* Package Room Bundles */}
                 <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex-shrink-0">
                             <h3 className="text-base font-bold text-gray-900 mb-4">Package Rooms</h3>
                         </div>
                         <div className="flex items-center justify-end flex-1">
-                            <Link to="/package-services" className="p-1 whitespace-wrap text-xs font-medium text-cyan-600">See More..</Link>
+                        <Link to={{
+                                pathname: '/package-services',
+                         state: {
+                            id: allBundleDetails
+                        }}} className="text-sm font-sans underline decoration-cyan-600
+             font-semibold text-cyan-600 p-1">See More..</Link>
                         </div>
                     </div>
                     <div className="align-middle inline-block min-w-full">
                         <div className="shadow overflow-hidden">
                             <table className="table-fixed min-w-full divide-y divide-gray-200">
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    <tr className="hover:bg-gray-100">
-                                        <td className="p-4 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
-                                            <td className="p-1 whitespace-wrap text-xs capitalize font-semibold text-gray-500">{allBundleDetails.room_name}</td>
-                                        </td>
-                                        <td className="p-1 whitespace-wrap text-xs font-medium text-gray-900">
-                                            <Link to="/package-services" className="text-sm font-sans underline decoration-cyan-600
-             font-semibold text-cyan-600 p-1">See More..</Link>
-                                        </td>
-                                    </tr>
+                                    {allBundleDetails?.map((item) => {
+                                        return (
+                                            <tr className="hover:bg-gray-100">
+                                                <td className="px-4 py-2 flex items-center whitespace-nowrap space-x-6 mr-6 lg:mr-0">
+                                                    <td className="p-1 whitespace-wrap text-xs capitalize font-semibold text-gray-500">{item.room_name}</td>
+                                                </td></tr>
+                                        )
+                                    })}
                                 </tbody>
                             </table>
                         </div>
