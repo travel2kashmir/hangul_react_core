@@ -72,13 +72,20 @@ function CardPackageDescription(props) {
           <li>
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-              <Link to="/property-summary" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Packages</Link>
+              <Link to="/property-packages" className="text-gray-700 text-sm   font-medium hover:text-gray-900 ml-1 md:ml-2">Packages</Link>
             </div>
           </li>
           <li>
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-              <Link to="" className="text-gray-700 text-sm  capitalize font-medium hover:text-gray-900 ml-1 md:ml-2">{props.package_description.id.package_name}</Link>
+              <Link to={{
+                                pathname: '/property-package',
+                                state: {
+                                    id: props.package_description.id.package_id
+                                }
+                            }}
+              className="text-gray-700 text-sm  capitalize font-medium hover:text-gray-900 ml-1 md:ml-2">
+                {props.package_description.id.package_name}</Link>
             </div>
           </li>
           <li>
@@ -210,7 +217,7 @@ function CardPackageDescription(props) {
                   Refundable till time
                   </label>
                   <input
-                    type="text"
+                    type="time"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                     defaultValue={props.package_description.id.refundable_until_time
                     }

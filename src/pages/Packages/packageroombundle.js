@@ -11,7 +11,7 @@ function Packageroombundle() {
   return (
     <div>
       <Navbar />
-      <Sidebar />
+      <Sidebar/>
       <div id="main-content" className="  bg-gray-50 pt-24 relative overflow-y-auto lg:ml-64">
         <CardPackageRoomBundles package_room={package_room}/>
       </div>
