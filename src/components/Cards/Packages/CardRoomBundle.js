@@ -10,8 +10,8 @@ function CardRoomBundle(props) {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
-        const url = `http://103.136.36.27:7860/package/${props.package_room.id.room_bundle_id}`
+        // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
+        const url = `http://103.136.36.27:7860/package/${props.package_room.item.room_bundle_id}`
         console.log("URL " + url)
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log(response.data)
@@ -43,7 +43,7 @@ function CardRoomBundle(props) {
       "other_fees_amount": roomRateDetails.other_fees_amount
     }
     console.log("the new information " + JSON.stringify(final_data))
-    const url = `/package/rate_master`
+    const url = `/api/package/rate_master`
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
@@ -113,12 +113,13 @@ function CardRoomBundle(props) {
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
               <Link to={{
-                pathname: '/package-services',
+               // pathname: '/package-services',
                 state: {
-                  id:props?.package_room?.rooms
+                   //id: props?.package_room?.id,
+                  
                 }
-              }} 
-               className="text-gray-700 ml-1 md:ml-2 font-medium
+              }}
+                className="text-gray-700 ml-1 md:ml-2 font-medium
                text-sm  " aria-current="page">Package Rooms</Link>
             </div>
           </li>
@@ -126,7 +127,7 @@ function CardRoomBundle(props) {
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
               <span className="text-gray-400 capitalize ml-1 md:ml-2 font-medium
-               text-sm  " aria-current="page">{props?.package_room?.id?.room_name}</span>
+               text-sm  " aria-current="page">{props?.package_room?.item?.room_name}</span>
             </div>
           </li>
 
@@ -135,7 +136,7 @@ function CardRoomBundle(props) {
       {/* Title */}
       <div className=" pt-2 px-4">
         <h6 className="text-xl pb-4 flex mr-4 capitalize leading-none  pt-2 font-bold text-gray-800 ">
-          {roomDetails.room_name}
+          {roomDetails.room_name}  
           <svg className="ml-2 h-6 mb-2 w-6 font-semibold" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
         </h6>
         <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">

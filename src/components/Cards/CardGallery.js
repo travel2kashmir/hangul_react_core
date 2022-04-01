@@ -18,7 +18,7 @@ function CardGallery() {
     useEffect(() => {
         const fetchPropertyDetails = async () => {
             try {
-                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
+                // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
                 const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
@@ -83,7 +83,7 @@ function CardGallery() {
 
         const finalImage = { "images": imagedata }
         console.log(JSON.stringify(finalImage))
-        axios.post(`/gallery`, finalImage).then(response => {
+        axios.post(`/api/gallery`, finalImage).then(response => {
             console.log(response)
             toast.success(JSON.stringify(response.data.message), {
                 position: "top-center",
@@ -119,7 +119,7 @@ function CardGallery() {
             "image_type": allHotelDetails.image_type
         }
         console.log("the new information " + JSON.stringify(final_data))
-        const url = '/images'
+        const url = '/api/images'
 
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
@@ -156,7 +156,7 @@ function CardGallery() {
     /* Function to delete images*/
     const submitDelete = () => {
 
-        const url = `/${actionImage.image_id}`
+        const url = `/api/${actionImage.image_id}`
         axios.delete(url).then
             ((response) => {
                 console.log(response.data);

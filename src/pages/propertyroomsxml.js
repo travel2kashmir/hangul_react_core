@@ -12,8 +12,8 @@ function Propertyrooms() {
     useEffect(() => {
         const fetchRooms = async () => {
             try {
-                //const url=`/rooms/${data.property_id}`
-                const url = '/rooms/t2k001'
+                //const url=`/api/rooms/${data.property_id}`
+                const url = '/api/rooms/t2k001'
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 //axios library is used to hit the url which is in 1st argument and headers in 2nd argument,
                 //the response from the request is stored in the response variable and response is of the type object

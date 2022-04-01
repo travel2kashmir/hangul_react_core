@@ -21,7 +21,7 @@ function CardAddRoom() {
   useEffect(() => {
     const fetchRoomtypes = async () => {
       try {
-        const response = await axios.get('/room-types', { headers: { 'accept': 'application/json' } });
+        const response = await axios.get('/api/room-types', { headers: { 'accept': 'application/json' } });
         console.log("room types " + JSON.stringify(response.data))
         setRoomtypes(response.data)
       }
@@ -111,7 +111,7 @@ function CardAddRoom() {
     e.preventDefault()
     const finalData = { ...allRoomDes }
     console.log(JSON.stringify(finalData), 'finaldata')
-    axios.post('/room', JSON.stringify(finalData),
+    axios.post('/api/room', JSON.stringify(finalData),
       {
         headers: { 'content-type': 'application/json' }
       }).then(response => {
@@ -210,7 +210,7 @@ function CardAddRoom() {
     }]
     const finalImage = { "images": imagedata }
     console.log(JSON.stringify(finalImage))
-    axios.post(`/gallery`, finalImage).then(response => {
+    axios.post(`/api/gallery`, finalImage).then(response => {
       console.log(response)
       toast.success(JSON.stringify(response.data.message), {
         position: "top-center",
@@ -224,7 +224,7 @@ function CardAddRoom() {
       const image_data = { "image_id": response.data.image_id, "room_id": roomId }
       const final = { "room_images": [image_data] }
       console.log("the room image" + JSON.stringify(final))
-      axios.post('/room-images', final, {
+      axios.post('/api/room-images', final, {
         headers: { 'content-type': 'application/json' }
       }).then(response => {
         console.log(response)
@@ -279,7 +279,7 @@ function CardAddRoom() {
     console.log(roomId+"for this time")
     const final = { "additional_services_link": serviceData }
     console.log("data sent is " + JSON.stringify(final))
-    axios.post('/additional_services_link', final, {
+    axios.post('/api/additional_services_link', final, {
       headers: { 'content-type': 'application/json' }
     }).then(response => {
       console.log(response)
@@ -321,7 +321,7 @@ function CardAddRoom() {
            "status": true
        }]}
        console.log("final data is" + JSON.stringify(final_data))
-       const url = '/additional_services'
+       const url = '/api/additional_services'
        axios.post(url, final_data, { header: { "content-type": "application/json" } }).then
            ((response) => {
                console.log(response.data);
@@ -334,7 +334,7 @@ function CardAddRoom() {
                    draggable: true,
                    progress: undefined,
                });
-             const url2 = '/additional_services_link'
+             const url2 = '/api/additional_services_link'
              const final_data2 = {
                "additional_service_link": [{
                  "room_id": roomId,

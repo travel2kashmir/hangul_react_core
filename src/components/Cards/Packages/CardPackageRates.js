@@ -21,7 +21,7 @@ function CardPackageRates(props) {
       "other_charges_amount": allPackageRateDetails.other_charges_amount
     }
     console.log("the new information " + JSON.stringify(final_data))
-    const url = '/package/package_rates'
+    const url = '/api/package/package_rates'
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);

@@ -27,7 +27,7 @@ function CardRoom(props) {
       "image_type": allRoomDetails.image_type
     }
     console.log("the new information " + JSON.stringify(final_data))
-    const url = '/images'
+    const url = '/api/images'
 
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
@@ -64,7 +64,7 @@ function CardRoom(props) {
   /* Function for Delete Room Images*/
   const submitDelete = () => {
 
-    const url = `/${actionImage.image_id}`
+    const url = `/api/${actionImage.image_id}`
     axios.delete(url).then
       ((response) => {
         console.log(response.data);
@@ -100,7 +100,7 @@ function CardRoom(props) {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
+        // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
         const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001/${props.room_id.id}`
         console.log("URL " + url)
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
@@ -120,8 +120,8 @@ function CardRoom(props) {
     }
     const fetchRoomfacilities = async () => {
       try {
-        // const url = `/room-services/${data.property_id}`;
-        const url = `/room-services/t2k001`; //fetches all room type services of hotel
+        // const url = `/api/room-services/${data.property_id}`;
+        const url = `/api/room-services/t2k001`; //fetches all room type services of hotel
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log("room facilities " + JSON.stringify(response.data))
         setRoomfacilities(response.data)
@@ -139,8 +139,8 @@ function CardRoom(props) {
     }
     const fetchImages = async () => {
       try {
-        //const url = `/images/${data.property_id}`;
-        const url = `/images/t2k001`;
+        //const url = `/api/images/${data.property_id}`;
+        const url = `/api/images/t2k001`;
         const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
         console.log("Response from API" + JSON.stringify(response.data))
         setRoomimages(response.data)
@@ -159,7 +159,7 @@ function CardRoom(props) {
     }
     const fetchRoomtypes = async () => {
       try {
-        const response = await axios.get('/room-types', { headers: { 'accept': 'application/json' } });
+        const response = await axios.get('/api/room-types', { headers: { 'accept': 'application/json' } });
         console.log("room types " + JSON.stringify(response.data))
 
         setRoomtypes(response.data)

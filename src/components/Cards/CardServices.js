@@ -19,7 +19,7 @@ function CardServices() {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
+                // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
                 const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
@@ -39,7 +39,7 @@ function CardServices() {
 
         const fetchAdditionalServices = async () => {
             try {
-                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
+                // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
                 const url = `http://103.136.36.27:7860/additional_services/t2k001`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
@@ -71,7 +71,7 @@ function CardServices() {
             "status": modified.status
         }
         console.log("final data is" + JSON.stringify(final_data))
-        const url = '/additional_services'
+        const url = '/api/additional_services'
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
@@ -110,7 +110,7 @@ function CardServices() {
             "status": modified.status
         }
         console.log("final data is" + JSON.stringify(final_data))
-        const url = '/services'
+        const url = '/api/services'
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
@@ -140,7 +140,7 @@ function CardServices() {
 
     /* function to delete additional service */
     const deleteAdditionalService = () => {
-        const url = `additional_service/${actionService?.add_service_id}`
+        const url = `/api/additional_service/${actionService?.add_service_id}`
         console.log("url is " + url)
         axios.delete(url).then((response) => {
             console.log("reply is " + JSON.stringify(response))
@@ -180,7 +180,7 @@ function CardServices() {
             "status": true
         }]}
         console.log("final data is" + JSON.stringify(final_data))
-        const url = '/additional_services'
+        const url = '/api/additional_services'
         axios.post(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);

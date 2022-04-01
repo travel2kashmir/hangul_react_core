@@ -20,7 +20,7 @@ function CardPropertyCredit(props) {
      console.log(JSON.stringify(final_data));
      setTimeout(()=>console.log(JSON.stringify(final_data)) ,3000) 
       console.log("the new information " + JSON.stringify(final_data))
-     const url = '/package/package_property_credit'
+     const url = '/api/package/package_property_credit'
       axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
        console.log(response.data);

@@ -10,7 +10,7 @@ function CardPackage(props) {
     useEffect(() => {
         const fetchDetails = async () => {
             try {
-                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
+                // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
                 const url = `http://103.136.36.27:7860/package/${props.package_id.id}`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
@@ -30,7 +30,7 @@ function CardPackage(props) {
         }
         const fetchRoomBundles = async () => {
             try {
-                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}/${allRoomDetails.room_id}`;
+                
                 const url = `http://103.136.36.27:7860/package/bundle/${props.package_id.id}`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
@@ -195,7 +195,8 @@ function CardPackage(props) {
                                 pathname: '/package-services',
                          state: {
                             id: allBundleDetails,
-                            data:allPackageDetails
+                            data:allPackageDetails,
+                        
                         }}} className="text-sm font-sans underline decoration-cyan-600
              font-semibold text-cyan-600 p-1">See More..</Link>
                         </div>

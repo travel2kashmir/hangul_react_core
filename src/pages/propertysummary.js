@@ -14,7 +14,7 @@ function Propertysummary() {
     useEffect(() => {
         const fetchHotelDetails = async () => {
             try {
-                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
+                // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
                 const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });

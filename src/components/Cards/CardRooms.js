@@ -10,7 +10,7 @@ function CardRooms({ item }) {
 
     /* Delete Room Function*/
     const deleteRooms = () =>{
-        const url=`/${actionRoom?.room_id}`
+        const url=`/api/${actionRoom?.room_id}`
         console.log("url is "+url)
         axios.delete(url).then((response)=>{
           console.log("reply is "+JSON.stringify(response))

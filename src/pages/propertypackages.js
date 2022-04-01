@@ -12,7 +12,7 @@ function Propertypackages() {
   useEffect(() => {
     const fetchRooms = async () => {
         try {
-            //const url=`/rooms/${data.property_id}`
+            //const url=`/api/package/${data.property_id}`
             const url = 'http://103.136.36.27:7860/package/t2k001'
             const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
             //axios library is used to hit the url which is in 1st argument and headers in 2nd argument,

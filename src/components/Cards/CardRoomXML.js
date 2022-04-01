@@ -81,6 +81,7 @@ function CardRoomXML(props) {
                 Room XML
             </h6>
             {/* Property XML Form */}
+            {roomXML===undefined?<p>XML is being fetched</p>:
             <div className="bg-white flex  flex-wrap  sm:px-1 shadow rounded-lg mx-10 py-4 px-12  xl:p-8  2xl:col-span-2">
                 {roomXML !== undefined &&
                 <div>
@@ -90,7 +91,7 @@ function CardRoomXML(props) {
                                 onClick={call}>Send to Google</button></div>
                         <XMLViewer xml={roomXML} theme={breaker} /></div>
                    }
-            </div>
+            </div>}
             {/* Toast Container */}
             <ToastContainer position="top-center"
                 autoClose={5000}

@@ -25,7 +25,7 @@ function CardPackageMiles(props) {
     console.log(JSON.stringify(final_data));
     setTimeout(() => console.log(JSON.stringify(final_data)), 3000)
     console.log("the new information " + JSON.stringify(final_data))
-    const url = '/package/package_miles'
+    const url = '/api/package/package_miles'
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
@@ -56,7 +56,7 @@ function CardPackageMiles(props) {
   }
 
   const submitDelete = () => {
-    const url = `package/${props?.package_miles?.package_id}/${editMile.mile_id}`
+    const url = `/api/package/${props?.package_miles?.package_id}/${editMile.mile_id}`
     console.log("url is"+url); 
     axios.delete(url).then
       ((response) => {
@@ -98,7 +98,7 @@ function CardPackageMiles(props) {
     }]
     const finalProgram = { "package_miles": programdata }
     console.log("the new information " + JSON.stringify(finalProgram))
-    const url = '/package/package_miles'
+    const url = '/api/package/package_miles'
     axios.post(url, finalProgram, { header: { "content-type": "application/json" } }).then
         ((response) => {
             console.log(response.data);

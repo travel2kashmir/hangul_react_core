@@ -28,7 +28,7 @@ function Signin() {
       "admin_password": signinDetails.password
     }
     console.log(JSON.stringify(item))
-    Axios.post('/signin/admin', item, { headers: { 'content-type': 'application/json' } })
+    Axios.post('/api/signin/admin', item, { headers: { 'content-type': 'application/json' } })
       .then(
         response => {
           console.log(response.data)
@@ -75,7 +75,7 @@ function Signin() {
       "user_password": signinDetails.password
     }
     console.log(JSON.stringify(item))
-    Axios.post('/signin/user', item, { headers: { 'content-type': 'application/json' } })
+    Axios.post('/api/signin/user', item, { headers: { 'content-type': 'application/json' } })
       .then(
         response => {
           console.log(response?.data)

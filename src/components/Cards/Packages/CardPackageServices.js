@@ -114,7 +114,7 @@ function CardPackageServices(props) {
                                         return (
                                             <tr className="hover:bg-gray-100">
                                                 <td className="py-4 px-4 capitalize whitespace-nowrap text-base font-medium text-gray-900">
-                                                    {item.room_name} </td>
+                                                    {item?.room_name} </td>
                                                 <td className="py-4 px-2.5  whitespace-nowrap text-base font-normal text-gray-900">
                                                     <div className="flex items-center">
                                                         <div className="h-2.5 w-2.5 rounded-full bg-green-600 mr-2"></div>
@@ -126,8 +126,8 @@ function CardPackageServices(props) {
                                                     <Link to={{
                                                         pathname: '/package-room-bundle',
                                                         state: {
-                                                            id: item,
-                                                            rooms:props.package_room_bundle?.id,
+                                                            item: item,
+                                                            id:props.package_room_bundle?.id,
                                                             data:props.package_room_bundle?.data
                                                         }
                                                     }}><button type="button" data-modal-toggle="user-modal"

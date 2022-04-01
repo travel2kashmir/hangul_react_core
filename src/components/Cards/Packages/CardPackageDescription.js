@@ -25,7 +25,7 @@ function CardPackageDescription(props) {
     }
    
     console.log("the new information " + JSON.stringify(final_data))
-    const url = '/package/package_description'
+    const url = '/api/package/package_description'
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
         ((response) => {
             console.log(response.data);

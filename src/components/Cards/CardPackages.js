@@ -11,7 +11,7 @@ function CardPackages({ item }) {
 
     /* Delete Package Function*/
     const deletePackages = () => {
-        const url = `/package./${actionPackage?.package_id}`
+        const url = `/api/package./${actionPackage?.package_id}`
         console.log("url is " + url)
         axios.delete(url).then((response) => {
             console.log("reply is " + JSON.stringify(response))

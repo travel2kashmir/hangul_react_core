@@ -24,7 +24,7 @@ function CardEliteRewards(props) {
     console.log(JSON.stringify(final_data));
     setTimeout(()=>console.log(JSON.stringify(final_data)) ,3000) 
      console.log("the new information " + JSON.stringify(final_data))
-    const url = '/package/package_membership_master'
+    const url = '/api/package/package_membership_master'
      axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
      ((response) => {
       console.log(response.data);
@@ -54,7 +54,7 @@ function CardEliteRewards(props) {
    }
    /* Function for Delete Room Images*/
   const submitDelete = () => {
-    const url = `package/${props?.elite_rewards?.package_id}/${editProgram.program_id}`
+    const url = `/api/package/${props?.elite_rewards?.package_id}/${editProgram.program_id}`
     axios.delete(url).then
       ((response) => {
         console.log(response.data);
@@ -94,7 +94,7 @@ function CardEliteRewards(props) {
     }]
     const finalProgram = { "package_membership_master": programdata }
     console.log(JSON.stringify(finalProgram))
-    axios.post(`/package/package_membership_master`, finalProgram).then(response => {
+    axios.post(`/api/package/package_membership_master`, finalProgram).then(response => {
       console.log(response)
       toast.success(JSON.stringify(response.data.message), {
         position: "top-center",
@@ -109,7 +109,7 @@ function CardEliteRewards(props) {
       const program_data = { "program_id": response.data.program_id, "package_id":props?.elite_rewards?.package_id }
       const final = { "package_membership_link": [program_data] }
       console.log("the package program" + JSON.stringify(final))
-      axios.post('/package/package_membership_link', final, {
+      axios.post('/api/package/package_membership_link', final, {
         headers: { 'content-type': 'application/json' }
       }).then(response => {
         console.log(response)

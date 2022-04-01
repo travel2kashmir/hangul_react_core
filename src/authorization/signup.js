@@ -57,7 +57,7 @@ function Signup() {
 
             }
             console.log(JSON.stringify(data))
-            Axios.post('/signup/user', data ,
+            Axios.post('/api/signup/user', data ,
                 {
                     headers: { 'content-type': 'application/json' }
                 }).then(response => {
@@ -120,7 +120,7 @@ function Signup() {
 
             }
             console.log(JSON.stringify(data))
-          Axios.post('/signup/admin', JSON.stringify(data),
+          Axios.post('/api/signup/admin', JSON.stringify(data),
             {
               headers: { 'content-type': 'application/json' }
             }).then(response => {

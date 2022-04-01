@@ -17,7 +17,7 @@ function CardContact() {
     useEffect(() => {
         const fetchBasicDetails = async () => {
             try {
-                // const url = `/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
+                // const url = `/api/${data.property_address_province.replace(/\s+/g, '-')}/${data.property_address_city}/${data.property_category}s/${data.property_id}`;
                 const url = `http://103.136.36.27:7860/jammu-and-kashmir/srinagar/hotels/t2k001`
                 console.log("URL " + url)
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
@@ -66,7 +66,7 @@ fetchBasicDetails();
             "contact_data": allHotelDetails.contact_data
         }
         console.log("the new information " + JSON.stringify(final_data))
-        const url = '/contact'
+        const url = '/api/contact'
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
@@ -110,7 +110,7 @@ fetchBasicDetails();
        
           const finalContact = { contacts: contactdata }
           console.log(JSON.stringify(finalContact) + "sent details")
-          axios.post(`/contact`, JSON.stringify(contact),
+          axios.post(`/api/contact`, JSON.stringify(contact),
             {
               headers: { 'content-type': 'application/json' }
             }).then(response => {
@@ -144,7 +144,7 @@ fetchBasicDetails();
      /* Function Delete Contact*/
     const submitDelete = (props) => {
         console.log(JSON.stringify(data))
-        const url = `/${props}`
+        const url = `/api/${props}`
         axios.delete(url).then
             ((response) => {
                 console.log(response.data);
