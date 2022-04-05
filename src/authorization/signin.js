@@ -7,9 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import actionCreators from '../states/index';
-
-
-
+import bcrypt from 'bcryptjs'
 function Signin() {
   //used to send action to reducer
   const dispatch = useDispatch();
@@ -21,33 +19,49 @@ function Signin() {
     "email": '',
     "password": ''
   })
-  const submitAsAdmin = () => {
+  const submitAsAdmin = async () => {
     console.log("submit as admin")
     var item = {
       "admin_email": signinDetails.email,
-      "admin_password": signinDetails.password
+      //"admin_password": signinDetails.password
     }
     console.log(JSON.stringify(item))
     Axios.post('/api/signin/admin', item, { headers: { 'content-type': 'application/json' } })
       .then(
-        response => {
+        async response => {
           console.log(response.data)
-          toast.success("logged in with Admin_id " + response.data.admin_id + " as " + response.data.admin_type, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          const whoIsLogged = {
-            "id": response.data?.admin_id,
-            "name": response.data?.admin_name,
-            "email": signinDetails?.email,
-            "password": signinDetails?.password
+          const salt = response.data.salt
+          const EncryptedPass = await bcrypt.hash(signinDetails.password, salt)
+          if (EncryptedPass === response.data.admin_password) {
+            toast.success("logged in with Admin_id " + response.data.admin_id + " as " + response.data.admin_type, {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            const whoIsLogged = {
+              "id": response.data?.admin_id,
+              "name": response.data?.admin_name,
+              "email": signinDetails?.email,
+              "password": response.data?.admin_password
+            }
+            signin(whoIsLogged)
           }
-          signin(whoIsLogged)
+          else {
+            toast.error("Invalid Password",
+              {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+          }
 
         }
 
@@ -68,36 +82,51 @@ function Signin() {
 
         });
   }
-  const submitAsUser = () => {
+  const submitAsUser = async () => {
     console.log("submit as user")
     var item = {
       "user_email": signinDetails.email,
-      "user_password": signinDetails.password
+      //"user_password": signinDetails.password
     }
     console.log(JSON.stringify(item))
     Axios.post('/api/signin/user', item, { headers: { 'content-type': 'application/json' } })
       .then(
-        response => {
+        async response => {
           console.log(response?.data)
-          toast.success(response?.data?.user_name + "  logged in ", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          const whoIsLogged =
-          {
-            "id": response.data.user_id,
-            "name": response.data.user_name,
-            "email": signinDetails?.email,
-            "password": signinDetails?.password
+          const salt = response.data.salt
+          console.log("salt obtained from db" + salt)
+          const EncryptedPass = await bcrypt.hash(signinDetails.password, salt)
+          console.log("encrypted password is " + EncryptedPass)
+          if (EncryptedPass === response.data.user_password) {
+            toast.success(response?.data?.user_name + "  logged in ", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            const whoIsLogged = {
+              "id": response.data.user_id,
+              "name": response.data.user_name,
+              "email": signinDetails?.email,
+              "password": response.data?.user_password
+            }
+            signin(whoIsLogged)
           }
-          console.log("who is logged" + JSON.stringify(whoIsLogged))
-          signin(whoIsLogged)
-
+          else {
+            toast.error("Invalid Password",
+              {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+          }
         }
 
       )
@@ -149,7 +178,8 @@ function Signin() {
                     checked:border-blue-600 focus:outline-none
                      transition duration-200 mt-2  align-top
                       bg-no-repeat bg-center bg-contain float-left
-                       mr-2 cursor-pointer" onChange={(e) => { setAdminFlag(e.target.value) }}
+                       mr-2 cursor-pointer"
+                      onChange={(e) => { setAdminFlag(e.target.value) }}
                       value="User"
                       name="who" id='ip1' />
                     <label
@@ -167,11 +197,12 @@ function Signin() {
                        focus:outline-none transition duration-200 mt-2 
                         align-top bg-no-repeat bg-center bg-contain float-left mb-2
                          mr-1 ml-2 cursor-pointer"
+                         onChange={(e) => { setAdminFlag(e.target.value) }}
                       name="who" />
                     <label
                       className="form-check-label inline-block 
                       text-gray-700 text-sm font-semibold "
-                      htmlFor="ip2" onChange={(e) => { setAdminFlag(e.target.value) }}
+                      htmlFor="ip2"
                     >
                       Admin</label>
                   </div>
@@ -211,7 +242,7 @@ function Signin() {
                 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 mt-6
                 rounded-lg text-base px-5 py-2 w-full sm:w-auto text-center"
                 onClick={() => { adminFlag === "Admin" ? submitAsAdmin() : submitAsUser() }}>
-                Sign in
+                Sign in {adminFlag}
               </button>
               <div className="text-base font-semibold text-gray-500">
                 Not registered?

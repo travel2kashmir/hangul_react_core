@@ -15,7 +15,8 @@ function Userlanding() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const url = '/api/properties/user003';
+                console.log(JSON.stringify(logged.id))
+                const url = `/api/properties/${logged.id}`;
                 const response = await axios.get(url, { headers: { 'accept': 'application/json' } });
                 console.log("response" + JSON.stringify(response.data))
                 setOwnerdata(response.data)
