@@ -80,12 +80,11 @@ function CardGallery() {
             image_descripiton: actionImage.image_description,
             image_category: actionImage.image_category
         }]
-
         const finalImage = { "images": imagedata }
         console.log(JSON.stringify(finalImage))
         axios.post(`/api/gallery`, finalImage).then(response => {
             console.log(response)
-            toast.success(JSON.stringify(response.data.message), {
+            toast.success("Image Added Successfully!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -97,7 +96,7 @@ function CardGallery() {
 
         }).catch(error => {
             console.log("there is error" + error)
-            toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+            toast.error(" Gallery Error", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -120,13 +119,11 @@ function CardGallery() {
         }
         console.log("the new information " + JSON.stringify(final_data))
         const url = '/api/images'
-
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
-
                 setEditImage(0);
                 console.log(response.data);
-                toast.success(JSON.stringify(response.data.message), {
+                toast.success("Gallery Updated Successfully!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -140,7 +137,7 @@ function CardGallery() {
             .catch((error) => {
                 console.log(error);
                 console.log(error);
-                toast.error("Some thing went wrong in Edit\n " + JSON.stringify(error.response.data), {
+                toast.error("Gallery Update Error! " , {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -155,13 +152,12 @@ function CardGallery() {
     
     /* Function to delete images*/
     const submitDelete = () => {
-
         const url = `/api/${actionImage.image_id}`
         axios.delete(url).then
             ((response) => {
                 console.log(response.data);
                 setdeleteImage(0)
-                toast.success("Image deleted successfully", {
+                toast.success("Image Deleted Successfully", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -175,7 +171,7 @@ function CardGallery() {
             .catch((error) => {
                 console.log(error);
                 console.log(error);
-                toast.error("Some thing went wrong in Delete\n " + JSON.stringify(error.response.data), {
+                toast.error("Gallery Delete Error!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -187,7 +183,6 @@ function CardGallery() {
 
             })
     }
-
     return (
         <div>
             {/* Navbar */}

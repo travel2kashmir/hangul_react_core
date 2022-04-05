@@ -42,10 +42,8 @@ fetchBasicDetails();
         contact_data: '',
         property_id: data.property_id
       }
-    
     const [contact, setContact] = useState
     ([conTemp]?.map((i, id) => { return { ...i, index: id } }))
-
     const onChange = (e, index, i) => {
         console.log(index, 'index')
         setContact(contact?.map((item, id) => {
@@ -70,7 +68,7 @@ fetchBasicDetails();
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
-                toast.success(JSON.stringify(response.data.message), {
+                toast.success("Contact Updated Successfully!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -83,7 +81,7 @@ fetchBasicDetails();
             .catch((error) => {
                 console.log(error);
                 console.log(error);
-                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                toast.error("Contact Update Error!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -106,8 +104,6 @@ fetchBasicDetails();
             contact_data: i.contact_data
           }
         }))
-        
-       
           const finalContact = { contacts: contactdata }
           console.log(JSON.stringify(finalContact) + "sent details")
           axios.post(`/api/contact`, JSON.stringify(contact),
@@ -115,7 +111,7 @@ fetchBasicDetails();
               headers: { 'content-type': 'application/json' }
             }).then(response => {
               console.log(response.data)
-              toast.success(JSON.stringify(response.data.message), {
+              toast.success("Contact Added Successfully!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -124,11 +120,10 @@ fetchBasicDetails();
                 draggable: true,
                 progress: undefined,
               });
-    
             })
             .catch(error => {
               console.log(error.response)
-              toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+              toast.error("Contact Add Error!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -161,7 +156,7 @@ fetchBasicDetails();
             .catch((error) => {
                 console.log(error);
                 console.log(error);
-                toast.error("Some thing went wrong in Basic Details\n " + JSON.stringify(error.response.data), {
+                toast.error("Contact Delete Error!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,

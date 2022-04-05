@@ -13,7 +13,6 @@ function CardAddress() {
   const submitAddressEdit = () => {
     console.log(JSON.stringify(data))
     console.log(JSON.stringify(allHotelDetails.address[0].address_id))
-    console.log("all details"+JSON.stringify(allHotelDetails))
     const final_data = {
       "address_id": allHotelDetails.address[0].address_id,
       "address_street_address": allHotelDetails.address_street_address,
@@ -31,7 +30,7 @@ function CardAddress() {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        toast.success(JSON.stringify(response.data.message), {
+        toast.success("Address Updated Successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -44,7 +43,7 @@ function CardAddress() {
       .catch((error) => {
         console.log(error);
         console.log(error);
-        toast.error("Some thing went wrong in Address\n " + JSON.stringify(error.response.data), {
+        toast.error("Address Update Error!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,

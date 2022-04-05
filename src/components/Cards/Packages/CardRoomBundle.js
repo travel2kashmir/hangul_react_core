@@ -33,7 +33,6 @@ function CardRoomBundle(props) {
   /* Edit Package Rate Function */
   const submitRoomRateEdit = () => {
     const final_data = {
-
       "rate_master_id": roomDetails.rate_master_id,
       "base_rate_currency": roomRateDetails.base_rate_currency,
       "base_rate_amount": roomRateDetails.base_rate_amount,
@@ -47,7 +46,7 @@ function CardRoomBundle(props) {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        toast.success(("Room Rates updated Successfully!"), {
+        toast.success(("Room Rates Updated Successfully!"), {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -59,7 +58,7 @@ function CardRoomBundle(props) {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Some thing went wrong in Room Rates\n " + JSON.stringify(error.response.data), {
+        toast.error("Room Rates Error!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -115,8 +114,7 @@ function CardRoomBundle(props) {
               <Link to={{
                // pathname: '/package-services',
                 state: {
-                   //id: props?.package_room?.id,
-                  
+                   //id: props?.package_room?.id,  
                 }
               }}
                 className="text-gray-700 ml-1 md:ml-2 font-medium

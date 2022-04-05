@@ -14,7 +14,7 @@ function CardBasicDetails() {
     console.log(JSON.stringify(data))
     const final_data = {
         "property_id": data.property_id,
-        "property_name": allHotelDetails.property_name,
+        "property_name": allHotelDetails.property_name?.toLowerCase(),
         "property_category": allHotelDetails.property_category.toLowerCase(),
         "property_brand": allHotelDetails.property_brand,
         "established_year": allHotelDetails.established_year,
@@ -28,7 +28,7 @@ function CardBasicDetails() {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
         ((response) => {
             console.log(response.data);
-            toast.success(JSON.stringify(response.data.message), {
+            toast.success("Basic Details Updated Successfully!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -40,7 +40,7 @@ function CardBasicDetails() {
         })
         .catch((error) => {
             console.log(error);
-            toast.error("Some thing went wrong in Basic Details\n " + JSON.stringify(error.response.data), {
+            toast.error("Basic Details Update Error!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,

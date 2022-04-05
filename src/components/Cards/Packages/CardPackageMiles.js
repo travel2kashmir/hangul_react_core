@@ -14,7 +14,7 @@ function CardPackageMiles(props) {
   const [modified, setModified] = useState({})
 
   /* Function Edit Mile*/
-  const submitMileEdit = (props) => {
+  const submitMileEdit = (props) => { 
     // console.log("props to edit program is " + props)
     // setProgram({...program,program_id:props})
     const final_data = {
@@ -29,7 +29,7 @@ function CardPackageMiles(props) {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        toast.success(JSON.stringify(response.data.message), {
+        toast.success("Package Mile Updated Successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -42,7 +42,7 @@ function CardPackageMiles(props) {
       .catch((error) => {
         console.log(error);
         console.log(error);
-        toast.error("Some thing went wrong in elite rewards\n " + JSON.stringify(error.response.data), {
+        toast.error("Package Miles Update Error! " , {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -62,7 +62,7 @@ function CardPackageMiles(props) {
       ((response) => {
         console.log(response.data);
         setDeleteMile(0)
-        toast.success("Package Mile deleted successfully!", {
+        toast.success("Package Mile Deleted Successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -76,7 +76,7 @@ function CardPackageMiles(props) {
       .catch((error) => {
         console.log(error);
         console.log(error);
-        toast.error("Some thing went wrong in Delete\n " + JSON.stringify(error.response.data), {
+        toast.error("Package Miles Delete Error!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -102,7 +102,7 @@ function CardPackageMiles(props) {
     axios.post(url, finalProgram, { header: { "content-type": "application/json" } }).then
         ((response) => {
             console.log(response.data);
-            toast.success(JSON.stringify(response.data.message), {
+            toast.success("Package Mile Added Successfully!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -114,7 +114,7 @@ function CardPackageMiles(props) {
         })
         .catch((error) => {
             console.log(error);
-            toast.error("Some thing went wrong in Package miles\n " + JSON.stringify(error.response.data), {
+            toast.error("Package Miles Add Error!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,

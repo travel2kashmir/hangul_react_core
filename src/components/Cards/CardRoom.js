@@ -28,13 +28,11 @@ function CardRoom(props) {
     }
     console.log("the new information " + JSON.stringify(final_data))
     const url = '/api/images'
-
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
-
         setEditImage(0);
         console.log(response.data);
-        toast.success(JSON.stringify(response.data.message), {
+        toast.success("Room Image Details Updated Successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -48,7 +46,7 @@ function CardRoom(props) {
       .catch((error) => {
         console.log(error);
         console.log(error);
-        toast.error("Some thing went wrong in Edit\n " + JSON.stringify(error.response.data), {
+        toast.error("Room Gallery Update Error!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -63,13 +61,12 @@ function CardRoom(props) {
 
   /* Function for Delete Room Images*/
   const submitDelete = () => {
-
     const url = `/api/${actionImage.image_id}`
     axios.delete(url).then
       ((response) => {
         console.log(response.data);
         setdeleteImage(0)
-        toast.success("Image deleted successfully", {
+        toast.success("Image deleted successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -232,7 +229,6 @@ function CardRoom(props) {
       "room_length": allRoomDetails.room_length,
       "room_width": allRoomDetails.room_width,
       "room_height": allRoomDetails.room_height
-
     }
 
     console.log("the new information " + JSON.stringify(final_data))
@@ -240,7 +236,7 @@ function CardRoom(props) {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        toast.success(JSON.stringify(response.data.message), {
+        toast.success("Room Details Updated Successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -253,7 +249,7 @@ function CardRoom(props) {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Some thing went wrong\n " + JSON.stringify(error.response.data), {
+        toast.error("Room Description Update Error! " , {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,

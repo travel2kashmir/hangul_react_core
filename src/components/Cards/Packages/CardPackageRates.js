@@ -25,7 +25,7 @@ function CardPackageRates(props) {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
       ((response) => {
         console.log(response.data);
-        toast.success(JSON.stringify(response.data.message), {
+        toast.success("Package Rates Updated Successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -37,7 +37,7 @@ function CardPackageRates(props) {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Some thing went wrong in Package Rate\n " + JSON.stringify(error.response.data), {
+        toast.error("Package Rates Error!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,

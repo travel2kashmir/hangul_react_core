@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import bcrypt from 'bcryptjs'
 
 function Signup() {
-
     const [adminFlag, setAdminFlag] = useState("Admin")
     const [user, setUser] = useState({
         "user_name": "",
@@ -18,13 +17,12 @@ function Signup() {
         "admin_name": "",
         "admin_email": "",
         "admin_password": ""
-      })
-      const validateAdminData = (props) => {
-
-        const pswdValid = CheckPassword(props.admin.admin_password)
+    })
+    const validateAdminData = (props) => {
+        const pswdValid = CheckPassword(props)
         return pswdValid
-      }
-    
+    }
+
     const validateUserData = (props) => {
 
         const pswdValid = CheckPassword(props.user.user_password)
@@ -32,8 +30,7 @@ function Signup() {
     }
 
     function CheckPassword(inputtxt) {
-        var passw = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{6,20}$/;
-        console.log("pswd is" + inputtxt)
+        var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
         if (inputtxt.match(passw)) {
             return true;
         }
@@ -42,22 +39,20 @@ function Signup() {
         }
     }
 
-    const registerUser = async(e) => {
+    const registerUser = async (e) => {
         console.log("user details" + JSON.stringify(user))
         const result = validateUserData({ user })
         if (result === true) {
-
-            const salt=await bcrypt.genSalt(10)
-            const EncryptedPass = await bcrypt.hash(user.user_password,salt)
+            const salt = await bcrypt.genSalt(10)
+            const EncryptedPass = await bcrypt.hash(user.user_password, salt)
             const data = {
                 "user_name": user.user_name,
                 "user_email": user.user_email,
                 "user_password": EncryptedPass,
-                "user_salt": salt
-
+                "salt": salt
             }
             console.log(JSON.stringify(data))
-            Axios.post('/api/signup/user', data ,
+            Axios.post('/api/signup/user', data,
                 {
                     headers: { 'content-type': 'application/json' }
                 }).then(response => {
@@ -71,8 +66,6 @@ function Signup() {
                         draggable: true,
                         progress: undefined,
                     });
-
-
                 })
                 .catch(error => {
                     console.log(error.response)
@@ -85,7 +78,6 @@ function Signup() {
                         draggable: true,
                         progress: undefined,
                     });
-
                 });
         }
         else {
@@ -98,75 +90,66 @@ function Signup() {
                 draggable: true,
                 progress: undefined,
             });
-
         }
     }
 
-    const registerAdmin = async(e) => {
+    const registerAdmin = async (e) => {
         e.preventDefault()
         console.log("Admin details" + JSON.stringify(admin))
-    
-        const result = validateAdminData({ admin })
-    
-        if (result === true) {
-
-            const salt=await bcrypt.genSalt(10)
-            const EncryptedPass = await bcrypt.hash(admin.admin_password,salt)
+const result = validateAdminData(admin.admin_password)
+if (result === true) {
+            const salt = await bcrypt.genSalt(10)
+            const EncryptedPass = await bcrypt.hash(admin.admin_password, salt)
             const data = {
+                "admin_type": admin.admin_type,
                 "admin_name": admin.admin_name,
                 "admin_email": admin.admin_email,
                 "admin_password": EncryptedPass,
-                "admin_salt": salt
-
-            }
+                "salt": salt
+}
             console.log(JSON.stringify(data))
-          Axios.post('/api/signup/admin', JSON.stringify(data),
-            {
-              headers: { 'content-type': 'application/json' }
-            }).then(response => {
-              console.log(response.data)
-              toast.success("Admin Account created with id " + response.data.admin_id, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-            
-    
-            })
-            .catch(error => {
-              console.log(error.response)
-              toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-    
-            });
+            Axios.post('/api/signup/admin', JSON.stringify(data),
+                {
+                    headers: { 'content-type': 'application/json' }
+                }).then(response => {
+                    console.log(response.data)
+                    toast.success("Admin Account created with id " + response.data.admin_id, {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+})
+                .catch(error => {
+                    console.log(error.response)
+                    toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+});
         }
         else {
-          toast.error("password should be as per instructions", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-    
-        }
-      }
-    
+            toast.error("password should be as per instructions", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
 
-    return (
+        }
+    }
+return (
         <div className='bg-gray-50 p-4'>
             <div className="mx-auto  flex flex-col justify-center items-center px-6 pt-8 pt:mt-0">
                 <span className="self-center text-2xl font-bold whitespace-nowrap">Hangul</span>
@@ -205,9 +188,9 @@ function Signup() {
                                             onChange={(e) => { setUser({ ...user, user_name: e.target.value }) }}
                                         />
                                         <label for="email" className="text-base font-semibold text-gray-700 block mb-2">User email</label>
-                                        <input type="email" name="email" id="email" 
-                                        onChange={(e) => { setUser({ ...user, user_email: e.target.value }) }}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        <input type="email" name="email" id="email"
+                                            onChange={(e) => { setUser({ ...user, user_email: e.target.value }) }}
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                             placeholder="" required>
                                         </input>
                                         <div>
@@ -227,48 +210,48 @@ function Signup() {
                                     :
                                     <div>
                                         <div>
-                                        <label className="text-base font-semibold text-gray-700 block mb-2"
-                                            htmlFor="grid-password"
-                                        >
-                                            Admin type
-                                        </label>
-                                        <select
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                            placeholder="Admin-name"
-                                            onChange={(e) => { setAdmin({ ...admin, admin_type: e.target.value }) }}
-                                        >
-                                            <option value="">Select admin type</option>
-                                            <option value="Super-admin">Super Admin</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="editor">Editor</option>
-                                        </select>
+                                            <label className="text-base font-semibold text-gray-700 block mb-2"
+                                                htmlFor="grid-password"
+                                            >
+                                                Admin type
+                                            </label>
+                                            <select
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                placeholder="Admin-name"
+                                                onChange={(e) => { setAdmin({ ...admin, admin_type: e.target.value }) }}
+                                            >
+                                                <option value="">Select admin type</option>
+                                                <option value="Super-admin">Super Admin</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="editor">Editor</option>
+                                            </select>
                                         </div>
                                         <div>
-                                        <label
-                                            className="text-base font-semibold text-gray-700 block mb-2"
-                                            htmlFor="grid-password"
-                                        >
-                                            Admin name
-                                        </label>
-                                        <input type="text"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                            onChange={(e) => { setAdmin({ ...admin, admin_name: e.target.value }) }}
-                                        />
+                                            <label
+                                                className="text-base font-semibold text-gray-700 block mb-2"
+                                                htmlFor="grid-password"
+                                            >
+                                                Admin name
+                                            </label>
+                                            <input type="text"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                onChange={(e) => { setAdmin({ ...admin, admin_name: e.target.value }) }}
+                                            />
                                         </div>
-                                         <div>
-                                        <label for="email" className="text-base font-semibold text-gray-700 block mb-2">Admin email</label>
-                                        <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                           onChange={(e) => { setAdmin({ ...admin, admin_email: e.target.value }) }}
-                                          placeholder="" required>
-                                        </input>
-                                        {admin?.admin_password === '' ? <></> : admin?.admin_password.length < 6 ? <p>Password must be 6 to 20 character long with atleast 1 upper case character , 1 lower case character and 1 number</p> : <></>}
-                      
+                                        <div>
+                                            <label for="email" className="text-base font-semibold text-gray-700 block mb-2">Admin email</label>
+                                            <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                onChange={(e) => { setAdmin({ ...admin, admin_email: e.target.value }) }}
+                                                placeholder="" required>
+                                            </input>
+                                            {admin?.admin_password === '' ? <></> : admin?.admin_password.length < 6 ? <p>Password must be 6 to 20 character long with atleast 1 upper case character , 1 lower case character and 1 number</p> : <></>}
+
                                         </div>
                                         <div>
                                             <label for="password" className="text-base font-semibold text-gray-700 block mb-2">Admin password</label>
                                             <input type="password" name="password" id="password"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                            onChange={(e) => { setAdmin({ ...admin, admin_password: e.target.value })}} required>
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                                onChange={(e) => { setAdmin({ ...admin, admin_password: e.target.value }) }} required>
                                             </input>
                                         </div>
                                         <button type="submit" className="text-white bg-cyan-600 
@@ -286,8 +269,7 @@ function Signup() {
                                     <label for="remember" className="font-medium text-gray-900">I accept the <a href="#" className="text-teal-500 hover:underline">Terms and Conditions</a></label>
                                 </div>
                             </div>
-
-                            <div className="text-sm font-semibold text-gray-500">
+<div className="text-sm font-semibold text-gray-500">
                                 Already have an account? <Link to="/" className="text-teal-500 hover:underline">Login here</Link>
                             </div>
                         </form>
@@ -295,14 +277,14 @@ function Signup() {
                 </div>
             </div>
             <ToastContainer position="top-center"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover />
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover />
         </div>
     )
 }

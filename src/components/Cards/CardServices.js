@@ -75,7 +75,7 @@ function CardServices() {
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
-                toast.success(JSON.stringify(response.data.message), {
+                toast.success("Additional Services Updated Successfully!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -87,7 +87,7 @@ function CardServices() {
             })
             .catch((error) => {
                 console.log(error);
-                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                toast.error("Additional Services Update Error!" , {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -114,7 +114,7 @@ function CardServices() {
         axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
-                toast.success(JSON.stringify(response.data.message), {
+                toast.success("Services Updated Successfully!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -126,7 +126,7 @@ function CardServices() {
             })
             .catch((error) => {
                 console.log(error);
-                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                toast.error("Service Update Error!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -156,7 +156,7 @@ function CardServices() {
             console.log((response.data))
         })
             .catch((error) => {
-                toast.error(("Room Delete Error!"), {
+                toast.error(("Additional Service Delete Error!"), {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -172,8 +172,7 @@ function CardServices() {
     const newAdditionalService = ()=>
     {
         const final_data ={
-            "additional_service": [ {
-            
+            "additional_service": [ { 
             "property_id": 't2k001',
             "add_service_name": modified.add_service_name,
             "add_service_comment": modified.add_service_comment,
@@ -184,7 +183,7 @@ function CardServices() {
         axios.post(url, final_data, { header: { "content-type": "application/json" } }).then
             ((response) => {
                 console.log(response.data);
-                toast.success(JSON.stringify(response.data.message), {
+                toast.success("Service Added Successfully!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -196,7 +195,7 @@ function CardServices() {
             })
             .catch((error) => {
                 console.log(error);
-                toast.error("Some thing went wrong in Contacts\n " + JSON.stringify(error.response.data), {
+                toast.error("Additional Services Add Error! " , {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -233,44 +232,10 @@ function CardServices() {
                     </li>
                 </ol>
             </nav>
-
+          
+            <div className="bg-white shadow rounded-lg mx-6 mt-4 mb-4 px-8 sm:p-6 xl:p-8  2xl:col-span-2">
             <div className="mx-4">
-                <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Services</h1>
-                <div className="sm:flex">
-                    <div className="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
-                        <form className="lg:pr-3" action="#" method="GET">
-                            <label for="users-search" className="sr-only">Search</label>
-                            <div className="mt-1 relative lg:w-64 xl:w-96">
-                                <input type="text" name="email" id="users-search" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for services">
-                                </input>
-                            </div>
-                        </form>
-                        <div className="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
-                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
-                            </a>
-                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                            </a>
-                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                            </a>
-                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
-                        <button type="button" onClick={() => setAdd(1)} className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
-                            <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                            Add service
-                        </button>
-                        <a href="#" className="w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
-                            <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path></svg>
-                            Export
-                        </a>
-                    </div>
-                </div>
+                <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Services</h1>   
             </div>
 
             {/* Services Table */}
@@ -327,19 +292,57 @@ function CardServices() {
                                             </td>
                                         </tr>
                                     ))}
+                                    <tr ></tr>
                                 </tbody>
                             </table>
 
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></div>
 
             {/* Additional Services Table */}
             {additionalServices === '' ? <></> : <>
-                <div className="mx-4 my-2">
-                    <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Additional Services</h1></div>
-                <div className="flex flex-col my-4">
+                <div className="my-2">
+                <div className="bg-white shadow rounded-lg mx-6 mt-4 mb-4 px-8 sm:p-6 xl:p-8  2xl:col-span-2">
+                    <h1 className="text-xl sm:text-2xl mt-4 font-semibold text-gray-900">Additional Services</h1>
+                    <div className="sm:flex">
+                    <div className="hidden sm:flex items-center sm:divide-x sm:divide-gray-100 mb-3 sm:mb-0">
+                        <form className="lg:pr-3" action="#" method="GET">
+                            <label for="users-search" className="sr-only">Search</label>
+                            <div className="mt-1 relative lg:w-64 xl:w-96">
+                                <input type="text" name="email" id="users-search" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Search for services">
+                                </input>
+                            </div>
+                        </form>
+                        <div className="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
+                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
+                            </a>
+                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                            </a>
+                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                            </a>
+                            <a href="#" className="text-gray-500 hover:text-gray-900 cursor-pointer p-1 hover:bg-gray-100 rounded inline-flex justify-center">
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
+                        <button type="button" onClick={() => setAdd(1)} className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200  font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                            <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            Add service
+                        </button>
+                        <a href="#" className="w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 font-semibold inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto">
+                            <svg className="-ml-1 mr-2 h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path></svg>
+                            Export
+                        </a>
+                    </div>
+                </div>
+           
+                <div className="flex flex-col my-2">
                     <div className="overflow-x-auto">
                         <div className="align-middle inline-block min-w-full">
                             <div className="shadow overflow-hidden">
@@ -365,13 +368,13 @@ function CardServices() {
                                             <>
                                                 {additionalServices.map((i) => (
                                                     <tr className="hover:bg-gray-100">
-                                                        <td className="p-4 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
-                                                            <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900">{i.add_service_name}</td>
+                                                        <td className="px-4 py-2 flex items-center whitespace-nowrap space-x-6 mr-12 lg:mr-0">
+                                                            <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{i.add_service_name}</td>
                                                         </td>
-                                                        <td className="p-4 capitalize whitespace-wrap text-xs font-medium text-gray-900">
+                                                        <td className="px-4 py-3 capitalize whitespace-wrap text-xs font-medium text-gray-900">
                                                             {i.add_service_comment}
                                                         </td>
-                                                        <td className="p-4 whitespace-nowrap text-base font-normal text-gray-900">
+                                                        <td className="px-4 py-3 whitespace-nowrap text-base font-normal text-gray-900">
                                                             {i.status === true ?
                                                                 <div className="flex items-center">
                                                                     <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
@@ -382,7 +385,7 @@ function CardServices() {
                                                                     Inactive
                                                                 </div>}
                                                         </td>
-                                                        <td className="p-4 whitespace-nowrap space-x-2">
+                                                        <td className="px-4 py-2 whitespace-nowrap space-x-2">
                                                             <button type="button"
                                                                 onClick={() => { setAddEdit(1); setActionService(i) }}
                                                                 className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font- font-semibold rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
@@ -405,6 +408,8 @@ function CardServices() {
                             </div>
                         </div>
                     </div>
+                </div>
+                </div>
                 </div>
             </>}
 

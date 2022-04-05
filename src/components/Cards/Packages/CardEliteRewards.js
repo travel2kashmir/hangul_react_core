@@ -28,7 +28,7 @@ function CardEliteRewards(props) {
      axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
      ((response) => {
       console.log(response.data);
-      toast.success(JSON.stringify(response.data.message), {
+      toast.success("Elite Program Updated Successfully!", {
       position: "top-center",
     autoClose: 5000,
     hideProgressBar: false,
@@ -41,7 +41,7 @@ function CardEliteRewards(props) {
       .catch((error) => {
         console.log(error);
       console.log(error);
-         toast.error("Some thing went wrong in elite rewards\n " + JSON.stringify(error.response.data), {
+         toast.error("Elite Program Update Error!", {
           position: "top-center",
            autoClose: 5000,
            hideProgressBar: false,
@@ -59,7 +59,7 @@ function CardEliteRewards(props) {
       ((response) => {
         console.log(response.data);
         setDeleteProgram(0)
-        toast.success("Program deleted successfully", {
+        toast.success("Elite Program Deleted Successfully", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -73,7 +73,7 @@ function CardEliteRewards(props) {
       .catch((error) => {
         console.log(error);
         console.log(error);
-        toast.error("Some thing went wrong in Delete\n " + JSON.stringify(error.response.data), {
+        toast.error("Elite Program Delete Error!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -86,7 +86,7 @@ function CardEliteRewards(props) {
       })
   }
   /** Function to submit program add **/
-  const submitProgramAdd = () => {
+  const submitProgramAdd = () => { 
     const programdata = [{
       /* To be fetched from context */
       program_name: modified.program_name,
@@ -96,15 +96,6 @@ function CardEliteRewards(props) {
     console.log(JSON.stringify(finalProgram))
     axios.post(`/api/package/package_membership_master`, finalProgram).then(response => {
       console.log(response)
-      toast.success(JSON.stringify(response.data.message), {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
       console.log("Test Response" +JSON.stringify(response.data.program_id))
       const program_data = { "program_id": response.data.program_id, "package_id":props?.elite_rewards?.package_id }
       const final = { "package_membership_link": [program_data] }
@@ -113,7 +104,7 @@ function CardEliteRewards(props) {
         headers: { 'content-type': 'application/json' }
       }).then(response => {
         console.log(response)
-        toast.success(JSON.stringify(response.data.message), {
+        toast.success("Elite Program Added Successfully!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -125,7 +116,7 @@ function CardEliteRewards(props) {
       })
         .catch(error => {
           console.log(error.response)
-          toast.error("Some thing went wrong in Elite Program Rewards", {
+          toast.error(" Elite Program Add Error!", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -137,7 +128,7 @@ function CardEliteRewards(props) {
         });
     }).catch(error => {
       console.log("there is error" + error)
-      toast.error("Some thing went wrong \n " + JSON.stringify(error.response.data), {
+      toast.error("Elite Program Error!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

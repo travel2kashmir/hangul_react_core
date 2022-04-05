@@ -7,7 +7,6 @@ import { Context } from '../../../context/provider';
 
 
 function CardPackageServices(props) {
-
     return (
         <div>
             {/* Navbar */}

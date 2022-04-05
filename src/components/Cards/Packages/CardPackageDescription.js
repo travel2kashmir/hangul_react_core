@@ -29,7 +29,7 @@ function CardPackageDescription(props) {
     axios.put(url, final_data, { header: { "content-type": "application/json" } }).then
         ((response) => {
             console.log(response.data);
-            toast.success(JSON.stringify(response.data.message), {
+            toast.success("Package Description Updated Successfully!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -41,7 +41,7 @@ function CardPackageDescription(props) {
         })
         .catch((error) => {
             console.log(error);
-            toast.error("Some thing went wrong in Packages\n " + JSON.stringify(error.response.data), {
+            toast.error("Package Description Update Error!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
